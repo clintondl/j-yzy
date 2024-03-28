@@ -1,0 +1,328 @@
+import { DepinSecurityIcon, BrainIcon, HandShakeIcon } from "../SvgIcons";
+import rock from "../assets/rock.png";
+import Xlogo from "../assets/X.png";
+import shareIcon from "../assets/share.png";
+
+const coinTensorOffers = [
+  {
+    heading: "AI-Powered Investing",
+    content: "Gain valuable insights and make data-driven decisions",
+    icon: <BrainIcon />,
+  },
+  {
+    heading: "DePIN Security",
+    content:
+      "Enjoy secure and anonymous transactions within the CoinTensor AI ecosystem",
+    icon: <DepinSecurityIcon />,
+  },
+  {
+    heading: "Shared Success",
+    content:
+      "Benefit from a community-driven model with passive income opportunities.",
+    icon: <HandShakeIcon />,
+  },
+];
+
+const coinTensorMission = [
+  {
+    heading: "invest with confidence",
+    content:
+      "Our AI engine analyzes vast amounts of market data to provide personalized investment recommendations tailored to your goals.",
+  },
+  {
+    heading: "Unwavering Privacy",
+    content:
+      "DePIN technology utilizes a decentralized network of physical servers to ensure secure and anonymous transactions.",
+  },
+  {
+    heading: "Embrace DeFI",
+    content:
+      "Participate in a growing world of decentralized finance applications – borrow, lend, and explore innovative financial tools.",
+  },
+  {
+    heading: "Community-driven Growth",
+    content:
+      "Be part of a collaborative ecosystem where a portion of every transaction fee is distributed back to token holders.",
+  },
+];
+const steps = [
+  {
+    number: "01",
+    heading: "join the community",
+    content:
+      "OAcquire $TENSOR tokens, your gateway to the CoinTensor AI ecosystem.",
+  },
+  {
+    number: "02",
+    heading: "leverage the ai engine",
+    content:
+      "Gain access to personalized investment insights based on market trends and your risk tolerance.",
+  },
+  {
+    number: "03",
+    heading: "Transact Securely with DePIN",
+    content:
+      "Conduct anonymous peer-to-peer transactions within the DeFi ecosystem.",
+  },
+  {
+    number: "04",
+    heading: "Earn Passive Income",
+    content:
+      "Benefit from the revenue-sharing model – a portion of every transaction fee is distributed back to token holders.",
+  },
+];
+
+const aboutStatement = [
+  {
+    heading: "AI Engine",
+    content:
+      "Our sophisticated AI utilizes machine learning algorithms to analyze market data, identify investment opportunities, and generate personalized recommendations.",
+  },
+  {
+    heading: "DePIN Technology",
+    content:
+      "Forget centralized control. DePIN utilizes a decentralized network of physical servers for secure and anonymous transactions, ensuring enhanced security, unwavering privacy, and scalability for the DeFi ecosystem.",
+  },
+];
+
+const roadMap = [
+  {
+    heading: "AI Engine and DePIN Development",
+    content:
+      "Completion of core functionalities for a seamless user experience.",
+  },
+  {
+    heading: "$TENSOR Token Sale",
+    content:
+      "Public offering of $TENSOR tokens to empower the community and fuel growth",
+  },
+  {
+    heading: "Integration with DeFi Applications",
+    content:
+      "Facilitate the development and integration of innovative DeFi apps within the CoinTensor AI ecosystem.",
+  },
+  {
+    heading: "Cross-Chain Functionality:",
+    content:
+      "Expand reach and opportunities by enabling $TENSOR token usage on multiple blockchains",
+  },
+];
+
+function Home() {
+  return (
+    <main className="flex-1">
+      <section className="">
+        <div className="container">
+          <h2 className="font-medium text-4xl lg:text-[54px] text-center lg:w-3/5 mx-auto pt-[52px] lg:leading-[60px]">
+            Make informed decisions, transact securely, and earn passively
+          </h2>
+          <p className="text-sm font-normal text-center lg:w-2/5 mx-auto pt-8 pb-4 lg:pb-8">
+            We&apos;re revolutionizing DeFi with the power of AI-driven
+            insights, secure DePIN transactions, and a rewarding revenue-sharing
+            model.
+          </p>
+          <img
+            src={rock}
+            alt="rock"
+            className="lg:h-[300px] max-h-full block mx-auto pb-12 pt-6 lg:pt-12"
+          />
+          <div className="flex-box lg:justify-between  arc-border rectangle bg-[#FFFFFF0D] lg:p-10">
+            {coinTensorOffers.map((offer) => (
+              <div key={offer.heading} className="flex gap-5 lg:w-[30%] p-5">
+                <div>{offer.icon}</div>
+                <div>
+                  <p className="text-base font-bold">{offer.heading}</p>
+                  <p className="text-sm leading-[21.7px] primary-text font-light mt-2">
+                    {offer.content}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="py-16">
+        <div className="container">
+          <h3 className="text-center lg:text-left font-medium text-2xl lg:text-6xl lg:leading-[80px] lg:max-w-[450px] font-['Lexend'] pb-8">
+            <span className="lg:inline-block">Why </span>
+            <span className="lg:inline-block">CoinTensor AI</span>
+          </h3>
+
+          <div className="flex-box sm:items-center sm:justify-between lg:w-[65%] lg:ml-auto lg:flex-wrap lg:relative ">
+            {coinTensorMission.map((offer, index) => (
+              <div
+                key={offer.heading}
+                className={[
+                  "arc-border bg-[#FFFFFF0D] lg:w-[48%] lg:relative lg:h-[240px] mb-8 lg:mb-0 p-5",
+                  index === 0
+                    ? "lg:top-[60px] lg:left-0"
+                    : index === 1
+                    ? "lg:top-0 lg:right-0 ac-border-2"
+                    : index === 2
+                    ? "lg:top-[90px] lg:left-0 ac-border-2"
+                    : "lg:top-[30px] lg:right-0",
+                ].join(" ")}
+              >
+                <p className="capitalize font-light lg:text-4xl leading-6 ">
+                  {offer.heading}
+                </p>
+                <p className="text-base mt-3 leading-7 ">{offer.content}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="py-16">
+        <div className="container">
+          <h3 className="text-center text-3xl lg:text-5xl lg:leading-[37.5px] w-[85%] font-['Lexend'] font-bold mx-auto p-3 lg:py-6">
+            How CoinTensor AI Works
+          </h3>
+          <div className="flex-box lg:justify-center bg-[#FFFFFF0D] lg:w-full flex-wrap px-5 py-10">
+            {steps.map((step) => (
+              <div
+                key={step.heading}
+                className="lg:p-8 lg:w-[45%] lg:relative mb-5 lg:mb-0"
+              >
+                <div className="text-6xl lg:text-[150px] number font-bold lg:absolute left-0 top-0">
+                  {step.number}
+                </div>
+                <div className="lg:relative lg:left-[18%] lg:w-[70%] lg:top-6">
+                  <p className="capitalize text-[22px]  lg:text-2xl leading-6 font-medium mt-2 lg:w-3/5">
+                    {step.heading}
+                  </p>
+                  <p className="text-base mt-3  leading-7 font-normal primary-text">
+                    {step.content}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="py-16 ">
+        <div className="container relative">
+          <div className="number absolute lg:text-[120px] font-bold left-0 top-[120px]">
+            CoinTensor AI
+          </div>
+          <h4 className="text-center heading">
+            <span className="lg:block">The Technology Behind </span>
+            <span className="lg:block lg:mt-5">CoinTensor AI</span>
+          </h4>
+          <div className="h-[110px]"></div>
+          <div className="flex-box lg:w-[70%] mx-auto justify-between">
+            {aboutStatement.map(({ heading, content }) => (
+              <div key={heading} className="box p-4 lg:w-[40%]">
+                <p className="text-[22px]  lg:text-2xl leading-6 font-medium mt-2 lg:w-3/5">
+                  {heading}
+                </p>
+                <p className="py-3 primary-text">{content}</p>
+              </div>
+            ))}
+          </div>
+          <div className="text-center py-16">
+            <h4 className=" heading">Buy $TENSOR Tokens</h4>
+            <p className="lg:w-2/5 mx-auto primary-text py-3">
+              The public sale of $TENSOR tokens is on the horizon! Stay tuned
+              for announcements on our website and social media channels to
+              participate in the future of DeFi.
+            </p>
+          </div>
+          <div className="text-center py-16">
+            <p className="heading">Roadmap</p>
+            <p className="lg:w-[33%] mx-auto  primary-text">
+              A clear concise timeline outlining key milestones, including
+            </p>
+            <div className="border-dashed border-[1.5px] mt-10">
+              <div className="flex flex-col lg:flex-row py-16 lg:w-3/4 mx-auto ">
+                {roadMap.map(({ heading, content }) => (
+                  <div
+                    key={heading}
+                    className="border-dashed border-[0.5px] p-4"
+                  >
+                    <p className=" font-medium leading-[24px] mt-2 text-left text-sm">
+                      {heading}
+                    </p>
+                    <p className="py-3 primary-text text-left text-sm">
+                      {content}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="py-16 bg-[#FFFFFF0D] font-['Lexend']">
+        <div className="container">
+          <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#FFFFFF0D] border-1 border-[#ECF1F080] p-8 w-full">
+            <div className="lg:w-[33%]">
+              <p className="font-medium text-3xl">
+                <span className="block lg:inline-block">Sign Up for</span>
+                <span className="block lg:inline-block mt-1">Updates</span>
+              </p>
+              <p className="py-3">
+                Be the first to know about the $TENSOR token sale and upcoming
+                milestones
+              </p>
+            </div>
+            <form className="lg:w-[50%]">
+              <input
+                type="text"
+                placeholder="Enter your email"
+                className="border-b-[1px] bg-transparent p-2 block md:inline-block mr-3 my-3 md:my-0 w-full md:w-[40%] lg:w-[50%] text-[#ffffff]"
+              />
+              <button
+                type="submit"
+                className="p-2 bg-[#ffffff] text-[#000000] arc-border w-full md:w-[120px]"
+              >
+                {" "}
+                sign up
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
+      <section className="py-16">
+        <div className="container">
+          <article className="font-['Lexend'] flex-box items-center">
+            <div>
+              <h5 className="text-3xl lg:text-5xl lg:leading-[37.5px] lg:w-1/2 font-bold mx-auto md:mx-0 py-2 lg:py-6">
+                <span className="lg:block">Join the </span>
+                <span className="lg:block lg:mt-5">CoinTensor AI </span>
+                <span className="lg:block lg:mt-5">Community</span>
+              </h5>
+              <p className="font-normal leading-[33px] text-base primary-text lg:w-3/4">
+                Stay informed about the latest project developments and exciting
+                announcements by following us on social media
+              </p>
+            </div>
+            <div className="flex justify-between primary-text mt-5 w-full lg:w-1/2 lg:mt-0">
+              <div className="box h-[150px] md:h-[200px] w-[40%] md:w-[210px] ">
+                <img
+                  src={Xlogo}
+                  alt="x-brand-logo"
+                  className="lg:h-[50px] h-30px max-h-full w-[40px] lg:w-[50px] block mx-auto"
+                />
+                <p className="font-normal leading-[33px] text-base text-center hidden lg:block">
+                  X.xom/cointensorai
+                </p>
+              </div>
+              <div className="box h-[150px] md:h-[200px] w-[40%] md:w-[210px] ">
+                <img
+                  src={shareIcon}
+                  alt="x-brand-logo"
+                  className="lg:h-[50px] h-30px max-h-full w-[40px] lg:w-[50px] block mx-auto"
+                />
+                <p className="text-center font-normal leading-[33px] hidden lg:block text-base">
+                  Join us on Telegram
+                </p>
+              </div>
+            </div>
+          </article>
+        </div>
+      </section>
+    </main>
+  );
+}
+
+export default Home;
