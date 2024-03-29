@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         lexend: ["Lexend", "sans-serif"],
         dms: ["DM Sans", "sans-serif"],
+        rubik: ["Rubik", "sans-serif"],
       },
       colors: {
         "faint-60": "#FFFFFF99",

@@ -1,14 +1,14 @@
 function SignUp() {
   return (
-    <section id="buy" className="py-16 bg-[#FFFFFF0D]">
+    <section id="buy" className="py-[103px] bg-[#FFFFFF0D]">
       <div className="container">
-        <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#FFFFFF0D] border-1 border-[#ECF1F080] p-8 w-full">
-          <div className="lg:w-[33%]">
+        <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#FFFFFF0D] border-1 border-[#ECF1F080] py-[74px] px-[48px] w-full">
+          <div className="lg:max-w-[386px]">
             <h2 className="font-medium text-3xl space-x-2">
               <span className="block lg:inline-block">Sign Up for</span>
               <span className="block lg:inline-block mt-1">Updates</span>
             </h2>
-            <p className="py-3">
+            <p className="font-lexend  py-3 text-base text-faint-60 lg:max-w-[348px]">
               Be the first to know about the $TENSOR token sale and upcoming
               milestones
             </p>
@@ -17,7 +17,7 @@ function SignUp() {
             <input
               type="text"
               placeholder="Enter your email"
-              className="border-b-[1px] bg-transparent p-2 block md:inline-block mr-3 my-3 md:my-0 w-full md:w-[40%] lg:w-[50%] text-[#ffffff]"
+              className="border-b-[1px] bg-transparent p-2 block md:inline-block mr-3 my-3 md:my-0 w-full md:w-[40%] lg:w-[50%] text-[#ffffff] font-rubik"
             />
             <button
               type="submit"
