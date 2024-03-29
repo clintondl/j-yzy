@@ -1,11 +1,15 @@
 import rock from "../assets/rock.png";
 import { coinTensorOffers } from "../utils/dummyData";
+import ParticlesBg from "./ParticlesBg";
 
 function Hero() {
   return (
-    <section className="layout-pd">
+    <section className="layout-pd relative">
+      <div className="absolute top-0 bottom-0 right-0 ">
+        <ParticlesBg />
+      </div>
       <div className="container flex flex-col items-center text-center">
-        <h1 className="font-medium text-4xl lg:text-[54px] lg:leading-[70px] mb-[32px] max-w-[900px]">
+        <h1 className="font-medium text-3xl lg:text-[54px] lg:leading-[70px] mb-[32px] max-w-[900px]">
           Make informed decisions, transact securely, and earn passively
         </h1>
         <p className="text-sm text-faint-60 mb-[49px] max-w-[513px]">
