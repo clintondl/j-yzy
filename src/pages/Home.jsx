@@ -3,12 +3,13 @@ import Xlogo from "../assets/X.png";
 import shareIcon from "../assets/share.png";
 
 import {
-  aboutStatement,
   coinTensorMission,
   coinTensorOffers,
-  roadMap,
   steps,
 } from "../utils/dummyData";
+import TechnologyBehind from "../component/TechnologyBehind";
+import SensorTokens from "../component/SensorTokens";
+import RoadMap from "../component/RoadMap";
 
 function Home() {
   return (
@@ -101,69 +102,9 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="py-16 ">
-        <div className="container relative">
-          <div className="number absolute lg:text-[120px] font-bold left-0 top-[120px]">
-            CoinTensor AI
-          </div>
-          <h2 className="text-center heading">
-            <span className="lg:block">The Technology Behind </span>
-            <span className="lg:block lg:mt-5">CoinTensor AI</span>
-          </h2>
-          <div className="h-[110px]"></div>
-          <div className="flex-box lg:w-[70%] mx-auto justify-between">
-            {aboutStatement.map(({ heading, content }) => (
-              <div key={heading} className="box p-4 lg:w-[40%]">
-                <p className="text-[22px]  lg:text-2xl leading-6 font-medium mt-2 lg:w-3/5">
-                  {heading}
-                </p>
-                <p className="py-3 primary-text">{content}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-      <section className="py-16">
-        <div className="container relative">
-          <div className="text-center">
-            <h2 className=" heading">Buy $TENSOR Tokens</h2>
-            <p className="lg:w-2/5 mx-auto primary-text py-3">
-              The public sale of $TENSOR tokens is on the horizon! Stay tuned
-              for announcements on our website and social media channels to
-              participate in the future of DeFi.
-            </p>
-          </div>
-        </div>
-      </section>
-      <section className="py-16">
-        <div className="container relative">
-          <div className="text-center py-16">
-            <header>
-              <h2 className="heading">Roadmap</h2>
-              <p className="lg:w-[33%] mx-auto  primary-text">
-                A clear concise timeline outlining key milestones, including
-              </p>
-            </header>
-            <div className="border-dashed border-[1.5px] mt-10">
-              <div className="flex flex-col lg:flex-row py-16 lg:w-3/4 mx-auto ">
-                {roadMap.map(({ heading, content }) => (
-                  <div
-                    key={heading}
-                    className="border-dashed border-[0.5px] p-4"
-                  >
-                    <p className=" font-medium leading-[24px] mt-2 text-left text-sm">
-                      {heading}
-                    </p>
-                    <p className="py-3 primary-text text-left text-sm">
-                      {content}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      <TechnologyBehind />
+      <SensorTokens />
+      <RoadMap />
       <section className="py-16 bg-[#FFFFFF0D]">
         <div className="container">
           <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#FFFFFF0D] border-1 border-[#ECF1F080] p-8 w-full">

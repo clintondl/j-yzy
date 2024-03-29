@@ -1,5 +1,4 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Lexend:wght@100..900&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -21,24 +20,46 @@ body {
 }
 
 .arc-border {
-  border: 1.5px solid #FFFFFF0D;
-  clip-path: polygon(11% 1%, 100% 0, 100% 30%, 100% 89%, 94% 100%, 30% 100%, 0 100%, 0 9%);
+  border: 1.5px solid #ffffff0d;
+  clip-path: polygon(
+    11% 1%,
+    100% 0,
+    100% 30%,
+    100% 89%,
+    94% 100%,
+    30% 100%,
+    0 100%,
+    0 9%
+  );
 }
 
 .ac-border-2 {
-  clip-path: polygon(90% 0, 100% 10%, 100% 35%, 100% 91%, 100% 100%, 50% 100%, 9% 100%, 0 89%, 0 9%, 0 0);
+  clip-path: polygon(
+    90% 0,
+    100% 10%,
+    100% 35%,
+    100% 91%,
+    100% 100%,
+    50% 100%,
+    9% 100%,
+    0 89%,
+    0 9%,
+    0 0
+  );
 }
 
 .number {
-  background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(153, 153, 153, 0.21) 73.85%);
-   -webkit-background-clip: text;
+  background-image: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.42) 0%,
+    rgba(153, 153, 153, 0.21) 73.85%
+  );
+  -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-family: 'DM Sans';
 }
 input::placeholder {
   @apply text-[#ffffff];
-  
 }
 
 .box {
@@ -50,23 +71,49 @@ input::placeholder {
 }
 
 .primary-text {
-  @apply text-[#ECF1F080;]
+  @apply text-[#ECF1F080];
 }
 
 .heading {
   @apply text-3xl lg:text-5xl lg:leading-[37.5px] font-bold mx-auto p-3 lg:py-6;
+}
+.heading-2 {
+  letter-spacing: -0.02em;
+  @apply text-[64px] font-medium leading-[80px];
 }
 
 .right-arrow {
   clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 }
 
+.road-map {
+  background-image: url("./assets/road-map.png");
+  background-size: 125% 600px;
+  background-repeat: no-repeat;
+  background-clip: border-box;
+  background-position: 70% center;
+  background-origin: border-box;
+}
+
 @media screen and (min-width: 1024px) {
   .number {
-    background-image: linear-gradient(180deg, rgba(255, 255, 255, 0.42) 0%, rgba(153, 153, 153, 0) 73.85%);
+    background-image: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.42) 0%,
+      rgba(153, 153, 153, 0) 73.85%
+    );
   }
 
   .rectangle {
-    clip-path: polygon(4% 0, 100% 0, 100% 30%, 100% 87%, 97% 100%, 70% 100%, 0 100%, 0 15%);
+    clip-path: polygon(
+      4% 0,
+      100% 0,
+      100% 30%,
+      100% 87%,
+      97% 100%,
+      70% 100%,
+      0 100%,
+      0 15%
+    );
   }
 }
