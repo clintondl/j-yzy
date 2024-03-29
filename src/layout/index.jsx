@@ -13,7 +13,7 @@ const AppRoutes = [
 function Layout() {
   const Routes = useRoutes(AppRoutes);
   return (
-    <div className="flex flex-col min-h-screen relative ">
+    <div className="flex flex-col min-h-screen relative">
       <Header />
       {Routes}
       <Footer />

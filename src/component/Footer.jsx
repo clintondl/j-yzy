@@ -10,7 +10,12 @@ function Footer() {
         <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-[32px]">
           <p className="primary-text text-sm py-4 text-center lg:text-left">
             <span className="block">For partnerships and support contact </span>
-            <span className="block">Hello@cointensor.io </span>
+            <a
+              href="mailto:Hello@cointensor.io"
+              className="block text-[#ffffffb9]"
+            >
+              Hello@cointensor.io
+            </a>
           </p>
           <div>
             <h6 className="font-bold inline-flex items-center text-base">
