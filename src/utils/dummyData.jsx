@@ -45,13 +45,13 @@ export const coinTensorMission = [
 export const steps = [
   {
     number: "01",
-    heading: "join the community",
+    heading: "Join The Community",
     content:
       "OAcquire $TENSOR tokens, your gateway to the CoinTensor AI ecosystem.",
   },
   {
     number: "02",
-    heading: "leverage the ai engine",
+    heading: "Leverage the AI Engine",
     content:
       "Gain access to personalized investment insights based on market trends and your risk tolerance.",
   },
