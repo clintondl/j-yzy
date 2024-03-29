@@ -5,7 +5,7 @@ function Hero() {
   return (
     <section className="layout-pd">
       <div className="container flex flex-col items-center text-center">
-        <h1 className="font-medium text-4xl lg:text-[54px] leading-[70px]  mb-[32px] max-w-[900px]">
+        <h1 className="font-medium text-4xl lg:text-[54px] lg:leading-[70px] mb-[32px] max-w-[900px]">
           Make informed decisions, transact securely, and earn passively
         </h1>
         <p className="text-sm text-faint-60 mb-[49px] max-w-[513px]">

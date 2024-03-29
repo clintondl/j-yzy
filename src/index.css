@@ -112,12 +112,8 @@ input::placeholder {
   @apply py-[58px] lg:py-[98px];
 }
 .road-map {
-  background-image: url("./assets/road-map.png");
-  background-size: 125% 600px;
-  background-repeat: no-repeat;
-  background-clip: border-box;
+  @apply lg:bg-[url("./assets/road-map.png")] lg:bg-[length:125%_600px] bg-no-repeat;
   background-position: 70% center;
-  background-origin: border-box;
 }
 .action-bg {
   background-image: url("./assets/action-bg.png");

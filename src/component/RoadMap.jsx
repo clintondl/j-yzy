@@ -11,8 +11,8 @@ function RoadMap() {
               A clear concise timeline outlining key milestones, including
             </p>
           </header>
-          <div className="mt-10 road-map w-full h-[356px] flex items-center">
-            <div className="flex flex-col lg:flex-row gap-[16px] container">
+          <div className="mt-10 road-map w-full lg:h-[356px] lg:flex lg:items-center">
+            <div className="flex flex-col lg:flex-row gap-[16px] items-center lg:items-stretch container">
               {roadMap.map(({ heading, content }, i) => (
                 <div
                   key={heading}

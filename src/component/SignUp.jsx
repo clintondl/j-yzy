@@ -5,8 +5,10 @@ function SignUp() {
       <div className="container bg-black">
         <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#ffffff1c] border border-[#FFFFFF0D] py-[74px] px-[48px] w-full">
           <div className="lg:max-w-[386px]">
-            <h2 className="font-medium text-3xl space-x-2">
-              <span className="block lg:inline-block">Sign Up for</span>
+            <h2 className="font-medium text-3xl ">
+              <span className="block lg:inline-block mr-2">
+                Sign Up for
+              </span>
               <span className="block lg:inline-block mt-1">Updates</span>
             </h2>
             <p className="font-lexend  py-3 text-base text-faint-60 lg:max-w-[348px]">
