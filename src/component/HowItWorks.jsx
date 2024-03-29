@@ -16,7 +16,7 @@ function HowItWorks() {
               <div className="text-6xl lg:text-[200px] group-hover:text-6xl group-hover:pb-[30px] group-hover:pl-[30px] lg:leading-[.8] font-light font-dms lg:w-[200px] lg:min-w-[200px] lg:h-[130px] inline-flex items-end transition-all duration-300 ease-in-out">
                 <span className="number number-active">{step.number}</span>
               </div>
-              <div className="lg:relative lg:top-[25px] lg:left-[-20px] lg:max-w-[340px] z-[2000]">
+              <div className="lg:relative lg:top-[25px] lg:left-[-20px] lg:max-w-[340px] z-[200]">
                 <p
                   className="text-[22px]  lg:text-[32px] font-medium mt-2 "
                 >

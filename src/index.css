@@ -121,9 +121,12 @@ input::placeholder {
   background-position: 20% 30%;
   background-size: 70%;
 }
-#tsparticles{
+#tsparticles {
   height: 100%;
   width: 100%;
+}
+a.nav-active {
+  @apply font-bold text-[white];
 }
 @media screen and (min-width: 1024px) {
   .number {
