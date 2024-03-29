@@ -96,7 +96,9 @@ input::placeholder {
 .right-arrow {
   clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 }
-
+.layout-pd{
+  @apply py-[58px] lg:py-[98px]
+}
 .road-map {
   background-image: url("./assets/road-map.png");
   background-size: 125% 600px;

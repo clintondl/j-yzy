@@ -2,7 +2,7 @@ import { coinTensorMission } from "../utils/dummyData";
 
 function About() {
   return (
-    <section className="py-16">
+    <section className="layout-pd">
       <div className="container lg:flex">
         <div className="lg:min-w-[40%]">
           <h2 className="text-center lg:text-left heading-2 pb-8">
