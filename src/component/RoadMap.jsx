@@ -6,12 +6,12 @@ function RoadMap() {
       <div className=" relative">
         <div className="text-center py-16">
           <header>
-            <h2 className="heading-2">Roadmap</h2>
-            <p className="lg:w-[33%] mx-auto  primary-text">
+            <h2 className="heading-2 mb-[10px]">Roadmap</h2>
+            <p className="mx-auto primary-text max-w-[400px] text-xl">
               A clear concise timeline outlining key milestones, including
             </p>
           </header>
-          <div className="mt-10 road-map w-full lg:h-[356px] lg:flex lg:items-center">
+          <div className="max-w-[1440px] mx-auto mt-10 road-map w-full lg:h-[356px] lg:flex lg:items-center">
             <div className="flex flex-col lg:flex-row gap-[16px] items-center lg:items-stretch container">
               {roadMap.map(({ heading, content }, i) => (
                 <div

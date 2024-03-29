@@ -17,26 +17,39 @@ function Community() {
             </p>
           </div>
           <div className="flex justify-between primary-text mt-[32px] w-full lg:w-1/2 lg:mt-0">
-            <div className="gap-[16px] border-[#FFFFFF24] border flex flex-col justify-center h-[150px] md:h-[200px] w-[40%] md:w-[210px] bg-[#FFFFFF05]">
-              <img
-                src={Xlogo}
-                alt="x-brand-logo"
-                className="lg:h-[50px] h-30px max-h-full w-[40px] lg:w-[50px] block mx-auto"
-              />
-              <p className="font-normal leading-[33px] text-base text-center hidden lg:block">
-                X.xom/cointensorai
-              </p>
-            </div>
-            <div className="gap-[16px] border-[#FFFFFF24] border flex flex-col justify-center h-[150px] md:h-[200px] w-[40%] md:w-[210px] bg-[#FFFFFF05]">
-              <img
-                src={shareIcon}
-                alt="x-brand-logo"
-                className="lg:h-[50px] h-30px max-h-full w-[40px] lg:w-[50px] block mx-auto"
-              />
-              <p className="text-center font-normal leading-[33px] hidden lg:block text-base">
-                Join us on Telegram
-              </p>
-            </div>
+            <a
+              href="https://t.me/+pbMXLv_Tf5c3NTZk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="gap-[16px] border-[#FFFFFF24] border flex flex-col justify-center h-[150px] md:h-[200px] w-[40%] md:w-[210px] bg-[#FFFFFF05]">
+                <img
+                  src={Xlogo}
+                  alt="x-brand-logo"
+                  className="lg:h-[50px] h-30px max-h-full w-[40px] lg:w-[50px] block mx-auto"
+                />
+                <p className="font-normal leading-[33px] text-base text-center hidden lg:block">
+                  X.xom/cointensorai
+                </p>
+              </div>
+            </a>
+
+            <a
+              href="https://x.com/cointensor"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="gap-[16px] border-[#FFFFFF24] border flex flex-col justify-center h-[150px] md:h-[200px] w-[40%] md:w-[210px] bg-[#FFFFFF05]">
+                <img
+                  src={shareIcon}
+                  alt="x-brand-logo"
+                  className="lg:h-[50px] h-30px max-h-full w-[40px] lg:w-[50px] block mx-auto"
+                />
+                <p className="text-center font-normal leading-[33px] hidden lg:block text-base">
+                  Join us on Telegram
+                </p>
+              </div>
+            </a>
           </div>
         </article>
       </div>
