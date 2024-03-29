@@ -1,8 +1,9 @@
 function SignUp() {
+
   return (
-    <section id="buy" className="py-[103px] bg-[#FFFFFF0D]">
-      <div className="container">
-        <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#FFFFFF0D] border-1 border-[#ECF1F080] py-[74px] px-[48px] w-full">
+    <section id="buy" className="py-[103px] bg-[#FFFFFF0D] action-bg">
+      <div className="container bg-black">
+        <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#ffffff1c] border border-[#FFFFFF0D] py-[74px] px-[48px] w-full">
           <div className="lg:max-w-[386px]">
             <h2 className="font-medium text-3xl space-x-2">
               <span className="block lg:inline-block">Sign Up for</span>

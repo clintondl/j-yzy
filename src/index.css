@@ -101,6 +101,12 @@ input::placeholder {
   background-position: 70% center;
   background-origin: border-box;
 }
+.action-bg {
+  background-image: url("./assets/action-bg.png");
+  background-repeat: no-repeat;
+  background-position: 20% 30%;
+  background-size: 70%;
+}
 
 @media screen and (min-width: 1024px) {
   .number {
