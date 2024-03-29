@@ -34,7 +34,10 @@ function Header() {
             <div className="hidden lg:block grow">
               <ul className="flex items-center text-center">
                 {navLinks.map((link) => (
-                  <li className="p-4 capitalize items-center " key={link.href}>
+                  <li
+                    key={link.title}
+                    className="p-4 capitalize items-center "
+                  >
                     <NavLink
                       to={link.href}
                       className={({ isActive }) =>

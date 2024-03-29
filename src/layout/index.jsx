@@ -1,14 +1,14 @@
 import { useRoutes } from "react-router-dom";
 import Footer from "../component/Footer";
 import Header from "../component/Header";
-import { lazy } from "react";
+import Home from "../pages/Home";
 
-const HomePage = lazy(() => import("../pages/Home"));
+// const HomePage = lazy(() => import("../pages/Home"));
 
 const AppRoutes = [
   {
     path: "/",
-    element: <HomePage />,
+    element: <Home />,
   },
 ];
 
