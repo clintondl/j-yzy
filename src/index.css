@@ -1,3 +1,6 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -10,6 +13,7 @@
 body {
   background: #050505;
   color: #ffffff;
+  font-family: "Lexend", sans-serif;
 }
 
 .container {
@@ -50,7 +54,7 @@ input::placeholder {
 }
 
 .heading {
-  @apply text-3xl lg:text-5xl lg:leading-[37.5px] font-['Lexend'] font-bold mx-auto p-3 lg:py-6;
+  @apply text-3xl lg:text-5xl lg:leading-[37.5px] font-bold mx-auto p-3 lg:py-6;
 }
 
 .right-arrow {

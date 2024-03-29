@@ -45,7 +45,7 @@ function Home() {
       </section>
       <section className="py-16">
         <div className="container">
-          <h3 className="text-center lg:text-left font-medium text-2xl lg:text-6xl lg:leading-[80px] lg:max-w-[450px] font-['Lexend'] pb-8">
+          <h3 className="text-center lg:text-left font-medium text-2xl lg:text-6xl lg:leading-[80px] lg:max-w-[450px] pb-8">
             <span className="lg:inline-block">Why </span>
             <span className="lg:inline-block">CoinTensor AI</span>
           </h3>
@@ -76,7 +76,7 @@ function Home() {
       </section>
       <section className="py-16">
         <div className="container">
-          <h3 className="text-center text-3xl lg:text-5xl lg:leading-[37.5px] w-[85%] font-['Lexend'] font-bold mx-auto p-3 lg:py-6">
+          <h3 className="text-center text-3xl lg:text-5xl lg:leading-[37.5px] w-[85%] font-bold mx-auto p-3 lg:py-6">
             How CoinTensor AI Works
           </h3>
           <div className="flex-box lg:justify-center bg-[#FFFFFF0D] lg:w-full flex-wrap px-5 py-10">
@@ -154,7 +154,7 @@ function Home() {
           </div>
         </div>
       </section>
-      <section className="py-16 bg-[#FFFFFF0D] font-['Lexend']">
+      <section className="py-16 bg-[#FFFFFF0D]">
         <div className="container">
           <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#FFFFFF0D] border-1 border-[#ECF1F080] p-8 w-full">
             <div className="lg:w-[33%]">
@@ -186,7 +186,7 @@ function Home() {
       </section>
       <section className="py-16">
         <div className="container">
-          <article className="font-['Lexend'] flex-box items-center">
+          <article className="flex-box items-center">
             <div>
               <h5 className="text-3xl lg:text-5xl lg:leading-[37.5px] lg:w-1/2 font-bold mx-auto md:mx-0 py-2 lg:py-6">
                 <span className="lg:block">Join the </span>
