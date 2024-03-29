@@ -6,7 +6,7 @@ function RoadMap() {
       <div className=" relative">
         <div className="text-center py-16">
           <header>
-            <h2 className="heading">Roadmap</h2>
+            <h2 className="heading-2">Roadmap</h2>
             <p className="lg:w-[33%] mx-auto  primary-text">
               A clear concise timeline outlining key milestones, including
             </p>

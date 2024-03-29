@@ -46,7 +46,7 @@ function Home() {
       </section>
       <section className="py-16">
         <div className="container">
-          <h2 className="text-center lg:text-left font-medium text-2xl lg:text-6xl lg:leading-[80px] lg:max-w-[450px] pb-8">
+          <h2 className="text-center lg:text-left heading-2 lg:max-w-[450px] pb-8">
             <span className="lg:inline-block">Why </span>
             <span className="lg:inline-block">CoinTensor AI</span>
           </h2>
@@ -77,7 +77,7 @@ function Home() {
       </section>
       <section className="py-16">
         <div className="container">
-          <h2 className="text-center text-3xl lg:text-5xl lg:leading-[37.5px] w-[85%] font-bold mx-auto p-3 lg:py-6">
+          <h2 className="text-center heading-2 w-[85%]  mx-auto p-3 lg:py-6">
             How CoinTensor AI Works
           </h2>
           <div className="flex-box lg:justify-center bg-[#FFFFFF0D] lg:w-full flex-wrap px-5 py-10">
