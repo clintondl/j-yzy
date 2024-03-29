@@ -1,28 +1,45 @@
-import { NavLink } from "react-router-dom";
 import { BrandLogo, CloseIcon, MenuIcon, WhitePaperIcon } from "../SvgIcons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const navLinks = [
   { title: "home", href: "/" },
-  { title: "how it works", href: "/" },
+  { title: "how it works", href: "#how-it-works" },
   { title: "trade", href: "#trade" },
   { title: "buy", href: "#buy" },
   { title: "community", href: "#community" },
-  { title: "whitepaper", href: "#whitepaper", icon: <WhitePaperIcon /> },
 ];
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = () => setIsOpen((prev) => !prev);
+  const [floating, setFloating] = useState(false);
+
+  const changeNavBg = () => {
+    window.scrollY >= 200 ? setFloating(true) : setFloating(false);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", changeNavBg);
+    return () => {
+      window.removeEventListener("scroll", changeNavBg);
+    };
+  }, []);
   return (
     <header className="w-screen">
       <div
         className={[
-          "border-b border-[#ffffff3f]",
-          isOpen && "fixed lg-relative top-0 w-full left-0 right-0 z-[1000]",
+          "border-b border-[#ffffff3f] top-0 w-full left-0 right-0 z-[1000]",
+          floating || isOpen ? "fixed" : "",
         ].join(" ")}
       >
-        <div className={"container h-[64px] lg:h-[103px] bg-[#050505]"}>
+        <div
+          className={[
+            "container bg-[#050505]",
+            floating && !isOpen
+              ? "h-[64px] "
+              : "h-[64px] lg:h-[103px]",
+          ].join(" ")}
+        >
           <div className="flex items-center h-full">
             <h1 className="grow font-bold inline-flex items-center text-base">
               <BrandLogo />
@@ -34,23 +51,29 @@ function Header() {
             <div className="hidden lg:block grow">
               <ul className="flex items-center text-center">
                 {navLinks.map((link) => (
-                  <li
-                    key={link.title}
-                    className="p-4 capitalize items-center "
-                  >
-                    <NavLink
-                      to={link.href}
-                      className={({ isActive }) =>
-                        isActive
-                          ? "font-bold text-[#ffffff] flex gap-4 items-center"
-                          : "font-light text-[#ECF1F080] flex gap-4 items-center"
-                      }
+                  <li key={link.title} className="p-4 capitalize items-center ">
+                    <a
+                      href={link.href}
+                      className="font-light text-[#ECF1F080] flex gap-4 items-center"
                     >
                       <span>{link?.icon}</span>
                       <span>{link.title}</span>
-                    </NavLink>
+                    </a>
                   </li>
                 ))}
+                <li className="p-4 capitalize items-center ">
+                  <a
+                    href="https://docs.cointensor.io"
+                    className="text-[#B6B6B6] flex gap-4 items-center"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <span>
+                      <WhitePaperIcon />
+                    </span>
+                    <span>Whitepaper</span>
+                  </a>
+                </li>
               </ul>
             </div>
           </div>
@@ -64,23 +87,29 @@ function Header() {
             ].join(" ")}
           >
             {navLinks.map((link) => (
-              <li
-                className="p-4 capitalize inline-flex items-center"
-                key={link.href}
-              >
-                <NavLink
-                  to={link.href}
-                  className={({ isActive }) =>
-                    isActive
-                      ? "font-bold text-[#ffffff] flex gap-4 items-center"
-                      : "font-light text-[#ECF1F080] flex gap-4 items-center"
-                  }
+              <li key={link.title} className="p-4 capitalize items-center ">
+                <a
+                  href={link.href}
+                  className="font-light text-[#ECF1F080] flex gap-4 items-center"
                 >
                   <span>{link?.icon}</span>
                   <span>{link.title}</span>
-                </NavLink>
+                </a>
               </li>
             ))}
+            <li className="p-4 capitalize items-center ">
+              <a
+                href="https://docs.cointensor.io"
+                className="text-[#B6B6B6] flex gap-4 items-center"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span>
+                  <WhitePaperIcon />
+                </span>
+                <span>Whitepaper</span>
+              </a>
+            </li>
           </ul>
         </div>
       )}

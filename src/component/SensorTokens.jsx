@@ -1,7 +1,7 @@
 
 function SensorTokens() {
   return (
-    <section className="py-16">
+    <section id="trade" className="py-16" >
       <div className="container relative">
         <div className="text-center max-w-[980px] mx-auto">
           <h2 className="heading-2">Buy $TENSOR Tokens</h2>
