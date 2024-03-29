@@ -5,7 +5,7 @@ import Image from "./Image";
 
 function Footer() {
   return (
-    <footer className="bg-[#ffffff02] backdrop-blur-[100px]">
+    <footer className="bg-[#FFFFFF03] border-t border-[#FFFFFF0D] backdrop-blur-[100px]">
       <div className="container pt-[68px] pb-[19px] space-y-[32px]">
         <div className="flex flex-col lg:flex-row items-center justify-between w-full gap-[32px]">
           <p className="primary-text text-sm py-4 text-center lg:text-left">
