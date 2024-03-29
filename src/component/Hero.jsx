@@ -5,7 +5,7 @@ import ParticlesBg from "./ParticlesBg";
 function Hero() {
   return (
     <section className="layout-pd relative">
-      <div className="absolute top-0 bottom-0 right-0 ">
+      <div className="absolute top-0 bottom-0 right-0 z-[50]">
         <ParticlesBg />
       </div>
       <div className="container flex flex-col items-center text-center">
