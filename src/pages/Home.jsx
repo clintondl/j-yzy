@@ -15,9 +15,9 @@ function Home() {
     <main className="flex-1">
       <section className="">
         <div className="container">
-          <h2 className="font-medium text-4xl lg:text-[54px] text-center lg:w-3/5 mx-auto pt-[52px] lg:leading-[60px]">
+          <h1 className="font-medium text-4xl lg:text-[54px] text-center lg:w-3/5 mx-auto pt-[52px] lg:leading-[60px]">
             Make informed decisions, transact securely, and earn passively
-          </h2>
+          </h1>
           <p className="text-sm font-normal text-center lg:w-2/5 mx-auto pt-8 pb-4 lg:pb-8">
             We&apos;re revolutionizing DeFi with the power of AI-driven
             insights, secure DePIN transactions, and a rewarding revenue-sharing
@@ -45,10 +45,10 @@ function Home() {
       </section>
       <section className="py-16">
         <div className="container">
-          <h3 className="text-center lg:text-left font-medium text-2xl lg:text-6xl lg:leading-[80px] lg:max-w-[450px] pb-8">
+          <h2 className="text-center lg:text-left font-medium text-2xl lg:text-6xl lg:leading-[80px] lg:max-w-[450px] pb-8">
             <span className="lg:inline-block">Why </span>
             <span className="lg:inline-block">CoinTensor AI</span>
-          </h3>
+          </h2>
 
           <div className="flex-box sm:items-center sm:justify-between lg:w-[65%] lg:ml-auto lg:flex-wrap lg:relative ">
             {coinTensorMission.map((offer, index) => (
@@ -76,9 +76,9 @@ function Home() {
       </section>
       <section className="py-16">
         <div className="container">
-          <h3 className="text-center text-3xl lg:text-5xl lg:leading-[37.5px] w-[85%] font-bold mx-auto p-3 lg:py-6">
+          <h2 className="text-center text-3xl lg:text-5xl lg:leading-[37.5px] w-[85%] font-bold mx-auto p-3 lg:py-6">
             How CoinTensor AI Works
-          </h3>
+          </h2>
           <div className="flex-box lg:justify-center bg-[#FFFFFF0D] lg:w-full flex-wrap px-5 py-10">
             {steps.map((step) => (
               <div
@@ -106,10 +106,10 @@ function Home() {
           <div className="number absolute lg:text-[120px] font-bold left-0 top-[120px]">
             CoinTensor AI
           </div>
-          <h4 className="text-center heading">
+          <h2 className="text-center heading">
             <span className="lg:block">The Technology Behind </span>
             <span className="lg:block lg:mt-5">CoinTensor AI</span>
-          </h4>
+          </h2>
           <div className="h-[110px]"></div>
           <div className="flex-box lg:w-[70%] mx-auto justify-between">
             {aboutStatement.map(({ heading, content }) => (
@@ -121,19 +121,29 @@ function Home() {
               </div>
             ))}
           </div>
-          <div className="text-center py-16">
-            <h4 className=" heading">Buy $TENSOR Tokens</h4>
+        </div>
+      </section>
+      <section className="py-16">
+        <div className="container relative">
+          <div className="text-center">
+            <h2 className=" heading">Buy $TENSOR Tokens</h2>
             <p className="lg:w-2/5 mx-auto primary-text py-3">
               The public sale of $TENSOR tokens is on the horizon! Stay tuned
               for announcements on our website and social media channels to
               participate in the future of DeFi.
             </p>
           </div>
+        </div>
+      </section>
+      <section className="py-16">
+        <div className="container relative">
           <div className="text-center py-16">
-            <p className="heading">Roadmap</p>
-            <p className="lg:w-[33%] mx-auto  primary-text">
-              A clear concise timeline outlining key milestones, including
-            </p>
+            <header>
+              <h2 className="heading">Roadmap</h2>
+              <p className="lg:w-[33%] mx-auto  primary-text">
+                A clear concise timeline outlining key milestones, including
+              </p>
+            </header>
             <div className="border-dashed border-[1.5px] mt-10">
               <div className="flex flex-col lg:flex-row py-16 lg:w-3/4 mx-auto ">
                 {roadMap.map(({ heading, content }) => (
@@ -158,10 +168,10 @@ function Home() {
         <div className="container">
           <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#FFFFFF0D] border-1 border-[#ECF1F080] p-8 w-full">
             <div className="lg:w-[33%]">
-              <p className="font-medium text-3xl">
+              <h2 className="font-medium text-3xl">
                 <span className="block lg:inline-block">Sign Up for</span>
                 <span className="block lg:inline-block mt-1">Updates</span>
-              </p>
+              </h2>
               <p className="py-3">
                 Be the first to know about the $TENSOR token sale and upcoming
                 milestones
@@ -177,7 +187,6 @@ function Home() {
                 type="submit"
                 className="p-2 bg-[#ffffff] text-[#000000] arc-border w-full md:w-[120px]"
               >
-                {" "}
                 sign up
               </button>
             </form>
@@ -199,7 +208,7 @@ function Home() {
               </p>
             </div>
             <div className="flex justify-between primary-text mt-5 w-full lg:w-1/2 lg:mt-0">
-              <div className="box h-[150px] md:h-[200px] w-[40%] md:w-[210px] ">
+              <div className="gap-[16px] border-[#FFFFFF24] border flex flex-col justify-center h-[150px] md:h-[200px] w-[40%] md:w-[210px] bg-[#FFFFFF05]">
                 <img
                   src={Xlogo}
                   alt="x-brand-logo"
@@ -209,7 +218,7 @@ function Home() {
                   X.xom/cointensorai
                 </p>
               </div>
-              <div className="box h-[150px] md:h-[200px] w-[40%] md:w-[210px] ">
+              <div className="gap-[16px] border-[#FFFFFF24] border flex flex-col justify-center h-[150px] md:h-[200px] w-[40%] md:w-[210px] bg-[#FFFFFF05]">
                 <img
                   src={shareIcon}
                   alt="x-brand-logo"
@@ -226,5 +235,6 @@ function Home() {
     </main>
   );
 }
+// border: 1px solid #FFFFFF24
 
 export default Home;

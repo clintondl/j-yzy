@@ -42,7 +42,7 @@ input::placeholder {
 }
 
 .box {
-  @apply border-[#FFFFFF24] border-[1px] flex flex-col justify-center;
+  @apply border-[#FFFFFF24] border flex flex-col justify-center;
 }
 
 .flex-box {
