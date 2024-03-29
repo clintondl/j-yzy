@@ -40,7 +40,7 @@ body {
   );
 }
 
-.ac-border-2 {
+.arc-border-2 {
   clip-path: polygon(
     90% 0,
     100% 10%,
@@ -86,7 +86,11 @@ input::placeholder {
 }
 .heading-2 {
   letter-spacing: -0.02em;
-  @apply lg:text-[64px] font-medium lg:leading-[60px];
+  @apply font-medium text-3xl lg:text-[64px] lg:leading-[60px];
+}
+.heading-3 {
+  @apply font-lexend font-light text-xl lg:text-[32px] lg:leading-[40px];
+  letter-spacing: -0.02em;
 }
 
 .right-arrow {
