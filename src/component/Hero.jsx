@@ -4,19 +4,24 @@ import ParticlesBg from "./ParticlesBg";
 
 function Hero() {
   return (
-    <section className="layout-pd relative">
-      <div className="absolute top-0 z-[50] h-full w-full">
-        <ParticlesBg />
+    <section className="pb-0">
+      <div className="relative layout-pd pb-0">
+        <div className="absolute top-0 z-[50] h-full w-full">
+          <ParticlesBg />
+        </div>
+        <div className="container flex flex-col items-center text-center">
+          <h1 className="font-medium text-3xl lg:text-[54px] lg:leading-[70px] mb-[32px] max-w-[900px]">
+            Make informed decisions, transact securely, and earn passively
+          </h1>
+          <p className="text-sm text-faint-60 mb-[49px] max-w-[513px]">
+            We&apos;re revolutionizing DeFi with the power of AI-driven
+            insights, secure DePIN transactions, and a rewarding revenue-sharing
+            model.
+          </p>
+          <img src={rock} alt="rock" className=" " />
+        </div>
       </div>
-      <div className="container flex flex-col items-center text-center">
-        <h1 className="font-medium text-3xl lg:text-[54px] lg:leading-[70px] mb-[32px] max-w-[900px]">
-          Make informed decisions, transact securely, and earn passively
-        </h1>
-        <p className="text-sm text-faint-60 mb-[49px] max-w-[513px]">
-          We&apos;re revolutionizing DeFi with the power of AI-driven insights,
-          secure DePIN transactions, and a rewarding revenue-sharing model.
-        </p>
-        <img src={rock} alt="rock" className=" " />
+      <div className="container pb-[26px]">
         <div className="flex-box lg:justify-between  arc-border rectangle bg-[#FFFFFF0D] lg:p-10 mt-[95px]">
           {coinTensorOffers.map((offer) => (
             <div key={offer.heading} className="flex gap-5 lg:w-[30%] p-5">
