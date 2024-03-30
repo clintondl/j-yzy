@@ -22,7 +22,7 @@ function Hero() {
         </div>
       </div>
       <div className="container pb-[26px]">
-        <div className="flex-box lg:justify-between  arc-border rectangle bg-[#FFFFFF0D] lg:p-10 mt-[95px]">
+        <div className="flex-box lg:justify-between  arc-border rectangle bg-[#FFFFFF0D] lg:p-10 mt-[95px] top-pecs">
           {coinTensorOffers.map((offer) => (
             <div key={offer.heading} className="flex gap-5 lg:w-[30%] p-5">
               <div>{offer.icon}</div>

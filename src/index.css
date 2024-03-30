@@ -108,25 +108,35 @@ input::placeholder {
 .right-arrow {
   clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
 }
+
 .layout-pd {
   @apply py-[58px] lg:py-[98px];
 }
+
 .road-map {
   @apply bg-[url("./assets/bg-mobile.svg")] lg:bg-[url("./assets/road-map.png")] lg:bg-[length:122vw_520px] xl:bg-[length:125%_600px] bg-no-repeat lg:bg-[68%_center] xl:bg-[70%_center] bg-[center_0px] pb-[150px] lg:pb-[0] bg-[length:100%_95%];
 }
+
 .action-bg {
   background-image: url("./assets/action-bg.png");
   background-repeat: no-repeat;
   background-position: 20% 30%;
   background-size: 70%;
 }
+
 #tsparticles {
   height: 100%;
   width: 100%;
 }
+
 a.nav-active {
   @apply font-bold text-[white];
 }
+.top-pecs {
+  box-shadow: 10px 16px 40px 0px #ffffff0d;
+}
+
+
 @media screen and (min-width: 1024px) {
   .number {
     background-image: linear-gradient(
@@ -149,3 +159,4 @@ a.nav-active {
     );
   }
 }
+

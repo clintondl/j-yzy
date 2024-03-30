@@ -48,7 +48,13 @@ function Header() {
               <span className="mr-3"></span>CoinTensor AI
             </h1>
             <button className="lg:hidden" onClick={toggleNavbar}>
-              {isOpen ? <CloseIcon /> : <MenuIcon />}
+              {isOpen ? (
+                <span className="inline-block p-2">
+                  <CloseIcon />
+                </span>
+              ) : (
+                <MenuIcon />
+              )}
             </button>
             <div className="hidden lg:block grow">
               <ul className="flex items-center text-center">
@@ -88,32 +94,28 @@ function Header() {
       </div>
       {isOpen && (
         <div className="bg-[#050505] fixed top-[64px] left-0 right-0 w-screen lg:hidden h-[calc(100vh-64px)] z-[1000]">
-          <ul
-            className={[
-              "flex flex-col justify-evenly items-center text-center h-full",
-            ].join(" ")}
-          >
+          <ul className={["flex flex-col h-full"].join(" ")}>
             {navLinks.map((link) => (
-              <li key={link.title} className="p-4 capitalize items-center ">
+              <li key={link.title} className="capitalize">
                 <HashLink
                   to={link.href}
                   className={[
-                    "font-light text-[#ECF1F080] flex gap-4 items-center",
+                    "font-light text-[#ECF1F080] flex gap-4 items-center justify-center py-[35px] border-b border-[#ffffff2a]  text-center w-full",
                     hash === link.href || (link.title === "home" && !hash)
                       ? "nav-active"
                       : "",
                   ].join(" ")}
                   onClick={() => setIsOpen(false)}
                 >
-                  <span>{link?.icon}</span>
+                  {link?.icon && <span>{link?.icon}</span>}
                   <span>{link.title}</span>
                 </HashLink>
               </li>
             ))}
-            <li className="p-4 capitalize items-center ">
+            <li className="capitalize">
               <a
                 href="https://docs.cointensor.io"
-                className="text-[#B6B6B6] flex gap-4 items-center"
+                className="text-[#B6B6B6] flex gap-4 items-center justify-center py-[35px] border-b border-[#ffffff2a]  text-center w-full"
                 target="_blank"
                 rel="noopener noreferrer"
               >
@@ -131,3 +133,4 @@ function Header() {
 }
 
 export default Header;
+
