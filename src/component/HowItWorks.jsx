@@ -17,9 +17,7 @@ function HowItWorks() {
                 <span className="number number-active">{step.number}</span>
               </div>
               <div className="lg:relative lg:top-[25px] lg:left-[-20px] lg:max-w-[340px] z-[200]">
-                <p
-                  className="text-[22px]  lg:text-[32px] font-medium mt-2 "
-                >
+                <p className="text-[22px]  lg:text-[32px] font-medium mt-2 ">
                   {step.heading}
                 </p>
                 <p className="text-base mt-3  leading-7 font-normal primary-text">

@@ -1,5 +1,6 @@
 import Xlogo from "../assets/X.png";
 import shareIcon from "../assets/share.png";
+
 function Community() {
   return (
     <section id="community" className="layout-pd">

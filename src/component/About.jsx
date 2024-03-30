@@ -20,8 +20,8 @@ function About() {
                 index === 0
                   ? "lg:mt-[63px]"
                   : index === 3
-                  ? "lg:mt-[-63px]"
-                  : "",
+                    ? "lg:mt-[-63px]"
+                    : "",
                 (index + 1) % 2 === 0 ? "arc-border-2" : "arc-border",
               ].join(" ")}
             >
