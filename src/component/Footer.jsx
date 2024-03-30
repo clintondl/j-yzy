@@ -24,16 +24,28 @@ function Footer() {
             </h6>
           </div>
           <div className="flex items-center gap-[32px]">
-            <Image
-              src={Xlogo}
-              alt="x-brand-logo"
-              classNames={["w-[24px] max-w-[24px]"]}
-            />
-            <Image
-              src={shareIcon}
-              alt="share-icon"
-              classNames={["w-[24px] max-w-[24px]"]}
-            />
+            <a
+              href="https://x.com/cointensor"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={Xlogo}
+                alt="x-brand-logo"
+                classNames={["w-[24px] max-w-[24px]"]}
+              />
+            </a>
+            <a
+              href="https://t.me/+pbMXLv_Tf5c3NTZk"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Image
+                src={shareIcon}
+                alt="share-icon"
+                classNames={["w-[24px] max-w-[24px]"]}
+              />
+            </a>
           </div>
         </div>
         <p className="text-sm text-center primary-text">
