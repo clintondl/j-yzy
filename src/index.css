@@ -112,8 +112,7 @@ input::placeholder {
   @apply py-[58px] lg:py-[98px];
 }
 .road-map {
-  @apply lg:bg-[url("./assets/road-map.png")] lg:bg-[length:125%_600px] bg-no-repeat;
-  background-position: 70% center;
+  @apply bg-[url("./assets/bg-mobile.svg")] lg:bg-[url("./assets/road-map.png")] lg:bg-[length:122vw_520px] xl:bg-[length:125%_600px] bg-no-repeat lg:bg-[68%_center] xl:bg-[70%_center] bg-[center_0px] pb-[150px] lg:pb-[0] bg-[length:100%_95%];
 }
 .action-bg {
   background-image: url("./assets/action-bg.png");
