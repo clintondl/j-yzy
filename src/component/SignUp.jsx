@@ -1,4 +1,7 @@
 function SignUp() {
+  const onSubmit = (e) => {
+    e.preventDefault();
+  };
 
   return (
     <section id="buy" className="py-[103px] bg-[#FFFFFF0D] action-bg">
@@ -6,9 +9,7 @@ function SignUp() {
         <div className="lg:flex lg:flex-row lg:justify-between lg:items-center bg-[#ffffff1c] border border-[#FFFFFF0D] py-[74px] px-[48px] w-full">
           <div className="lg:max-w-[386px]">
             <h2 className="font-medium text-3xl ">
-              <span className="block lg:inline-block mr-2">
-                Sign Up for
-              </span>
+              <span className="block lg:inline-block mr-2">Sign Up for</span>
               <span className="block lg:inline-block mt-1">Updates</span>
             </h2>
             <p className="font-lexend  py-3 text-base text-faint-60 lg:max-w-[348px]">
@@ -16,7 +17,7 @@ function SignUp() {
               milestones
             </p>
           </div>
-          <form className="lg:w-[50%]">
+          <form onSubmit={onSubmit} className="lg:w-[50%]">
             <input
               type="text"
               placeholder="Enter your email"
