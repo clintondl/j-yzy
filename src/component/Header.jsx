@@ -1,5 +1,6 @@
 import { BrandLogo, CloseIcon, MenuIcon, WhitePaperIcon } from "../SvgIcons";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { NavHashLink as HashLink } from "react-router-hash-link";
 
@@ -19,8 +20,6 @@ function Header() {
   const changeNavBg = () => {
     window.scrollY >= 200 ? setFloating(true) : setFloating(false);
   };
-  const { pathname, asPath, hash, ...others } = useLocation();
-  console.log({ pathname, asPath, hash, others }, location.pathname);
 
   useEffect(() => {
     window.addEventListener("scroll", changeNavBg);
@@ -42,20 +41,12 @@ function Header() {
             floating && !isOpen ? "h-[64px] " : "h-[64px] lg:h-[103px]",
           ].join(" ")}
         >
-          <div className="flex items-center h-full">
+          <div className="flex items-center justify-between h-full">
             <h1 className="grow font-bold inline-flex items-center text-base">
               <BrandLogo />
               <span className="mr-3"></span>CoinTensor AI
             </h1>
-            <button className="lg:hidden" onClick={toggleNavbar}>
-              {isOpen ? (
-                <span className="inline-block p-2">
-                  <CloseIcon />
-                </span>
-              ) : (
-                <MenuIcon />
-              )}
-            </button>
+
             <div className="hidden lg:block grow">
               <ul className="flex items-center text-center">
                 {navLinks.map((link) => (
@@ -88,6 +79,22 @@ function Header() {
                   </a>
                 </li>
               </ul>
+            </div>
+            <div>
+              <div className="hidden lg:block">
+                <Link to="/staking" className="btn hidden lg:block">
+                  Stake Tensor
+                </Link>
+              </div>
+              <button className="lg:hidden" onClick={toggleNavbar}>
+                {isOpen ? (
+                  <span className="inline-block p-2">
+                    <CloseIcon />
+                  </span>
+                ) : (
+                  <MenuIcon />
+                )}
+              </button>
             </div>
           </div>
         </div>
@@ -124,6 +131,11 @@ function Header() {
                 </span>
                 <span>Whitepaper</span>
               </a>
+            </li>
+            <li className="capitalize flex  justify-center py-[35px]">
+              <Link to="/staking" className="btn w-fit">
+                Stake Tensor
+              </Link>
             </li>
           </ul>
         </div>

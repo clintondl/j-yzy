@@ -158,3 +158,20 @@ a.nav-active {
     );
   }
 }
+.btn {
+  @apply h-[39px] px-[31px] bg-[#ffffff] text-[#000000]; 
+  border: 1.5px solid #ffffff0d;
+  clip-path: polygon(
+    11% 1%,
+    100% 0,
+    100% 30%,
+    100% 89%,
+    94% 100%,
+    30% 100%,
+    0 100%,
+    0 9%
+  );
+}
+a.btn {
+  @apply flex items-center;
+}
