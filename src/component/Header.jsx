@@ -20,6 +20,7 @@ function Header() {
   const changeNavBg = () => {
     window.scrollY >= 200 ? setFloating(true) : setFloating(false);
   };
+  const { hash } = useLocation();
 
   useEffect(() => {
     window.addEventListener("scroll", changeNavBg);
