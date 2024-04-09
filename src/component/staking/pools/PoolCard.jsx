@@ -35,7 +35,7 @@ function PoolCard({ pool }) {
             </div>
           </div>
           <div className="text-center">
-            <Button />
+            <Button value="Stake Now" />
           </div>
         </div>
       </div>

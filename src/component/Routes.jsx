@@ -2,6 +2,7 @@ import { useRoutes } from "react-router-dom";
 import Staking from "../pages/Staking";
 import Home from "../pages/Home";
 import Layout from "../layout";
+import StakingLayout from "./staking/StakingLayout";
 
 const AppRoutes = [
   {
@@ -12,9 +13,15 @@ const AppRoutes = [
       </Layout>
     ),
   },
+
   {
-    path: "/staking",
-    element: <Staking />,
+    element: <StakingLayout />,
+    children: [
+      {
+        path: "/staking",
+        element: <Staking />,
+      },
+    ],
   },
 ];
 
