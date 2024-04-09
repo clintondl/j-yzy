@@ -3,6 +3,7 @@ import Staking from "../pages/Staking";
 import Home from "../pages/Home";
 import Layout from "../layout";
 import StakingLayout from "./staking/StakingLayout";
+import StackingDetails from "../pages/StackingDetails";
 
 const AppRoutes = [
   {
@@ -20,6 +21,10 @@ const AppRoutes = [
       {
         path: "/staking",
         element: <Staking />,
+      },
+      {
+        path: "/staking/:id",
+        element: <StackingDetails />,
       },
     ],
   },

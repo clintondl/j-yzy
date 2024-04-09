@@ -207,7 +207,12 @@ a.btn {
     rgba(153, 153, 153, 0.0725) 94.22%
   );
 }
-
+.arced.arced-border-white::after,
+.arced.arced-border-white::before {
+  border: 1px solid;
+  border-image-slice: 1;
+  border-color: white;
+}
 
 .summary > ul {
   border: 1px solid;

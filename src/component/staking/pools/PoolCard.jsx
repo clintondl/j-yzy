@@ -2,9 +2,11 @@ import lock from "../../../assets/Icons/lock.png";
 import useWallet from "../../../hooks/useWallet";
 import Button from "../../Button";
 import ToolTipMark from "../../ToolTipMark";
+import { useNavigate } from "react-router-dom";
 
 function PoolCard({ pool }) {
-  const { isConnected } = useWallet();
+  const { isConnected, connectWallet } = useWallet();
+   const navigate = useNavigate();
   return (
     <div className="bg-black arced arced-border">
       <div className="bg-[#FFFFFF0F] pool-card">
@@ -38,9 +40,12 @@ function PoolCard({ pool }) {
           </div>
           <div className="text-center">
             {isConnected ? (
-              <Button value="Stake Now" />
+              <Button
+                onClick={() => navigate(`/staking/${pool.id}`)}
+                value="Stake Now"
+              />
             ) : (
-              <Button value="Connect Wallet" />
+              <Button onClick={connectWallet} value="Connect Wallet" />
             )}
           </div>
         </div>

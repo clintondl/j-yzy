@@ -32,6 +32,7 @@ function StakingHeader() {
       window.removeEventListener("scroll", changeNavBg);
     };
   }, []);
+  
   return (
     <header className="w-screen bg-[#050505]">
       <div
