@@ -1,7 +1,14 @@
-function Button({ value }) {
+function Button({ value, onClick }) {
   return (
     <div className="arced bg-[#0f0f0f]">
-      <button className="btn w-full">{value}</button>
+      <button
+        onClick={() => {
+          onClick && onClick();
+        }}
+        className="btn w-full"
+      >
+        {value}
+      </button>
     </div>
   );
 }

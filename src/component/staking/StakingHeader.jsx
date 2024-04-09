@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { NavHashLink as HashLink } from "react-router-hash-link";
+import useWallet from "../../hooks/useWallet";
+import ConnectedWallet from "./ConnectedWallet";
 
 const navLinks = [
   { title: "home", href: "#" },
@@ -16,6 +18,8 @@ function StakingHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = () => setIsOpen((prev) => !prev);
   const [floating, setFloating] = useState(false);
+
+  const { isConnected, connectWallet } = useWallet();
 
   const changeNavBg = () => {
     window.scrollY >= 200 ? setFloating(true) : setFloating(false);
@@ -55,11 +59,18 @@ function StakingHeader() {
             </div>
             <div>
               <div className="hidden lg:block">
-                <div className="arced bg-[#0f0f0f]">
-                  <Link to="/staking" className="btn hidden lg:block">
-                    Stake Tensor
-                  </Link>
-                </div>
+                {!isConnected ? (
+                  <div className="arced bg-[#0f0f0f]">
+                    <button
+                      onClick={connectWallet}
+                      className="btn hidden lg:block"
+                    >
+                      Connect Wallet
+                    </button>
+                  </div>
+                ) : (
+                  <ConnectedWallet />
+                )}
               </div>
               <button className="lg:hidden" onClick={toggleNavbar}>
                 {isOpen ? (
@@ -109,9 +120,9 @@ function StakingHeader() {
             </li>
             <li className="capitalize flex  justify-center py-[35px]">
               <div className="arced bg-[#0f0f0f]">
-                <Link to="/staking" className="btn hidden lg:block">
-                  Stake Tensor
-                </Link>
+                <button onClick={connectWallet} className="btn hidden lg:block">
+                  Connect Wallet
+                </button>
               </div>
             </li>
           </ul>

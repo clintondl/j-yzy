@@ -1,8 +1,10 @@
 import lock from "../../../assets/Icons/lock.png";
+import useWallet from "../../../hooks/useWallet";
 import Button from "../../Button";
 import ToolTipMark from "../../ToolTipMark";
 
 function PoolCard({ pool }) {
+  const { isConnected } = useWallet();
   return (
     <div className="bg-black arced arced-border">
       <div className="bg-[#FFFFFF0F] pool-card">
@@ -35,7 +37,11 @@ function PoolCard({ pool }) {
             </div>
           </div>
           <div className="text-center">
-            <Button value="Stake Now" />
+            {isConnected ? (
+              <Button value="Stake Now" />
+            ) : (
+              <Button value="Connect Wallet" />
+            )}
           </div>
         </div>
       </div>
