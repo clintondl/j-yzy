@@ -1,5 +1,6 @@
 import lock from "../../../assets/Icons/lock.png";
 import Button from "../../Button";
+import ToolTipMark from "../../ToolTipMark";
 
 function PoolCard({ pool }) {
   return (
@@ -22,9 +23,7 @@ function PoolCard({ pool }) {
             <div className="border-r border-faint-25 space-y-[16px] w-1/3">
               <h4 className="text-xs text-[#8D8D99]">
                 APY
-                <span className="ml-1 inline-flex items-center justify-center bg-[#2F2F39] min-h-[16px] h-[16px] min-w-[16px] w-[16px] rounded-full">
-                  ?
-                </span>
+                <ToolTipMark />
               </h4>
               <p className="text-primary font-medium text-[22px]">{pool.apy}</p>
             </div>
