@@ -12,15 +12,18 @@ function SensorTokens() {
             announcements on our website and social media channels to
             participate in the future of DeFi.
           </p>
-          <div className="flex justify-center mt-[35px] mb-[20px]">
+          <div className="flex flex-col items-center gap-4 justify-center mt-[35px] mb-[20px]">
             <a
               href="https://app.uniswap.org/swap?outputCurrency=0x1ddbB18ECf92d02Bb386224F0d160f30305150dD&chain=ethereum"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn arc-border w-fit"
+              className="btn arc-border w-fit "
             >
               Buy Token
             </a>
+            <p className="font-medium text-sm text-faint-60">
+              0x1ddbB18ECf92d02Bb386224F0d160f30305150dD
+            </p>
           </div>
           <div className="flex items-center justify-center gap-[20px] pt-[50px]">
             <a
@@ -35,7 +38,7 @@ function SensorTokens() {
               />
             </a>
             <a
-              href="https://www.dextools.io/app/en/ether/pair-explorer/0xf5c92780138061a113fd708d4b403e0e830effff"
+              href="https://www.dextools.io/app/en/ether/pair-explorer/0x99d96f99309fc5ebe4fc534d104ba71db0912ae1?t=1712659309835"
               target="_blank"
               rel="noopener noreferrer"
             >
