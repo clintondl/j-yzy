@@ -31,7 +31,11 @@ function Summary() {
   return (
     <section className="py-[27px]">
       <div className="container">
-        <h2 className="font-medium mb-[24px] text-2xl lg:text-[32px]">Pools</h2>
+        <h2
+          className="font-bold mb-[24px] text-[22px] lg:text-[38px]"
+        >
+          Staking
+        </h2>
         <div className="bg-black arced arced-border summary">
           <ul className="grid grid-cols-2 gap-[32px] lg:grid-cols-4 px-[16px] py-[18px] lg:px-[21px] lg:py-[40px]">
             {data.map((item, i, arr) => (
