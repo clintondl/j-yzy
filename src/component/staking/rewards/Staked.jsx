@@ -10,7 +10,7 @@ function Staked() {
       <div className="border border-[#FFFFFF1F] py-[24px] px-[12px] lg:px-[32px] lg:grid lg:grid-cols-2">
         <div className="mb-[12px] flex flex-col justify-center">
           <h4 className="text-sm text-faint-60 mb-1">Rewards</h4>
-          <p className="text-[#007C29] text-2xl mb-1">+1,615.5 $Tensor</p>
+          <p className="text-primary text-2xl mb-1">+1,615.5 $Tensor</p>
           <p className="text-xs text-faint-60">$123.23</p>
         </div>
         <div className="grid grid-cols-2 gap-[20px] py-[19px] px-[18px] border border-[#FFFFFF1F] ">
