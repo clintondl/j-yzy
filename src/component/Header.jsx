@@ -84,7 +84,7 @@ function Header() {
             <div>
               <div className="hidden lg:block">
                 <Link to="/staking" className="btn hidden lg:block">
-                  Stake Tensor
+                  Stake $Tensor
                 </Link>
               </div>
               <button className="lg:hidden" onClick={toggleNavbar}>
@@ -135,7 +135,7 @@ function Header() {
             </li>
             <li className="capitalize flex  justify-center py-[35px]">
               <Link to="/staking" className="btn w-fit">
-                Stake Tensor
+                Stake $Tensor
               </Link>
             </li>
           </ul>
