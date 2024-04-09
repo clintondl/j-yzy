@@ -159,7 +159,7 @@ a.nav-active {
   }
 }
 .btn {
-  @apply h-[39px] px-[31px] bg-[#ffffff] text-[#000000]; 
+  @apply h-[39px] px-[31px] bg-[#ffffff] text-[#000000];
   border: 1.5px solid #ffffff0d;
   clip-path: polygon(
     11% 1%,
@@ -174,4 +174,13 @@ a.nav-active {
 }
 a.btn {
   @apply flex items-center;
+}
+.pool-card {
+  border: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    301.27deg,
+    rgba(255, 255, 255, 0.25) 3.7%,
+    rgba(153, 153, 153, 0.0725) 94.22%
+  );
 }

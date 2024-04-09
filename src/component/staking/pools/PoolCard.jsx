@@ -2,7 +2,7 @@ import lock from "../../../assets/Icons/lock.png";
 
 function PoolCard({ pool }) {
   return (
-    <div className="bg-[#FFFFFF0F]">
+    <div className="bg-[#FFFFFF0F] pool-card">
       <div className="flex justify-end p-[8px]">
         <div className="space-x-1 text-faint bg-faint-5 flex items-center px-[8px] py-[4px]">
           <span>
