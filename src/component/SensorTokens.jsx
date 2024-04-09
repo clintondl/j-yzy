@@ -22,7 +22,7 @@ function SensorTokens() {
               Buy Token
             </a>
           </div>
-          <div className="flex items-center justify-center gap-[20px]">
+          <div className="flex items-center justify-center gap-[20px] pt-[50px]">
             <a
               href="https://dexscreener.com/ethereum/0x99D96F99309FC5EBe4fC534D104BA71DB0912ae1"
               target="_blank"
@@ -31,7 +31,7 @@ function SensorTokens() {
               <img
                 src={dexscreener}
                 alt="dexscreener"
-                className="w-[20px] min-w-[20px]"
+                className="w-[60px] min-w-[60px]"
               />
             </a>
             <a
@@ -42,7 +42,7 @@ function SensorTokens() {
               <img
                 src={dextools}
                 alt="dexscreener"
-                className="w-[30px] min-w-[30px]"
+                className="w-[90px] min-w-[90px]"
               />
             </a>
           </div>
