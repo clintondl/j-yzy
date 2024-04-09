@@ -1,3 +1,4 @@
+import poolsData from "../../../utils/poolsData";
 import PoolCard from "./PoolCard";
 
 
@@ -8,7 +9,7 @@ function Pools() {
       <div className="container">
         <h2 className="font-medium mb-[24px] text-2xl lg:text-[32px]">Pools</h2>
         <ul className="grid gap-[32px] lg:grid-cols-3">
-          {Pools.map((pool) => (
+          {poolsData.map((pool) => (
             <li key={pool.id}>
               <PoolCard pool={pool} />
             </li>
