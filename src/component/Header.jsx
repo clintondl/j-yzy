@@ -87,7 +87,7 @@ function Header() {
               <div className="hidden lg:block">
                 <div className="arced bg-[#0f0f0f]">
                   <Link to="/staking" className="btn hidden lg:block">
-                    Stake Tensor
+                    Stake $Tensor
                   </Link>
                 </div>
               </div>
@@ -140,7 +140,7 @@ function Header() {
             <li className="capitalize flex  justify-center py-[35px]">
               <div className="arced bg-[#0f0f0f]">
                 <Link to="/staking" className="btn hidden lg:block">
-                  Stake Tensor
+                  Stake $Tensor
                 </Link>
               </div>
             </li>
