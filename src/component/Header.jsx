@@ -43,14 +43,16 @@ function Header() {
           ].join(" ")}
         >
           <div className="flex items-center justify-between h-full">
-            <Link to="/">
-              <span className="font-bold inline-flex items-center text-base">
-                <BrandLogo />
-                <span className="mr-3"></span>CoinTensor AI
-              </span>
-            </Link>
+            <div>
+              <Link to="/">
+                <span className="font-bold inline-flex items-center text-base">
+                  <BrandLogo />
+                  <span className="mr-3"></span>CoinTensor AI
+                </span>
+              </Link>
+            </div>
 
-            <div className="hidden lg:block grow">
+            <div className="hidden lg:block">
               <ul className="flex items-center text-center">
                 {navLinks.map((link) => (
                   <li key={link.title} className="p-4 capitalize items-center ">
