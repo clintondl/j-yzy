@@ -1,8 +1,11 @@
+import Rewards from "../component/staking/Rewards";
 
 function Staking() {
   return (
-    <div>Staking</div>
-  )
+    <div>
+      <Rewards />
+    </div>
+  );
 }
 
-export default Staking
+export default Staking;
