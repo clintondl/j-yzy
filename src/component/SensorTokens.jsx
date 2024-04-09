@@ -9,6 +9,16 @@ function SensorTokens() {
             announcements on our website and social media channels to
             participate in the future of DeFi.
           </p>
+          <div className="flex justify-center py-[35px]">
+            <a
+              href="https://app.uniswap.org/swap?outputCurrency=0x1ddbB18ECf92d02Bb386224F0d160f30305150dD&chain=ethereum"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn arc-border w-fit"
+            >
+              Buy Token
+            </a>
+          </div>
         </div>
       </div>
     </section>
