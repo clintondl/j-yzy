@@ -7,6 +7,7 @@
 * {
   box-sizing: border-box;
   margin: 0;
+  /* background-color: ; */
 }
 
 html {
@@ -160,22 +161,44 @@ a.nav-active {
 }
 .btn {
   @apply h-[39px] px-[31px] bg-[#ffffff] text-[#000000];
-  border: 1.5px solid #ffffff0d;
-  clip-path: polygon(
-    11% 1%,
-    100% 0,
-    100% 30%,
-    100% 89%,
-    94% 100%,
-    30% 100%,
-    0 100%,
-    0 9%
-  );
 }
 a.btn {
   @apply flex items-center;
 }
+
 .pool-card {
+  border: 1px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(
+    301.27deg,
+    rgba(255, 255, 255, 0.25) 3.7%,
+    rgba(153, 153, 153, 0.0725) 94.22%
+  );
+}
+
+.arced {
+  @apply relative overflow-hidden;
+}
+
+.arced::after,
+.arced::before {
+  @apply absolute h-[20px] w-[20px] z-[100] bg-inherit;
+  content: "";
+  background-color: inherit !important;
+}
+
+.arced::after {
+  @apply bottom-[-10px] right-[-10px];
+  transform: rotate(225deg);
+}
+
+.arced::before {
+  @apply top-[-10px] left-[-10px];
+  transform: rotate(225deg);
+}
+
+.arced.arced-border::after,
+.arced.arced-border::before {
   border: 1px solid;
   border-image-slice: 1;
   border-image-source: linear-gradient(
