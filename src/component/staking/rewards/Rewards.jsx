@@ -1,8 +1,10 @@
+import useWallet from "../../../hooks/useWallet";
 import NotStaked from "./NotStaked";
 import Staked from "./Staked";
 
 function Rewards() {
-  const isStaked = true;
+  const { stakedPool } = useWallet();
+
   return (
     <section className="py-[27px]">
       <div className="container">
@@ -11,7 +13,7 @@ function Rewards() {
         </h2>
         <div className="arced bg-black">
           <div className="bg-[#FFFFFF0F] w-full">
-            {isStaked ? <Staked /> : <NotStaked />}
+            {stakedPool?.id ? <Staked /> : <NotStaked />}
           </div>
         </div>
       </div>

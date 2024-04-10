@@ -8,8 +8,8 @@ function PoolCard({ pool }) {
   const { isConnected, connectWallet } = useWallet();
    const navigate = useNavigate();
   return (
-    <div className="bg-black arced arced-border">
-      <div className="bg-[#FFFFFF0F] pool-card">
+    <div className="bg-black arced arced-border h-full">
+      <div className="bg-[#FFFFFF0F] pool-card h-full">
         <div className="flex justify-end p-[8px]">
           <div className="space-x-1 text-faint bg-faint-5 flex items-center px-[8px] py-[4px]">
             <span>
@@ -19,17 +19,19 @@ function PoolCard({ pool }) {
           </div>
         </div>
         <div className="p-[32px] pt-0 space-y-[16px]">
-          <h3 className="font-bold text-[28px]">{pool.duration}</h3>
-          <p className="text-faint-60 text-sm">
-            Stake $Tensor to Earn rewards daily.
-          </p>
+          <div>
+            <h3 className="font-bold text-[28px]">{pool.duration}</h3>
+            <p className="text-faint-60 text-sm">
+              Stake $Tensor to Earn rewards daily.
+            </p>
+          </div>
           <div className="flex gap-[36px] py-[14px]">
             <div className="border-r border-faint-25 space-y-[16px] w-1/3">
               <h4 className="text-xs text-[#8D8D99]">
                 APY
                 <ToolTipMark />
               </h4>
-              <p className="text-primary font-medium text-[22px]">{pool.apy}</p>
+              <p className="text-primary font-medium text-[32px]">{pool.apy}</p>
             </div>
             <div className="row-span-3 space-y-[16px] grow">
               <h4 className="text-xs text-[#8D8D99]">Total Staked</h4>

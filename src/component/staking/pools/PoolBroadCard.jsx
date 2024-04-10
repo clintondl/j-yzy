@@ -11,16 +11,18 @@ function PoolBroadCard() {
   const navigate = useNavigate();
 
   const { wallet, stakePool } = useWallet();
-  const [amount, setAmount] = useState(null);
+  const [amount, setAmount] = useState();
 
   const pool = poolsData.find((pool) => pool.id === id);
 
   const handleStake = () => {
-    stakePool({
-      ...pool,
-      stakedAmount: amount,
-    });
-    navigate(`/staking`);
+    if (amount) {
+      stakePool({
+        ...pool,
+        stakedAmount: amount,
+      });
+      navigate(`/staking`);
+    }
   };
 
   return (
@@ -89,7 +91,7 @@ function PoolBroadCard() {
             { name: "Max", value: 1 },
           ].map((item) => (
             <div
-              key={item}
+              key={item.name}
               className="arced arced-border-white bg-[#0f0f0f] border-[#9999993f]"
             >
               <button
