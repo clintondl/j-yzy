@@ -115,7 +115,7 @@ function PoolBroadCard({ unstake = false }) {
             <span className="text-sm text-[#858491]">Network fee</span>
           </div>
           <div className="text-end">
-            <div className="font-bold text-sm">0.00034 SOL</div>
+            <div className="font-bold text-sm">0.00034 ETH</div>
             <div className="text-faint-60 text-xs font-light">$0.00</div>
           </div>
         </div>
