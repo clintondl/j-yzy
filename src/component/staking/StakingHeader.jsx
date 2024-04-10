@@ -1,8 +1,10 @@
-import { BrandLogo, CloseIcon, MenuIcon, WhitePaperIcon } from "../SvgIcons";
+import { BrandLogo, CloseIcon, MenuIcon, WhitePaperIcon } from "../../SvgIcons";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { NavHashLink as HashLink } from "react-router-hash-link";
+import useWallet from "../../hooks/useWallet";
+import ConnectedWallet from "./ConnectedWallet";
 
 const navLinks = [
   { title: "home", href: "#" },
@@ -12,10 +14,12 @@ const navLinks = [
   { title: "community", href: "#community" },
 ];
 
-function Header() {
+function StakingHeader() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = () => setIsOpen((prev) => !prev);
   const [floating, setFloating] = useState(false);
+
+  const { isConnected, connectWallet } = useWallet();
 
   const changeNavBg = () => {
     window.scrollY >= 200 ? setFloating(true) : setFloating(false);
@@ -44,55 +48,30 @@ function Header() {
           ].join(" ")}
         >
           <div className="flex items-center justify-between h-full">
-            <div>
-              <Link to="/">
-                <span className="font-bold inline-flex items-center text-base">
-                  <BrandLogo />
-                  <span className="mr-3"></span>CoinTensor AI
-                </span>
-              </Link>
-            </div>
+            <Link to="/">
+              <span className="font-bold inline-flex items-center text-base">
+                <BrandLogo />
+                <span className="mr-3"></span>CoinTensor AI
+              </span>
+            </Link>
 
-            <div className="hidden lg:block">
-              <ul className="flex items-center text-center">
-                {navLinks.map((link) => (
-                  <li key={link.title} className="p-4 capitalize items-center ">
-                    <HashLink
-                      to={link.href}
-                      className={[
-                        "font-light text-[#ECF1F080] flex gap-4 items-center",
-                        hash === link.href || (link.title === "home" && !hash)
-                          ? "nav-active"
-                          : "",
-                      ].join(" ")}
-                    >
-                      <span>{link?.icon}</span>
-                      <span>{link.title}</span>
-                    </HashLink>
-                  </li>
-                ))}
-                <li className="p-4 capitalize items-center ">
-                  <a
-                    href="https://docs.cointensor.io"
-                    className="text-[#B6B6B6] flex gap-4 items-center"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <span>
-                      <WhitePaperIcon />
-                    </span>
-                    <span>Whitepaper</span>
-                  </a>
-                </li>
-              </ul>
+            <div className="hidden lg:block grow flex items-center text-center">
+              <button className="btn rounded pl-[10px]">Staking</button>
             </div>
             <div>
               <div className="hidden lg:block">
-                <div className="arced bg-[#0f0f0f]">
-                  <Link to="/staking" className="btn hidden lg:block">
-                    Stake $Tensor
-                  </Link>
-                </div>
+                {!isConnected ? (
+                  <div className="arced bg-[#0f0f0f]">
+                    <button
+                      onClick={connectWallet}
+                      className="btn hidden lg:block"
+                    >
+                      Connect Wallet
+                    </button>
+                  </div>
+                ) : (
+                  <ConnectedWallet />
+                )}
               </div>
               <button className="lg:hidden" onClick={toggleNavbar}>
                 {isOpen ? (
@@ -142,9 +121,9 @@ function Header() {
             </li>
             <li className="capitalize flex  justify-center py-[35px]">
               <div className="arced bg-[#0f0f0f]">
-                <Link to="/staking" className="btn hidden lg:block">
-                  Stake $Tensor
-                </Link>
+                <button onClick={connectWallet} className="btn hidden lg:block">
+                  Connect Wallet
+                </button>
               </div>
             </li>
           </ul>
@@ -154,4 +133,4 @@ function Header() {
   );
 }
 
-export default Header;
+export default StakingHeader;
