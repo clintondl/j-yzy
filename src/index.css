@@ -211,7 +211,7 @@ a.btn {
 .arced.arced-border-white::before {
   border: 1px solid;
   border-image-slice: 1;
-  border-color: white;
+  border-color: inherit;
 }
 
 .summary > ul {
