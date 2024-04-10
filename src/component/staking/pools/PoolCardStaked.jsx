@@ -1,14 +1,17 @@
 import lock from "../../../assets/Icons/lock.png";
-import useWallet from "../../../hooks/useWallet";
-import Button from "../../Button";
+import { useNavigate } from "react-router-dom";
 import ToolTipMark from "../../ToolTipMark";
 
 function PoolCardStaked({ pool }) {
-  const { isConnected, connectWallet, stakedPool } = useWallet();
+  const navigate = useNavigate();
 
   return (
     <div className="bg-black arced arced-border h-full">
-      <div className="bg-[#FFFFFF0F] pool-card h-full">
+      <div
+        tabIndex={1}
+        onClick={() => navigate(`/unstake/${pool.id}`)}
+        className="bg-[#FFFFFF0F] pool-card h-full "
+      >
         <div className="flex justify-end p-[8px]">
           <div className="space-x-1 text-faint bg-faint-5 flex items-center px-[8px] py-[4px]">
             <span>

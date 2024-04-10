@@ -4,6 +4,7 @@ import Home from "../pages/Home";
 import Layout from "../layout";
 import StakingLayout from "./staking/StakingLayout";
 import StackingDetails from "../pages/StackingDetails";
+import Unstake from "../pages/Unstake";
 
 const AppRoutes = [
   {
@@ -25,6 +26,10 @@ const AppRoutes = [
       {
         path: "/staking/:id",
         element: <StackingDetails />,
+      },
+      {
+        path: "/unstake/:id",
+        element: <Unstake />,
       },
     ],
   },

@@ -6,7 +6,7 @@ import { BrandLogo } from "../../../SvgIcons";
 import Button from "../../Button";
 import { useState } from "react";
 
-function PoolBroadCard() {
+function PoolBroadCard({ unstake = false }) {
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -104,7 +104,10 @@ function PoolBroadCard() {
           ))}
         </div>
         <div className="mt-[32px]">
-          <Button onClick={handleStake} value="Stake now" />
+          <Button
+            onClick={handleStake}
+            value={unstake ? "Unstake" : "Stake now"}
+          />
         </div>
         <div className="h-[1px] bg-[#FFFFFF26] my-[32px] " />
         <div className="flex items-center justify-between">
