@@ -7,17 +7,33 @@ const useWallet = () => useContext(WalletContext);
 
 export const WalletProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
-  const [wallet, setWallet] = useState({});
+  const [wallet, setWallet] = useState({
+    address: "0x1ddbB18ECf92d02Bb386224F0d160f30305150dD",
+    balance: 300000,
+  });
+  const [stakedPools, setStakedPools] = useState([]);
+
+  const stakePool = (stake) => {
+    const activeStake = stakedPools.find((p) => p.id === stake.id);
+    if (!activeStake) {
+      setStakedPools((prev) => [...prev, stake]);
+    } else {
+      setStakedPools((prev) => [
+        ...prev.filter((p) => p.id !== stake.id),
+        {
+          ...activeStake,
+          amountStaked: activeStake.amountStaked + stake.amountStaked,
+        },
+      ]);
+    }
+  };
 
   const values = useMemo(
     () => ({
       isConnected,
       wallet,
+      stakePool,
       connectWallet: () => {
-        setWallet({
-          address: "0x1ddbB18ECf92d02Bb386224F0d160f30305150dD",
-          balance: "3000",
-        });
         setIsConnected(true);
       },
       disconnectWallet: () => setIsConnected(false),

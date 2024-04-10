@@ -1,14 +1,28 @@
 import poolsData from "../../../utils/poolsData";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import ToolTipMark from "../../ToolTipMark";
 import useWallet from "../../../hooks/useWallet";
 import { BrandLogo } from "../../../SvgIcons";
 import Button from "../../Button";
+import { useState } from "react";
 
 function PoolBroadCard() {
   const { id } = useParams();
-  const { wallet } = useWallet();
+  const navigate = useNavigate();
+
+  const { wallet, stakePool } = useWallet();
+  const [amount, setAmount] = useState(null);
+
   const pool = poolsData.find((pool) => pool.id === id);
+
+  const handleStake = () => {
+    stakePool({
+      ...pool,
+      stakedAmount: amount,
+    });
+    navigate(`/staking`);
+  };
+
   return (
     <div className="bg-black arced arced-border mt-[24px]">
       <div className="py-[32px] px-[16px] lg:px-[32px] bg-[#FFFFFF0F]">
@@ -38,36 +52,57 @@ function PoolBroadCard() {
         </div>
         <div className="h-[1px] bg-[#FFFFFF26] my-[32px] " />
         <div className="bg-[#0f0f0f] arced arced-border-white border-faint-50">
-          <div className="border border-faint-50 flex items-center justify-between px-[24px] py-[20px]">
+          <div className="border border-faint-50 flex items-center px-[24px] py-[20px]">
             <div>
               <span className="font-medium inline-flex items-center text-base lg:text-[20px]">
-                <BrandLogo />
-                <span className="mr-3"></span>Tensor
+                <span className="mr-3">
+                  <BrandLogo />
+                </span>
+                Tensor
               </span>
             </div>
-            <div className="text-end">
-              <div className="font-bold text-[24px]">0</div>
-              <div className="text-faint-60 text-xs font-light">$0.00</div>
+            <div className="text-end grow">
+              <div className="font-bold text-[24px]">
+                <input
+                  type="number"
+                  placeholder="0"
+                  className="w-full bg-transparent text-end stake-amount"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </div>
+              <div className="text-faint-60 text-xs font-light">
+                $
+                {Number.parseFloat(
+                  amount ? wallet.balance - amount : wallet.balance
+                ).toFixed(2)}
+              </div>
             </div>
           </div>
         </div>
         <div className="my-[16px] flex justify-center gap-[12px] lg:gap-[16px]">
-          {["10%", "25%", "50%", "75%", "Max"].map((item) => (
+          {[
+            { name: "10%", value: 0.1 },
+            { name: "25%", value: 0.25 },
+            { name: "50%", value: 0.5 },
+            { name: "75%", value: 0.75 },
+            { name: "Max", value: 1 },
+          ].map((item) => (
             <div
               key={item}
               className="arced arced-border-white bg-[#0f0f0f] border-[#9999993f]"
             >
               <button
-                // onClick={() => navigate(`/staking`)}
-                className="h-[36px] lg:h-[44px] px-[9px] lg:px-[27px] flex items-center justify-center bg-transparent border border-[#9999993f] text-faint-50 text-sm lg:text-base font-medium"
+                onClick={() => setAmount(wallet.balance * item.value)}
+                className="h-[36px] lg:h-[44px] px-[9px] lg:px-[27px] flex items-center justify-center bg-transparent border border-[#9999993f] text-faint-50 text-sm lg:text-base font-medium focus:outline-none hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:ring-gray-100"
               >
-                {item}
+                {item.name}
               </button>
             </div>
           ))}
         </div>
         <div className="mt-[32px]">
-          <Button value="Stake now" />
+          <Button onClick={handleStake} value="Stake now" />
         </div>
         <div className="h-[1px] bg-[#FFFFFF26] my-[32px] " />
         <div className="flex items-center justify-between">

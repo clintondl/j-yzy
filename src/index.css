@@ -225,3 +225,23 @@ a.btn {
     rgba(255, 255, 255, 0.25) 99.88%
   );
 }
+
+.stake-amount:focus {
+  outline-style: none;
+  box-shadow: none;
+  border-color: transparent;
+  background-color: transparent;
+  color: inherit;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
