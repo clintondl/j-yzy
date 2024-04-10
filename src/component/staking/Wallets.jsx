@@ -13,7 +13,7 @@ const wallets = [
   { name: "Keplr", icon: <img src={Keplr} alt="dxfszxcv" /> },
 ];
 
-function Wallets() {
+function Wallets({onClose}) {
   const { selectWallet } = useWallet();
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 flex items-center justify-center z-[1000] bg-[#000000e4]">
@@ -21,7 +21,10 @@ function Wallets() {
         <div className="border border-faint w-[90vw] max-w-[526px] p-[32px]">
           <div className="flex justify-between items-center mb-[32px]">
             <h2>Connect a wallet</h2>
-            <button className="text-xl text-[#717A8C] hover:text-faint-60 p-1 hover:bg-faint-5">
+            <button
+              onClick={onClose}
+              className="text-xl text-[#717A8C] hover:text-faint-60 p-1 hover:bg-faint-5"
+            >
               <RiCloseFill />
             </button>
           </div>

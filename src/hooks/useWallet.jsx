@@ -41,7 +41,9 @@ export const WalletProvider = ({ children }) => {
     <WalletContext.Provider value={values}>
       <div className="relative">
         {children}
-        {showSelectWallet && <Wallets />}
+        {showSelectWallet && (
+          <Wallets onClose={() => setShowSelectWallet(false)} />
+        )}
       </div>
     </WalletContext.Provider>
   );
