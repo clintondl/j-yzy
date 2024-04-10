@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { createContext, useContext } from "react";
+import Wallets from "../component/staking/Wallets";
 
 const WalletContext = createContext();
 
@@ -12,6 +13,7 @@ export const WalletProvider = ({ children }) => {
     balance: 300000,
   });
   const [stakedPool, setStakedPool] = useState({});
+  const [showSelectWallet, setShowSelectWallet] = useState(false);
 
   const stakePool = (stake) => {
     setStakedPool(stake);
@@ -24,6 +26,10 @@ export const WalletProvider = ({ children }) => {
       stakedPool,
       stakePool,
       connectWallet: () => {
+        setShowSelectWallet(true);
+      },
+      selectWallet: () => {
+        setShowSelectWallet(false);
         setIsConnected(true);
       },
       disconnectWallet: () => setIsConnected(false),
@@ -32,7 +38,12 @@ export const WalletProvider = ({ children }) => {
   );
 
   return (
-    <WalletContext.Provider value={values}>{children}</WalletContext.Provider>
+    <WalletContext.Provider value={values}>
+      <div className="relative">
+        {children}
+        {showSelectWallet && <Wallets />}
+      </div>
+    </WalletContext.Provider>
   );
 };
 
