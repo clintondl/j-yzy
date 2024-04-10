@@ -2,12 +2,13 @@ import { MdArrowBack } from "react-icons/md";
 import poolsData from "../utils/poolsData";
 import { useNavigate } from "react-router-dom";
 import PoolTabItem from "../component/staking/pools/PoolTabItem";
+import PoolBroadCard from "../component/staking/pools/PoolBroadCard";
 
 function StackingDetails() {
   const navigate = useNavigate();
 
   return (
-    <section className="py-[27px]">
+    <section className="py-[27px] pb-[100px]">
       <div className="container">
         <div className="flex gap-[24px] items-center">
           <div className="arced arced-border-white bg-[#0f0f0f] ">
@@ -30,6 +31,7 @@ function StackingDetails() {
               </li>
             ))}
           </ul>
+          <PoolBroadCard />
         </div>
       </div>
     </section>

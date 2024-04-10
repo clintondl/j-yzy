@@ -16,6 +16,7 @@ export const WalletProvider = ({ children }) => {
       connectWallet: () => {
         setWallet({
           address: "0x1ddbB18ECf92d02Bb386224F0d160f30305150dD",
+          balance: "3000",
         });
         setIsConnected(true);
       },
