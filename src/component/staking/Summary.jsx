@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import ToolTipMark from "../ToolTipMark";
+import { tvlTip } from "../../utils/tooltipContents";
 
 function Summary() {
   const data = useMemo(
@@ -8,7 +9,10 @@ function Summary() {
         id: 1,
         title: "TVL",
         value: `$0.00`,
-        tooltip: "Tevele",
+        tooltip: {
+          id: "tvl",
+          content: tvlTip,
+        },
       },
       {
         id: 2,
@@ -47,7 +51,8 @@ function Summary() {
                   }}
                 >
                   <h3 className="text-xs lg:text-base text-faint">
-                    {item.title} {item.tooltip && <ToolTipMark />}
+                    {item.title}
+                    {item.tooltip && <ToolTipMark {...item.tooltip} />}
                   </h3>
                   <p className="font-medium text-lg lg:text-[22px]">
                     {item.value}

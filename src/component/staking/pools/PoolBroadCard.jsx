@@ -4,9 +4,11 @@ import ToolTipMark from "../../ToolTipMark";
 import useWallet from "../../../hooks/useWallet";
 import { BrandLogo } from "../../../SvgIcons";
 import Button from "../../Button";
-import { useState } from "react";
+import { useId, useState } from "react";
+import { apvTip } from "../../../utils/tooltipContents";
 
 function PoolBroadCard({ unstake = false }) {
+  const instanceId = useId();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -41,7 +43,7 @@ function PoolBroadCard({ unstake = false }) {
           <div className="space-y-[10px]  border-r border-faint col-span-1">
             <h4 className="text-xs text-[#8D8D99]">
               APY
-              <ToolTipMark />
+              <ToolTipMark id={instanceId} content={apvTip} />
             </h4>
             <p className="font-medium text-sm lg:text-[20px]">{pool.apy}</p>
           </div>

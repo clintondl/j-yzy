@@ -1,7 +1,10 @@
-import ToolTipMark from "../../ToolTipMark";
 import { useParams, useNavigate } from "react-router-dom";
+import { apvTip } from "../../../utils/tooltipContents";
+import ToolTipMark from "../../ToolTipMark";
+import { useId } from "react";
 
 function PoolTabItem({ pool }) {
+  const instanceId = useId();
   const { id } = useParams();
   const navigate = useNavigate();
   const isActive = id === pool.id;
@@ -39,7 +42,7 @@ function PoolTabItem({ pool }) {
         <div className="space-y-[10px]">
           <h4 className="text-xs text-[#8D8D99]">
             APY
-            <ToolTipMark />
+            <ToolTipMark id={instanceId} content={apvTip} />
           </h4>
           <p className="text-primary font-medium text-[22px]">{pool.apy}</p>
         </div>

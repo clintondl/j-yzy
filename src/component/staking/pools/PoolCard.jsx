@@ -1,12 +1,15 @@
+import { useId } from "react";
 import lock from "../../../assets/Icons/lock.png";
 import useWallet from "../../../hooks/useWallet";
+import { apvTip } from "../../../utils/tooltipContents";
 import Button from "../../Button";
 import ToolTipMark from "../../ToolTipMark";
 import { useNavigate } from "react-router-dom";
 
 function PoolCard({ pool }) {
   const { isConnected, connectWallet } = useWallet();
-   const navigate = useNavigate();
+  const navigate = useNavigate();
+  const instanceId = useId();
   return (
     <div className="bg-black arced arced-border h-full">
       <div className="bg-[#FFFFFF0F] pool-card h-full">
@@ -29,7 +32,7 @@ function PoolCard({ pool }) {
             <div className="border-r border-faint-25 space-y-[16px] w-1/3">
               <h4 className="text-xs text-[#8D8D99]">
                 APY
-                <ToolTipMark />
+                <ToolTipMark id={instanceId} content={apvTip} />
               </h4>
               <p className="text-primary font-medium text-[32px]">{pool.apy}</p>
             </div>

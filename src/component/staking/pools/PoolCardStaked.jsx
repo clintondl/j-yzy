@@ -1,9 +1,12 @@
 import lock from "../../../assets/Icons/lock.png";
 import { useNavigate } from "react-router-dom";
 import ToolTipMark from "../../ToolTipMark";
+import { apvTip } from "../../../utils/tooltipContents";
+import { useId } from "react";
 
 function PoolCardStaked({ pool }) {
   const navigate = useNavigate();
+  const instanceId = useId();
 
   return (
     <div className="bg-black arced arced-border h-full">
@@ -28,7 +31,7 @@ function PoolCardStaked({ pool }) {
             <div className="border-r border-faint-25 space-y-1 w-1/3">
               <h4 className="text-xs text-[#8D8D99]">
                 APY
-                <ToolTipMark />
+                <ToolTipMark id={instanceId} content={apvTip} />
               </h4>
               <p className="text-primary font-medium text-lg">{pool.apy}</p>
             </div>
