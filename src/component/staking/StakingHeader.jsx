@@ -32,7 +32,7 @@ function StakingHeader() {
       window.removeEventListener("scroll", changeNavBg);
     };
   }, []);
-  
+
   return (
     <header className="w-screen bg-[#050505]">
       <div
@@ -58,7 +58,7 @@ function StakingHeader() {
             <div className="hidden lg:block grow flex items-center text-center">
               <button className="btn rounded pl-[10px]">Staking</button>
             </div>
-            <div>
+            <div className="flex items-center gap-2">
               <div className="hidden lg:block">
                 {!isConnected ? (
                   <div className="arced bg-[#0f0f0f]">
@@ -72,6 +72,9 @@ function StakingHeader() {
                 ) : (
                   <ConnectedWallet />
                 )}
+              </div>
+              <div className="lg:hidden">
+                {isConnected && <ConnectedWallet />}
               </div>
               <button className="lg:hidden" onClick={toggleNavbar}>
                 {isOpen ? (
@@ -119,13 +122,21 @@ function StakingHeader() {
                 <span>Whitepaper</span>
               </a>
             </li>
-            <li className="capitalize flex  justify-center py-[35px]">
-              <div className="arced bg-[#0f0f0f]">
-                <button onClick={connectWallet} className="btn hidden lg:block">
-                  Connect Wallet
-                </button>
-              </div>
-            </li>
+            {!isConnected && (
+              <li className="capitalize flex  justify-center py-[35px]">
+                <div className="arced bg-[#0f0f0f]">
+                  <button
+                    onClick={() => {
+                      connectWallet();
+                      setIsOpen(false);
+                    }}
+                    className="btn"
+                  >
+                    Connect Wallet
+                  </button>
+                </div>
+              </li>
+            )}
           </ul>
         </div>
       )}
