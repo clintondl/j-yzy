@@ -1,4 +1,7 @@
 import { Tooltip } from "react-tooltip";
+import { createPortal } from "react-dom";
+
+const tooltipContainer = document.getElementById("tooltip-container");
 
 function ToolTipMark({ content, id }) {
   console.log({ content, id });
@@ -10,7 +13,15 @@ function ToolTipMark({ content, id }) {
       >
         ?
       </span>
-      <Tooltip opacity={1} className="w-full max-w-[350px]" id={id} content={content} />
+      {createPortal(
+        <Tooltip
+          opacity={1}
+          className="w-full max-w-[350px] z-[2000] bg-black"
+          id={id}
+          content={content}
+        />,
+        tooltipContainer
+      )}
     </>
   );
 }
