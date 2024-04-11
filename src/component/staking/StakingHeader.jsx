@@ -58,7 +58,7 @@ function StakingHeader() {
             <div className="hidden lg:block grow flex items-center text-center">
               <button className="btn rounded pl-[10px]">Staking</button>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               <div className="hidden lg:block">
                 {!isConnected ? (
                   <div className="arced bg-[#0f0f0f]">
