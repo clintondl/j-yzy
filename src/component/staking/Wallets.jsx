@@ -6,6 +6,10 @@ import Keplr from "../../assets/Icons/Keplr.svg";
 import coinbase from "../../assets/Icons/coinbase.svg";
 import useWallet from "../../hooks/useWallet";
 
+import { ethers } from 'ethers';
+import { getERC20Balance, getERC20Name } from "../../hooks/ERC20Hooks";
+
+
 const wallets = [
   { name: "MetaMask", icon: <img src={metaMask} alt="dxfszxcv" /> },
   { name: "WalletConnect", icon: <img src={wcConnect} alt="dxfszxcv" /> },
@@ -14,7 +18,28 @@ const wallets = [
 ];
 
 function Wallets({onClose}) {
-  const { selectWallet } = useWallet();
+  const { selectWallet,setWallet,stakingToken,setSigner } = useWallet();
+
+  async function connectWallet() {
+    if (window.ethereum) {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer =await provider.getSigner();
+        setSigner(signer);
+    
+        let eth_accounts=await window.ethereum.request({ method: 'eth_requestAccounts' });
+        console.log(
+          "Ethereum accounts",eth_accounts
+        );
+        const tokenBalanceAvailable=await getERC20Balance(eth_accounts[0],stakingToken)
+        const tokenName=await getERC20Name(stakingToken)
+        setWallet({address:eth_accounts[0],balance:tokenBalanceAvailable,tokenName});
+        selectWallet();
+    } else {
+        console.log("Please install MetaMask!");
+    }
+}
+
+
   return (
     <div className="fixed top-0 bottom-0 right-0 left-0 flex items-center justify-center z-[1000] bg-[#000000e4]">
       <div className="arced arced-border-white border-faint bg-black  ">
@@ -32,7 +57,7 @@ function Wallets({onClose}) {
             {wallets.map((item) => (
               <li
                 tabIndex={1}
-                onClick={selectWallet}
+                onClick={connectWallet}
                 key={item.name}
                 className="px-[24px] py-[12px] font-medium text-faint-60 flex items-center justify-between bg-[#131313] hover:bg-[#13131384] cursor-pointer"
               >

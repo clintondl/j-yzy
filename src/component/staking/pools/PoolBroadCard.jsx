@@ -6,24 +6,31 @@ import { BrandLogo } from "../../../SvgIcons";
 import Button from "../../Button";
 import { useId, useState } from "react";
 import { apvTip } from "../../../utils/tooltipContents";
+import { stake } from "../../../hooks/stakingContractFunctions";
+import { approveTransfer } from "../../../hooks/ERC20Hooks";
 
 function PoolBroadCard({ unstake = false }) {
   const instanceId = useId();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { wallet, stakePool } = useWallet();
+
+  const { wallet, stakePool,signer,stakingToken } = useWallet();
   const [amount, setAmount] = useState();
 
   const pool = poolsData.find((pool) => pool.id === id);
 
-  const handleStake = () => {
+  const handleStake = async() => {
+    console.log("Handling stake")
     if (amount) {
       stakePool({
         ...pool,
         stakedAmount: amount,
       });
-      navigate(`/staking`);
+      const approved=await approveTransfer(stakingToken,amount,"0x2D5070de8F1fcC05A3f032fAb2457d48e775cE40",signer)
+      const staked=await stake(amount,60,signer)
+      console.log(staked)
+      //navigate(`/staking`);
     }
   };
 
@@ -37,7 +44,7 @@ function PoolBroadCard({ unstake = false }) {
           <div className="space-y-[10px] border-r border-faint col-span-2 lg:col-span-1">
             <h4 className="text-xs text-[#8D8D99]">Available to Stake</h4>
             <p className="font-medium text-sm lg:text-[20px]">
-              {wallet.balance} $Tensor
+              {wallet.balance} ${wallet.tokenName}
             </p>
           </div>
           <div className="space-y-[10px]  border-r border-faint col-span-1">
@@ -50,7 +57,7 @@ function PoolBroadCard({ unstake = false }) {
           <div className="space-y-[10px] col-span-2 lg:col-span-1">
             <h4 className="text-xs lg:text-sm text-[#8D8D99]">Staked Amount</h4>
             <p className="font-medium text-sm lg:text-[20px]">
-              {Number.parseFloat(pool.amountStaked).toFixed(2)} $Tensor
+              {Number.parseFloat(pool.amountStaked).toFixed(2)} ${wallet.tokenName}
             </p>
           </div>
         </div>
@@ -62,7 +69,7 @@ function PoolBroadCard({ unstake = false }) {
                 <span className="mr-3">
                   <BrandLogo />
                 </span>
-                Tensor
+                {wallet.tokenName}
               </span>
             </div>
             <div className="text-end grow">

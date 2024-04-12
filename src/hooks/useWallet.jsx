@@ -7,10 +7,14 @@ const WalletContext = createContext();
 const useWallet = () => useContext(WalletContext);
 
 export const WalletProvider = ({ children }) => {
+  const stakingToken="0x6837Ff20052fF1a10e23183b769Dd2Bc81BA6614";
+
   const [isConnected, setIsConnected] = useState(false);
+  const [signer,setSigner]=useState(null)
   const [wallet, setWallet] = useState({
     address: "0x1ddbB18ECf92d02Bb386224F0d160f30305150dD",
     balance: 300000,
+    tokenName:"",
   });
   const [stakedPool, setStakedPool] = useState({});
   const [showSelectWallet, setShowSelectWallet] = useState(false);
@@ -21,10 +25,13 @@ export const WalletProvider = ({ children }) => {
 
   const values = useMemo(
     () => ({
+      signer,setSigner,
       isConnected,
       wallet,
       stakedPool,
+      setWallet,
       stakePool,
+      stakingToken,
       connectWallet: () => {
         setShowSelectWallet(true);
       },

@@ -9,6 +9,8 @@ function ConnectedWallet() {
   const [isOpen, setIsOpen] = useState(false);
   const { disconnectWallet, wallet } = useWallet();
 
+  console.log("Inside open wallet : ",wallet)
+
   return (
     <div className="relative">
       <div
@@ -20,8 +22,8 @@ function ConnectedWallet() {
           <img src={walletImg} alt="wallet" />
         </div>
         <div className="">
-          <p className="text-[#F2F2F2] text-sm font-medium">0xf07...bf79c</p>
-          <p className="text-xs text-faint">10,000 $Tensor</p>
+          <p className="text-[#F2F2F2] text-sm font-medium">{wallet.address}</p>
+          <p className="text-xs text-faint">{wallet.balance} ${wallet.tokenName}</p>
         </div>
         <div>
           <img src={arrowDown} alt="" />
@@ -38,12 +40,12 @@ function ConnectedWallet() {
             </div>
             <div className="">
               <p className="text-[#F2F2F2] text-sm font-medium">
-                0x09750ad...bf79c
+                {wallet.address}
               </p>
               <p className="text-[#ACACAC] whitespace-nowrap">
-                Phantom
+                Ethereum
                 <span className="text-[10px] text-faint ml-2">
-                  10,000 TENSOR
+                  {wallet.balance} {wallet.tokenName}
                 </span>
               </p>
             </div>
