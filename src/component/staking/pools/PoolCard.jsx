@@ -5,11 +5,16 @@ import { apvTip } from "../../../utils/tooltipContents";
 import Button from "../../Button";
 import ToolTipMark from "../../ToolTipMark";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
+import { getERC20Name, stakingToken } from "../../../hooks/ERC20Hooks";
 
 function PoolCard({ pool }) {
   const { isConnected, connectWallet } = useWallet();
   const navigate = useNavigate();
   const instanceId = useId();
+  const [tokenName,setTokenname]=useState("");
+
+  getERC20Name(stakingToken).then((name)=>{setTokenname(name)})
   return (
     <div className="bg-black arced arced-border h-full">
       <div className="bg-[#FFFFFF0F] pool-card h-full">
@@ -25,7 +30,7 @@ function PoolCard({ pool }) {
           <div>
             <h3 className="font-bold text-[28px]">{pool.duration}</h3>
             <p className="text-faint-60 text-sm">
-              Stake $Tensor to Earn rewards daily.
+              Stake ${tokenName} to Earn rewards daily.
             </p>
           </div>
           <div className="flex gap-[36px] py-[14px]">
@@ -39,7 +44,7 @@ function PoolCard({ pool }) {
             <div className="row-span-3 space-y-[16px] grow">
               <h4 className="text-xs text-[#8D8D99]">Total Staked</h4>
               <p className="font-medium text-[22px]">
-                {Number.parseFloat(pool.amountStaked).toFixed(2)} $Tensor
+                {Number.parseFloat(pool.amountStaked).toFixed(2)} ${tokenName}
               </p>
             </div>
           </div>

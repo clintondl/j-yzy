@@ -64,6 +64,19 @@ export const ABI=[
         "type": "event"
     },
     {
+        "inputs": [],
+        "name": "activeStakerCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -99,6 +112,19 @@ export const ABI=[
         "name": "collectRewards",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "historicStakerCount",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -253,6 +279,35 @@ export const ABI=[
                 "internalType": "uint256",
                 "name": "stakedAt",
                 "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "rewardPercentage",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "stakersRecord",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "amountStaked",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "rewardsEarned",
+                "type": "uint256"
             }
         ],
         "stateMutability": "view",
@@ -306,6 +361,24 @@ export const ABI=[
             }
         ],
         "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "uint256",
+                "name": "duration",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "rewardPercentage",
+                "type": "uint256"
+            }
+        ],
+        "name": "updateRewardRate",
         "outputs": [],
         "stateMutability": "nonpayable",
         "type": "function"

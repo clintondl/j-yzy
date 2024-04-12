@@ -1,14 +1,26 @@
 import { useMemo } from "react";
 import ToolTipMark from "../ToolTipMark";
 import { tvlTip } from "../../utils/tooltipContents";
+import { useState } from "react";
+import { getActiveStakerCount, getRewardsEarned, stakedByUser, totalStaked } from "../../hooks/stakingContractFunctions";
+import useWallet from "../../hooks/useWallet";
+import { getERC20Name, stakingToken } from "../../hooks/ERC20Hooks";
 
 function Summary() {
+  const {wallet}=useWallet()
+  const [tvl,setTvl]=useState(0)
+  const [staked,setStaked]=useState(0)
+  const [rewards,setRewards]=useState(0)
+  const [stakers,setStakers]=useState(0)
+  const [tokenName,setTokenName]=useState("")
+
+  getERC20Name(stakingToken).then((name)=>setTokenName(name))
   const data = useMemo(
     () => [
       {
         id: 1,
         title: "TVL",
-        value: `$0.00`,
+        value: tvl,
         tooltip: {
           id: "tvl",
           content: tvlTip,
@@ -17,21 +29,26 @@ function Summary() {
       {
         id: 2,
         title: "Total Staked",
-        value: `0.00 $Tensor `,
+        value: `${staked} $${tokenName} `,
       },
       {
         id: 3,
         title: "Total Rewards Earned",
-        value: `0.00 $Tensor`,
+        value: `${rewards} $${tokenName}`,
       },
       {
         id: 4,
         title: "No of Stakers",
-        value: `0`,
+        value: stakers,
       },
     ],
-    []
+    [tvl, staked, rewards, stakers]
   );
+
+  totalStaked().then((amount)=>setTvl(amount))
+  stakedByUser(wallet.address).then((amount)=>setStaked(amount))
+  getActiveStakerCount().then((stakers)=>setStakers(stakers))
+  getRewardsEarned(wallet.address).then((reward)=>setRewards(reward))
 
   return (
     <section className="py-[27px]">
