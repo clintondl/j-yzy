@@ -7,9 +7,13 @@ import useWallet from "../../hooks/useWallet.jsx";
 
 function ConnectedWallet() {
   const [isOpen, setIsOpen] = useState(false);
-  const { disconnectWallet, wallet } = useWallet();
+  const { disconnectWallet, wallet,setWallet } = useWallet();
 
-  console.log("Inside open wallet : ",wallet)
+  async function handleDisconnect() {
+    await disconnectWallet();
+    localStorage.removeItem("wallet")
+    setWallet({address:"",balance:0,tokenName:""})
+  }
 
   return (
     <div className="relative">
@@ -60,7 +64,7 @@ function ConnectedWallet() {
             </div>
           </div>
           <div className="border-t border-[#F2F4F740] p-[32px] mt-[32px]">
-            <Button onClick={disconnectWallet} value="Disconnect Wallet" />
+            <Button onClick={handleDisconnect} value="Disconnect Wallet" />
           </div>
         </div>
       )}
