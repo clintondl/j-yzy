@@ -33,7 +33,8 @@ function PoolBroadCard({ unstake = false }) {
         stakedAmount: amount,
       });
       const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
-      const staked=await stake(amount,60,signer)
+      const durationInSections=pool.duration.split(" ")[0]*24*60*60;
+      const staked=await stake(amount,durationInSections,signer)
       console.log(staked)
       //navigate(`/staking`);
     }
