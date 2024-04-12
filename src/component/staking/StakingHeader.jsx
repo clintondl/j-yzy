@@ -26,11 +26,21 @@ function StakingHeader() {
   };
   const { hash } = useLocation();
 
+  const {wallet,setWallet,selectWallet}=useWallet()
   useEffect(() => {
+    console.log("Checking wallet in browser storage")
+    const wallet = JSON.parse(localStorage.getItem('wallet'));
+    if (wallet) {
+      console.log("wallet found ...",wallet)
+      setWallet(wallet);
+      selectWallet();
+    }
+
     window.addEventListener("scroll", changeNavBg);
     return () => {
       window.removeEventListener("scroll", changeNavBg);
     };
+    
   }, []);
 
   return (

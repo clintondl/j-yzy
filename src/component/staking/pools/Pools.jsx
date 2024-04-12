@@ -5,6 +5,7 @@ import PoolCardStaked from "./PoolCardStaked";
 
 function Pools() {
   const { stakedPool } = useWallet();
+  
   return (
     <section className="py-[27px]">
       <div className="container">

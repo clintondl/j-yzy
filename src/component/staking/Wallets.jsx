@@ -33,22 +33,16 @@ function Wallets({onClose}) {
         );
         const tokenBalanceAvailable=await getERC20Balance(eth_accounts[0],stakingToken)
         const tokenName=await getERC20Name(stakingToken)
+        localStorage.setItem('wallet', JSON.stringify({address:eth_accounts[0],balance:tokenBalanceAvailable,tokenName}));
+        console.log("wallet set in localStorage", JSON.parse(localStorage.getItem('wallet')));
         setWallet({address:eth_accounts[0],balance:tokenBalanceAvailable,tokenName});
         selectWallet();
-        localStorage.setItem('wallet', JSON.stringify(wallet));
+        
 
     } else {
         console.log("Please install MetaMask!");
     }
   }
-
-  useEffect(() => {
-    const wallet = JSON.parse(localStorage.getItem('wallet'));
-    if (wallet) {
-      setWallet(wallet);
-      selectWallet();
-    }
-  }, []);
 
 
   return (
