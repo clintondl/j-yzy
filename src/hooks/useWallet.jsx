@@ -7,8 +7,6 @@ const WalletContext = createContext();
 const useWallet = () => useContext(WalletContext);
 
 export const WalletProvider = ({ children }) => {
-  const stakingToken="0x6837Ff20052fF1a10e23183b769Dd2Bc81BA6614";
-
   const [isConnected, setIsConnected] = useState(false);
   const [signer,setSigner]=useState(null)
   const [wallet, setWallet] = useState({
@@ -20,6 +18,7 @@ export const WalletProvider = ({ children }) => {
   const [showSelectWallet, setShowSelectWallet] = useState(false);
 
   const stakePool = (stake) => {
+    console.log("Adding pool to staked",stake);
     setStakedPool(stake);
   };
 
@@ -31,7 +30,6 @@ export const WalletProvider = ({ children }) => {
       stakedPool,
       setWallet,
       stakePool,
-      stakingToken,
       connectWallet: () => {
         setShowSelectWallet(true);
       },

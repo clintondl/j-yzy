@@ -6,17 +6,22 @@ import { BrandLogo } from "../../../SvgIcons";
 import Button from "../../Button";
 import { useId, useState } from "react";
 import { apvTip } from "../../../utils/tooltipContents";
-import { stake } from "../../../hooks/stakingContractFunctions";
-import { approveTransfer } from "../../../hooks/ERC20Hooks";
+import { checkstaker, collectRewards, contractAddress, stake } from "../../../hooks/stakingContractFunctions";
+import { approveTransfer, stakingToken } from "../../../hooks/ERC20Hooks";
 
 function PoolBroadCard({ unstake = false }) {
   const instanceId = useId();
   const { id } = useParams();
   const navigate = useNavigate();
+  const [staked,setStaked]=useState(false)
 
 
-  const { wallet, stakePool,signer,stakingToken } = useWallet();
+  const { wallet, stakePool,signer } = useWallet();
   const [amount, setAmount] = useState();
+
+  checkstaker(wallet.address,signer).then((data)=> {
+    setStaked(data)
+  })
 
   const pool = poolsData.find((pool) => pool.id === id);
 
@@ -27,7 +32,7 @@ function PoolBroadCard({ unstake = false }) {
         ...pool,
         stakedAmount: amount,
       });
-      const approved=await approveTransfer(stakingToken,amount,"0x2D5070de8F1fcC05A3f032fAb2457d48e775cE40",signer)
+      const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
       const staked=await stake(amount,60,signer)
       console.log(staked)
       //navigate(`/staking`);
@@ -114,8 +119,8 @@ function PoolBroadCard({ unstake = false }) {
         </div>
         <div className="mt-[32px]">
           <Button
-            onClick={handleStake}
-            value={unstake ? "Unstake" : "Stake now"}
+            onClick={()=>staked?collectRewards(signer):handleStake()}
+            value={staked ? "Unstake" : "Stake now"}
           />
         </div>
         <div className="h-[1px] bg-[#FFFFFF26] my-[32px] " />

@@ -28,6 +28,8 @@ const provider=new ethers.BrowserProvider(window.ethereum);
 //   }
 // ];
 
+export const stakingToken="0x6837Ff20052fF1a10e23183b769Dd2Bc81BA6614";
+
 export async function getERC20Balance(accountAddress,tokenAddress){
     // Create a contract instance
     const contract = new ethers.Contract(tokenAddress, minABI, provider);
@@ -52,8 +54,10 @@ export async function approveTransfer(tokenAddress,amount,spender,signer){
     console.log(`Approving ${amount}`)
     const tokenContract = new ethers.Contract(tokenAddress, minABI, signer);
     const decimals=await tokenContract.decimals()
+    console.log("Token decimals : ",decimals)
 
     const numberOfTokens = ethers.parseUnits(amount.toString(), decimals);
+    console.log("No of tokens : ",numberOfTokens.toString());
     const tx = await tokenContract.approve(spender, numberOfTokens);
     await tx.wait();
     console.log("Approved")

@@ -7,7 +7,8 @@ import coinbase from "../../assets/Icons/coinbase.svg";
 import useWallet from "../../hooks/useWallet";
 
 import { ethers } from 'ethers';
-import { getERC20Balance, getERC20Name } from "../../hooks/ERC20Hooks";
+import { getERC20Balance, getERC20Name, stakingToken } from "../../hooks/ERC20Hooks";
+import { useEffect } from "react";
 
 
 const wallets = [
@@ -18,7 +19,7 @@ const wallets = [
 ];
 
 function Wallets({onClose}) {
-  const { selectWallet,setWallet,stakingToken,setSigner } = useWallet();
+  const { selectWallet,setWallet,setSigner } = useWallet();
 
   async function connectWallet() {
     if (window.ethereum) {
@@ -34,10 +35,20 @@ function Wallets({onClose}) {
         const tokenName=await getERC20Name(stakingToken)
         setWallet({address:eth_accounts[0],balance:tokenBalanceAvailable,tokenName});
         selectWallet();
+        localStorage.setItem('wallet', JSON.stringify(wallet));
+
     } else {
         console.log("Please install MetaMask!");
     }
-}
+  }
+
+  useEffect(() => {
+    const wallet = JSON.parse(localStorage.getItem('wallet'));
+    if (wallet) {
+      setWallet(wallet);
+      selectWallet();
+    }
+  }, []);
 
 
   return (

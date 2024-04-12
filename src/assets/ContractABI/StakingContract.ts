@@ -10,6 +10,16 @@ export const ABI=[
                 "internalType": "address",
                 "name": "reward_token",
                 "type": "address"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_rewardTokenDecimals",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "_stakeTokenDecimals",
+                "type": "uint256"
             }
         ],
         "stateMutability": "nonpayable",
@@ -92,6 +102,26 @@ export const ABI=[
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "lockedRewards",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "removeRewardPool",
+        "outputs": [],
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "uint256",
@@ -102,6 +132,19 @@ export const ABI=[
         "name": "removeRewardRate",
         "outputs": [],
         "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "name": "rewardPool",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
         "type": "function"
     },
     {
@@ -174,6 +217,19 @@ export const ABI=[
         "type": "function"
     },
     {
+        "inputs": [],
+        "name": "stakeTillDate",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
         "inputs": [
             {
                 "internalType": "address",
@@ -239,6 +295,19 @@ export const ABI=[
             }
         ],
         "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "_owner",
+                "type": "address"
+            }
+        ],
+        "name": "transferOwnership",
+        "outputs": [],
+        "stateMutability": "nonpayable",
         "type": "function"
     }
 ]

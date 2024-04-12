@@ -3,10 +3,12 @@ import { useNavigate } from "react-router-dom";
 import ToolTipMark from "../../ToolTipMark";
 import { apvTip } from "../../../utils/tooltipContents";
 import { useId } from "react";
+import useWallet from "../../../hooks/useWallet";
 
 function PoolCardStaked({ pool }) {
   const navigate = useNavigate();
   const instanceId = useId();
+  const {wallet}=useWallet()
 
   return (
     <div className="bg-black arced arced-border h-full">
@@ -38,7 +40,7 @@ function PoolCardStaked({ pool }) {
             <div className="row-span-3 space-y-1 grow">
               <h4 className="text-xs text-[#8D8D99]">Total Staked</h4>
               <p className="font-medium text-lg">
-                {Number.parseFloat(pool.amountStaked).toFixed(2)} $Tensor
+                {Number.parseFloat(pool.amountStaked).toFixed(2)} ${wallet.tokenName}
               </p>
             </div>
           </div>
