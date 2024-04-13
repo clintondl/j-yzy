@@ -44,7 +44,7 @@ async function addCain(chainId){
         chainId: chainId, // Sepolia network
         chainName: 'Sepolia',
         nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
-        rpcUrls: ['https://eth-sepolia.g.alchemy.com/v2/demo'],
+        rpcUrls: ['https://ethereum-sepolia-rpc.publicnode.com','https://endpoints.omniatech.io/v1/eth/sepolia/public'],
       }],
     });
     console.log("Chain added")
