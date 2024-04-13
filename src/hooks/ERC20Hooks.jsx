@@ -51,7 +51,7 @@ export async function getERC20Name(tokenAddress){
 }
 
 export async function approveTransfer(tokenAddress,amount,spender,signer){
-    console.log(`Approving ${amount}`)
+    console.log(`Approving ${amount} with ${signer}`)
     const tokenContract = new ethers.Contract(tokenAddress, minABI, signer);
     const decimals=await tokenContract.decimals()
     console.log("Token decimals : ",decimals)

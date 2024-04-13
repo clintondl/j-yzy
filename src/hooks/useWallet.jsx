@@ -10,7 +10,7 @@ export const WalletProvider = ({ children }) => {
   const [isConnected, setIsConnected] = useState(false);
   const [signer,setSigner]=useState(null)
   const [wallet, setWallet] = useState({
-    address: "0x1ddbB18ECf92d02Bb386224F0d160f30305150dD",
+    address: null,
     balance: 300000,
     tokenName:"",
   });

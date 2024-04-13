@@ -8,6 +8,7 @@ import { useId, useState } from "react";
 import { apvTip } from "../../../utils/tooltipContents";
 import { checkstaker, collectRewards, contractAddress, stake } from "../../../hooks/stakingContractFunctions";
 import { approveTransfer, stakingToken } from "../../../hooks/ERC20Hooks";
+import { ethers } from 'ethers';
 
 function PoolBroadCard({ unstake = false }) {
   const instanceId = useId();
@@ -19,24 +20,34 @@ function PoolBroadCard({ unstake = false }) {
   const { wallet, stakePool,signer } = useWallet();
   const [amount, setAmount] = useState();
 
-  checkstaker(wallet.address,signer).then((data)=> {
-    setStaked(data)
-  })
+  if(signer){
+    checkstaker(wallet.address,signer).then((data)=> {
+      setStaked(data)
+    })
+  }
 
   const pool = poolsData.find((pool) => pool.id === id);
 
   const handleStake = async() => {
     console.log("Handling stake")
     if (amount) {
-      stakePool({
-        ...pool,
-        stakedAmount: amount,
-      });
-      const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
-      const durationInSections=pool.duration.split(" ")[0]*24*60*60;
-      const staked=await stake(amount,durationInSections,signer)
-      console.log(staked)
-      //navigate(`/staking`);
+      try{
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const sig=await provider.getSigner()
+        const approved=await approveTransfer(stakingToken,amount,contractAddress,sig)
+        const durationInSections=pool.duration.split(" ")[0]*24*60*60;
+        const staked=await stake(amount,30,sig)
+        console.log(staked)
+        stakePool({
+          ...pool,
+          stakedAmount: amount,
+        });
+        navigate(`/staking`);
+      }catch(err){
+        console.log("Error in staking",err)
+      }
+    }else{
+      console.log("No amount")
     }
   };
 

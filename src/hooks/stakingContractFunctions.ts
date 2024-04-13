@@ -11,6 +11,7 @@ export async function stake(amount: number,duration: number,signer:any) {
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
         console.log("Staking amount ....",amount)
         const recipet=await contract.stake(amount, duration);
+        recipet.wait()
         console.log("Staking complete ....")
         return recipet
     }catch(err){
@@ -19,7 +20,7 @@ export async function stake(amount: number,duration: number,signer:any) {
 }
 
 export async function checkstaker(address:string,signer:ethers.Signer) {
-    console.log("Checking staker ....")
+    console.log("Checking staker ....",signer)
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
     const staker=await contract.stakers(address)
 

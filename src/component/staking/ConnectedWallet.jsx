@@ -7,12 +7,13 @@ import useWallet from "../../hooks/useWallet.jsx";
 
 function ConnectedWallet() {
   const [isOpen, setIsOpen] = useState(false);
-  const { disconnectWallet, wallet,setWallet } = useWallet();
+  const { disconnectWallet, wallet,setWallet,setSigner } = useWallet();
 
   async function handleDisconnect() {
     await disconnectWallet();
     localStorage.removeItem("wallet")
     setWallet({address:"",balance:0,tokenName:""})
+    setSigner(null)
   }
 
   return (

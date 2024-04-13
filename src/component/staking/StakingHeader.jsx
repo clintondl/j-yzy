@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { NavHashLink as HashLink } from "react-router-hash-link";
 import useWallet from "../../hooks/useWallet";
 import ConnectedWallet from "./ConnectedWallet";
+import { ethers } from "ethers";
 
 const navLinks = [
   { title: "home", href: "#" },
@@ -19,14 +20,13 @@ function StakingHeader() {
   const toggleNavbar = () => setIsOpen((prev) => !prev);
   const [floating, setFloating] = useState(false);
 
-  const { isConnected, connectWallet } = useWallet();
+  const { isConnected, connectWallet,setWallet,selectWallet, setSigner,signer } = useWallet();
 
   const changeNavBg = () => {
     window.scrollY >= 200 ? setFloating(true) : setFloating(false);
   };
   const { hash } = useLocation();
 
-  const {wallet,setWallet,selectWallet}=useWallet()
   useEffect(() => {
     console.log("Checking wallet in browser storage")
     const wallet = JSON.parse(localStorage.getItem('wallet'));
@@ -34,6 +34,12 @@ function StakingHeader() {
       console.log("wallet found ...",wallet)
       setWallet(wallet);
       selectWallet();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      (provider.getSigner(wallet.address)).then((sign)=>{
+        console.log("singer recreated : ",sign)
+        setSigner(sign);
+      });
+
     }
 
     window.addEventListener("scroll", changeNavBg);
@@ -42,6 +48,10 @@ function StakingHeader() {
     };
     
   }, []);
+
+  useEffect(() => {
+    console.log("updated signer", signer);
+  },[signer])
 
   return (
     <header className="w-screen bg-[#050505]">

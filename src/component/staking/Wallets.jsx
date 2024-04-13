@@ -13,30 +13,86 @@ import { useEffect } from "react";
 
 const wallets = [
   { name: "MetaMask", icon: <img src={metaMask} alt="dxfszxcv" /> },
-  { name: "WalletConnect", icon: <img src={wcConnect} alt="dxfszxcv" /> },
-  { name: "CoinBase Wallet", icon: <img src={coinbase} alt="dxfszxcv" /> },
-  { name: "Keplr", icon: <img src={Keplr} alt="dxfszxcv" /> },
+  // { name: "WalletConnect", icon: <img src={wcConnect} alt="dxfszxcv" /> },
+  // { name: "CoinBase Wallet", icon: <img src={coinbase} alt="dxfszxcv" /> },
+  // { name: "Keplr", icon: <img src={Keplr} alt="dxfszxcv" /> },
 ];
+
+const targetNetworkId = '0xaa36a7';
+
+// checks if current chain matches with the one we need
+// and returns true/false
+const checkNetwork = async () => {
+  if (window.ethereum) {
+    const currentChainId = await window.ethereum.request({
+      method: 'eth_chainId',
+    });
+    console.log("Cureent network id ",currentChainId)
+    // return true if network id is the same
+    if (currentChainId == targetNetworkId) return true;
+    // return false is network id is different
+    return false;
+  }
+}
+
+async function addCain(chainId){
+  console.log("Adding chain", chainId)
+  try {
+    await window.ethereum.request({
+      method: 'wallet_addEthereumChain',
+      params: [{
+        chainId: chainId, // Sepolia network
+        chainName: 'Sepolia',
+        nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+        rpcUrls: ['https://eth-sepolia.g.alchemy.com/v2/demo'],
+      }],
+    });
+    console.log("Chain added")
+    return true
+  } catch (addError) {
+    console.error("Erro in adding chain",addError);
+    return false
+  }
+}
 
 function Wallets({onClose}) {
   const { selectWallet,setWallet,setSigner } = useWallet();
 
   async function connectWallet() {
     if (window.ethereum) {
-      const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer =await provider.getSigner();
-        setSigner(signer);
-    
+        selectWallet();
+        
         let eth_accounts=await window.ethereum.request({ method: 'eth_requestAccounts' });
         console.log(
           "Ethereum accounts",eth_accounts
         );
+    
+        try{
+          const correctNetwork=await checkNetwork()
+          if(!correctNetwork){
+            try{
+              await window.ethereum.request({
+                method: 'wallet_switchEthereumChain',
+                params: [{ chainId: targetNetworkId }], // Sepolia network
+              });
+            }catch(e){
+            
+              await addCain(targetNetworkId)
+            }
+          }
+        }catch(e){
+          console.log("Error in switching network",e);
+        }
+
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer =await provider.getSigner();
+        console.log("signer", signer);
+        setSigner(signer);
         const tokenBalanceAvailable=await getERC20Balance(eth_accounts[0],stakingToken)
         const tokenName=await getERC20Name(stakingToken)
         localStorage.setItem('wallet', JSON.stringify({address:eth_accounts[0],balance:tokenBalanceAvailable,tokenName}));
         console.log("wallet set in localStorage", JSON.parse(localStorage.getItem('wallet')));
         setWallet({address:eth_accounts[0],balance:tokenBalanceAvailable,tokenName});
-        selectWallet();
         
 
     } else {

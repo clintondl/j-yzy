@@ -3,6 +3,7 @@ import Summary from "../component/staking/Summary";
 import Pools from "../component/staking/pools/Pools";
 import Rewards from "../component/staking/rewards/Rewards";
 import useWallet from "../hooks/useWallet";
+import {ethers} from "ethers";
 
 function Staking() {
   const {wallet,setWallet,selectWallet}=useWallet()
@@ -13,6 +14,11 @@ function Staking() {
       console.log("wallet found ...",wallet)
       setWallet(wallet);
       selectWallet();
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      provider.getSigner(wallet.address).then((signer)=>{
+        console.log("recreated signer", signer)
+        setSigner(signer);
+      });
     }
   }, []);
   return (
