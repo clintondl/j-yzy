@@ -39,7 +39,7 @@ export const WalletProvider = ({ children }) => {
       },
       disconnectWallet: () => setIsConnected(false),
     }),
-    [isConnected, wallet, stakedPool]
+    [isConnected, wallet, stakedPool,signer]
   );
 
   return (

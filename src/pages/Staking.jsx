@@ -6,7 +6,7 @@ import useWallet from "../hooks/useWallet";
 import {ethers} from "ethers";
 
 function Staking() {
-  const {wallet,setWallet,selectWallet}=useWallet()
+  const {wallet,setWallet,selectWallet,setSigner }=useWallet()
   useEffect(() => {
     console.log("Checking wallet in browser storage")
     const wallet = JSON.parse(localStorage.getItem('wallet'));

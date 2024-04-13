@@ -15,6 +15,7 @@ function PoolBroadCard({ unstake = false }) {
   const { id } = useParams();
   const navigate = useNavigate();
   const [staked,setStaked]=useState(false)
+  const [sig,setSig]=useState(null)
 
 
   const { wallet, stakePool,signer } = useWallet();
@@ -28,20 +29,24 @@ function PoolBroadCard({ unstake = false }) {
 
   const pool = poolsData.find((pool) => pool.id === id);
 
+  const handleCollectReward=async()=>{
+    collectRewards(signer)
+    setStaked(false)
+  }
+
   const handleStake = async() => {
     console.log("Handling stake")
     if (amount) {
       try{
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const sig=await provider.getSigner()
-        const approved=await approveTransfer(stakingToken,amount,contractAddress,sig)
+        const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
         const durationInSections=pool.duration.split(" ")[0]*24*60*60;
-        const staked=await stake(amount,30,sig)
+        const staked=await stake(amount,30,signer)
         console.log(staked)
         stakePool({
           ...pool,
           stakedAmount: amount,
         });
+        setStaked(true)
         navigate(`/staking`);
       }catch(err){
         console.log("Error in staking",err)
@@ -131,7 +136,7 @@ function PoolBroadCard({ unstake = false }) {
         </div>
         <div className="mt-[32px]">
           <Button
-            onClick={()=>staked?collectRewards(signer):handleStake()}
+            onClick={()=>staked?handleCollectReward():handleStake()}
             value={staked ? "Unstake" : "Stake now"}
           />
         </div>
