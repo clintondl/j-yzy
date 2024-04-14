@@ -6,7 +6,7 @@ import { BrandLogo } from "../../../SvgIcons";
 import Button from "../../Button";
 import { useId, useState } from "react";
 import { apvTip } from "../../../utils/tooltipContents";
-import { checkstaker, collectRewards, contractAddress, stake } from "../../../hooks/stakingContractFunctions";
+import { checkstaker, collectRewards, contractAddress, stake, stakedByUser } from "../../../hooks/stakingContractFunctions";
 import { approveTransfer, stakingToken } from "../../../hooks/ERC20Hooks";
 import * as uuid from "uuid";
 import { addStake, deleteAStake } from "../../../database/userActions";
@@ -15,13 +15,18 @@ import { useEffect } from "react";
 
 
 function PoolBroadCard({ unstake = false }) {
+  const { wallet, stakePool,signer } = useWallet();
+  
+  const [amount, setAmount] = useState();
   const instanceId = useId();
   const { id } = useParams();
   const navigate = useNavigate();
-  const [staked,setStaked]=useState(false)
   const [loading,setLoading]=useState(false)
   const [fee,setFee]=useState(0)
   const [gasPrice,setGasPrice]=useState(11111);
+  const [staked,setStaked]=useState(200)
+
+
 
   
 
@@ -29,6 +34,7 @@ function PoolBroadCard({ unstake = false }) {
   
   useEffect(()=>{
     provider.getFeeData().then((price)=>setFee((ethers.formatUnits(price["gasPrice"].toString(),"ether"))))
+    stakedByUser(wallet.address).then((amount)=>setStaked(amount))
   },[])
   useEffect(()=>{
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
@@ -36,8 +42,6 @@ function PoolBroadCard({ unstake = false }) {
     .then(data => setGasPrice((data.ethereum["usd"]*fee).toPrecision()));
   },[fee])
 
-  const { wallet, stakePool,signer } = useWallet();
-  const [amount, setAmount] = useState();
 
   const pool = poolsData.find((pool) => pool.id === id);
 
@@ -49,9 +53,9 @@ function PoolBroadCard({ unstake = false }) {
         const uid=uuid.v4()
         const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
         const durationInSections=pool.duration.split(" ")[0]*24*60*60;
-        const staked=await stake(uid,amount,30,signer)
-
         const api=await addStake(wallet.address,uid)
+        const staked=await stake(uid,amount,60,signer)
+
         if(!api.ok){
           const apiResponse=await api.json()
           console.log("error in api",apiResponse)
@@ -64,7 +68,8 @@ function PoolBroadCard({ unstake = false }) {
         navigate(`/staking`);
       }catch(err){
         setLoading(false)
-        console.log("Error in staking",err)
+        await deleteAStake(wallet.address,uid)
+        console.log("Error in staking, deleteding stake from db",err)
       }
     }else{
       console.log("No amount")
@@ -94,7 +99,7 @@ function PoolBroadCard({ unstake = false }) {
           <div className="space-y-[10px] col-span-2 lg:col-span-1">
             <h4 className="text-xs lg:text-sm text-[#8D8D99]">Staked Amount</h4>
             <p className="font-medium text-sm lg:text-[20px]">
-              {Number.parseFloat(pool.amountStaked).toFixed(2)} ${wallet.tokenName}
+              {staked} ${wallet.tokenName}
             </p>
           </div>
         </div>
@@ -141,7 +146,7 @@ function PoolBroadCard({ unstake = false }) {
               className="arced arced-border-white bg-[#0f0f0f] border-[#9999993f]"
             >
               <button
-                onClick={() => setAmount(wallet.balance * item.value)}
+                onClick={() => setAmount((wallet.balance * item.value).toFixed(0))}
                 className="h-[36px] lg:h-[44px] px-[9px] lg:px-[27px] flex items-center justify-center bg-transparent border border-[#9999993f] text-faint-50 text-sm lg:text-base font-medium focus:outline-none hover:bg-gray-100 hover:text-gray-900 focus:ring-4 focus:ring-gray-100"
               >
                 {item.name}
@@ -152,8 +157,8 @@ function PoolBroadCard({ unstake = false }) {
         <div className="mt-[32px]">
           <Button
             disabled={loading}
-            onClick={()=>staked?handleCollectReward():handleStake()}
-            value={staked ? "Unstake" : "Stake now"}
+            onClick={()=>handleStake()}
+            value={"Stake now"}
           />
         </div>
         <div className="h-[1px] bg-[#FFFFFF26] my-[32px] " />

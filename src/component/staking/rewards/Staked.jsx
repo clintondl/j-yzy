@@ -24,12 +24,7 @@ function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
     let minutes = Math.floor(seconds / 60);
     seconds  -= minutes*60;
 
-    return {
-        days: days,
-        hours: hours,
-        minutes: minutes,
-        seconds: seconds
-    };
+    return `${days}: days,${hours}: hours,${minutes}: minutes`;
 }
 // deleting stake from db 0x7e7ccfb39b9d31d62cd9e2e066e0aaea02543cb4 34c8fa2e-78d2-466e-8f3b-e6121166294a
   const handleCollectReward=async()=>{
@@ -47,7 +42,8 @@ function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
     }
   }
 
-  const timeTillUnlock=Math.floor(new Date().getTime() / 1000)-stakedAt+stakeDuration
+  const timeTillUnlock=Math.floor(new Date().getTime() / 1000)-(stakedAt+stakeDuration)
+  console.log(Math.floor(new Date().getTime() / 1000),stakedAt+stakeDuration)
   const unlockDate=new Date(stakedAt*1000+stakeDuration*1000);
   return (
     <div className="min-h-[213px] lg:min-h-[311px] px-[16px] py-[32px] lg:px-[32px]">
@@ -80,7 +76,7 @@ function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
                 onClick={handleCollectReward}
                 id
                 />
-              :JSON.stringify(convertSeconds(Math.floor(new Date().getTime() / 1000)-stakedAt))}</span>
+              :(convertSeconds(Math.floor(new Date().getTime() / 1000)-stakedAt))}</span>
             </p>
             <p className="text-xs text-faint-60">{unlockDate.toDateString()} at {unlockDate.getHours()}</p>
           </div>
