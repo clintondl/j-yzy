@@ -1,17 +1,17 @@
 "use client";
-import poolsData from "../../../utils/poolsData";
-import { useParams, useNavigate } from "react-router-dom";
-import ToolTipMark from "../../ToolTipMark";
-import useWallet from "../../../hooks/useWallet";
-import { BrandLogo } from "../../../SvgIcons";
-import Button from "../../Button";
+import poolsData from "@/utils/poolsData";
+import ToolTipMark from "@/components/ToolTipMark";
+import useWallet from "@/hooks/useWallet";
+import Button from "@/components/Button";
 import { useId, useState } from "react";
-import { apvTip } from "../../../utils/tooltipContents";
+import { apvTip } from "@/utils/tooltipContents";
+import { useParams, useRouter } from "next/navigation";
+import { BrandLogo } from "@/assets/SvgIcons";
 
 function PoolBroadCard({ unstake = false }) {
   const instanceId = useId();
   const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
 
   const { wallet, stakePool } = useWallet();
   const [amount, setAmount] = useState();
@@ -24,7 +24,7 @@ function PoolBroadCard({ unstake = false }) {
         ...pool,
         stakedAmount: amount,
       });
-      navigate(`/staking`);
+      router.push(`/staking`);
     }
   };
 

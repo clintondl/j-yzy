@@ -41,7 +41,7 @@ function MenuIcon({ height, width }) {
   );
 }
 
-function BrandLogo({ height, width }:any) {
+function BrandLogo({ height, width }) {
   return (
     <svg
       width={width ?? "32"}

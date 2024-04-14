@@ -1,7 +1,7 @@
 "use client";
 import { useId } from "react";
-import useWallet from "../../../hooks/useWallet";
-import { apvTip } from "../../../utils/tooltipContents";
+import useWallet from "@/hooks/useWallet";
+import { apvTip } from "@/utils/tooltipContents";
 import Button from "../../Button";
 import ToolTipMark from "../../ToolTipMark";
 import { useRouter } from "next/navigation";

@@ -1,21 +1,22 @@
-import { useParams, useNavigate } from "react-router-dom";
-import { apvTip } from "../../../utils/tooltipContents";
-import ToolTipMark from "../../ToolTipMark";
+"use client";
+import { useParams } from "next/navigation";
+import { apvTip } from "@/utils/tooltipContents";
 import { useId } from "react";
+import { useRouter } from "next/navigation";
+import ToolTipMark from "@/components/ToolTipMark";
 
 function PoolTabItem({ pool }) {
   const instanceId = useId();
   const { id } = useParams();
-  const navigate = useNavigate();
+  const router = useRouter();
   const isActive = id === pool.id;
+
   return (
     <div
       className="bg-black arced arced-border cursor-pointer"
       tabIndex={1}
       onClick={() =>
-        navigate(`/staking/${pool.id}`, {
-          replace: true,
-        })
+        router.replace(`/staking/${pool.id}`)
       }
     >
       <div

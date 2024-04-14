@@ -12,7 +12,7 @@ function PoolCardStaked({ pool }) {
     <div className="bg-black arced arced-border h-full">
       <div
         tabIndex={1}
-        onClick={() => router.push(`/unstake/${pool.id}`)}
+        onClick={() => router.push(`/staking/${pool.id}/unstake`)}
         className="bg-[#FFFFFF0F] pool-card h-full "
       >
         <div className="flex justify-end p-[8px]">

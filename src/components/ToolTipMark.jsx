@@ -1,10 +1,15 @@
+"use client";
 import { Tooltip } from "react-tooltip";
 import { createPortal } from "react-dom";
-
-const tooltipContainer = document.getElementById("tooltip-container");
+import { useEffect, useState } from "react";
 
 function ToolTipMark({ content, id }) {
-  console.log({ content, id });
+  const [domReady, setDomReady] = useState(false);
+
+  useEffect(() => {
+    setDomReady(true);
+  }, []);
+
   return (
     <>
       <span
@@ -13,15 +18,16 @@ function ToolTipMark({ content, id }) {
       >
         ?
       </span>
-      {createPortal(
-        <Tooltip
-          opacity={1}
-          className="w-full max-w-[350px] z-[2000] bg-black"
-          id={id}
-          content={content}
-        />,
-        tooltipContainer
-      )}
+      {domReady &&
+        createPortal(
+          <Tooltip
+            opacity={1}
+            className="w-full max-w-[350px] z-[2000] bg-black"
+            id={id}
+            content={content}
+          />,
+          document.getElementById("tooltip-container")
+        )}
     </>
   );
 }

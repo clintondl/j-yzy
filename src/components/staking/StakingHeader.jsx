@@ -1,11 +1,14 @@
 "use client";
-import { BrandLogo, CloseIcon, MenuIcon, WhitePaperIcon } from "../../SvgIcons";
+import {
+  BrandLogo,
+  CloseIcon,
+  MenuIcon,
+  WhitePaperIcon,
+} from "@/assets/SvgIcons";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
-import { NavHashLink as HashLink } from "react-router-hash-link";
 import useWallet from "../../hooks/useWallet";
 import ConnectedWallet from "./ConnectedWallet";
+import Link from "next/link";
 
 const navLinks = [
   { title: "home", href: "#" },
@@ -25,7 +28,6 @@ function StakingHeader() {
   const changeNavBg = () => {
     window.scrollY >= 200 ? setFloating(true) : setFloating(false);
   };
-  const { hash } = useLocation();
 
   useEffect(() => {
     window.addEventListener("scroll", changeNavBg);
@@ -49,7 +51,7 @@ function StakingHeader() {
           ].join(" ")}
         >
           <div className="flex items-center justify-between h-full">
-            <Link to="/">
+            <Link href="/">
               <span className="font-bold inline-flex items-center text-base">
                 <BrandLogo />
                 <span className="mr-3"></span>CoinTensor AI
@@ -95,11 +97,11 @@ function StakingHeader() {
           <ul className={["flex flex-col h-full"].join(" ")}>
             {navLinks.map((link) => (
               <li key={link.title} className="capitalize">
-                <HashLink
-                  to={link.href}
+                <Link
+                  href={link.href}
                   className={[
                     "font-light text-[#ECF1F080] flex gap-4 items-center justify-center py-[35px] border-b border-[#ffffff2a]  text-center w-full",
-                    hash === link.href || (link.title === "home" && !hash)
+                    "hash" === link.href || (link.title === "home" && !"hash")
                       ? "nav-active"
                       : "",
                   ].join(" ")}
@@ -107,7 +109,7 @@ function StakingHeader() {
                 >
                   {link?.icon && <span>{link?.icon}</span>}
                   <span>{link.title}</span>
-                </HashLink>
+                </Link>
               </li>
             ))}
             <li className="capitalize">

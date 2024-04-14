@@ -1,3 +1,4 @@
+"use client";
 import { MdKeyboardArrowRight } from "react-icons/md";
 import { RiCloseFill } from "react-icons/ri";
 import useWallet from "../../hooks/useWallet";

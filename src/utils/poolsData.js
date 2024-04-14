@@ -22,4 +22,4 @@ const poolsData = [
   },
 ];
 
-export default poolsData
+export default poolsData;

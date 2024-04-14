@@ -1,3 +1,4 @@
+"use client";
 import useWallet from "../../../hooks/useWallet";
 import poolsData from "../../../utils/poolsData";
 import PoolCard from "./PoolCard";

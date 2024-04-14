@@ -1,6 +1,5 @@
 "use client";
-import { useMemo, useState } from "react";
-import { createContext, useContext } from "react";
+import { createContext, useContext, useMemo, useState } from "react";
 import Wallets from "@/components/staking/Wallets";
 
 const WalletContext = createContext();

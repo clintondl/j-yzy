@@ -1,10 +1,8 @@
 "use client";
-import walletImg from "../../assets/wallet.svg";
-import arrowDown from "../../assets/arrow-down.svg";
 import { useState } from "react";
-import CopyIcon from "../../assets/CopyIcon.jsx";
 import Button from "../Button";
-import useWallet from "../../hooks/useWallet.jsx";
+import useWallet from "@/hooks/useWallet.jsx";
+import CopyIcon from "@/assets/CopyIcon";
 
 function ConnectedWallet() {
   const [isOpen, setIsOpen] = useState(false);
@@ -18,14 +16,14 @@ function ConnectedWallet() {
         className="flex items-center gap-3 cursor-pointer"
       >
         <div className="w-[40px] h-[40px] rounded bg-[#2F2F39] flex items-center justify-center">
-          <img src={walletImg} alt="wallet" />
+          <img src="/wallet.svg" alt="wallet" />
         </div>
         <div className="">
           <p className="text-[#F2F2F2] text-sm font-medium">0xf07...bf79c</p>
           <p className="text-xs text-faint">10,000 $Tensor</p>
         </div>
         <div>
-          <img src={arrowDown} alt="" />
+          <img src="/arrow-down.svg" alt="" />
         </div>
       </div>
       {isOpen && (
@@ -35,7 +33,7 @@ function ConnectedWallet() {
           </h3>
           <div className="flex items-center gap-3 px-[32px]">
             <div className="min-w-[40px] min-h-[40px] w-[40px] h-[40px] rounded bg-[#2F2F39] flex items-center justify-center">
-              <img src={walletImg} alt="wallet" />
+              <img src="/wallet.svg" alt="wallet" />
             </div>
             <div className="">
               <p className="text-[#F2F2F2] text-sm font-medium">

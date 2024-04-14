@@ -1,3 +1,4 @@
+"use client";
 import useWallet from "../../../hooks/useWallet";
 import NotStaked from "./NotStaked";
 import Staked from "./Staked";
