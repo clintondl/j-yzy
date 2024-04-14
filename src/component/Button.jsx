@@ -1,16 +1,17 @@
-function Button({ value, onClick }) {
-  return (
-    <div className="arced bg-[#0f0f0f]">
-      <button
-        onClick={() => {
-          onClick && onClick();
-        }}
-        className="btn w-full"
-      >
-        {value}
-      </button>
-    </div>
-  );
-}
+  function Button({ value, onClick,disabled=false,...onClickArgs }) {
+    return (
+      <div className="arced bg-[#0f0f0f]">
+        <button
+          disabled={disabled}
+          onClick={() => {
+            onClick && onClick(Object.values(onClickArgs));
+          }}
+          className="btn w-full"
+        >
+          {value}
+        </button>
+      </div>
+    );
+  }
 
-export default Button;
+  export default Button;

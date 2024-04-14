@@ -3,26 +3,24 @@ import {ABI as contractABI } from '../assets/ContractABI/StakingContract';
 import useWallet from './useWallet';
 
 
-export const contractAddress = '0x4BC90571112AcE47e12f79f71Ca5646a088eF950';
+export const contractAddress = '0xA9Fa79AEeFeec3443a94bdE90ADd4bB1c0c5224f';
 
 
-export async function stake(amount: number,duration: number,signer:any) {
-    try{
+export async function stake(_id:string,amount: number,duration: number,signer:any) {
+
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
         console.log("Staking amount ....",amount)
-        const recipet=await contract.stake(amount, duration);
-        recipet.wait()
-        console.log("Staking complete ....")
-        return recipet
-    }catch(err){
-        console.log("Error in staking",err)
-    }
+        const recipet=await contract.stake(_id,amount, duration);
+        const response=recipet.wait()
+        console.log("Staking complete ....",response)
+        return response
+    
 }
 
-export async function checkstaker(address:string,signer:ethers.Signer) {
+export async function checkstaker(address:string,_id:string,signer:ethers.Signer) {
     console.log("Checking staker ....",signer)
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
-    const staker=await contract.stakers(address)
+    const staker=await contract.addressToStakingId(address,_id)
 
     console.log("Staker is ", staker)
     if(staker[0]>0){
@@ -31,10 +29,19 @@ export async function checkstaker(address:string,signer:ethers.Signer) {
     return false
 }
 
-export async function collectRewards(signer:ethers.Signer) {
+export async function getUserStakeById(address:string,_id:string,signer:ethers.Signer) {
+    console.log("Checking stake ....",signer)
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    const stake=await contract.addressToStakingId(address,_id)
+
+    console.log("Staker is ", stake)
+    return stake
+}
+
+export async function collectRewards(_id:string,signer:ethers.Signer) {
     console.log("Collecting rewards ....")
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
-    const recipet=await contract.collectRewards();
+    const recipet=await contract.collectRewards(_id);
     console.log("Rewards collected ....",recipet)
     return recipet
 }
@@ -58,7 +65,7 @@ export async function stakedByUser(address:string){
     console.log("Getting amount staked by user ....")
     const provider=new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(contractAddress, contractABI, provider);
-    const staker=await contract.stakers(address)
+    const staker=await contract.stakersRecord(address)
 
     console.log("Amount staked by user ...",staker[0])
 
@@ -82,7 +89,7 @@ export async function getRewardsEarned(address:string){
     const contract = new ethers.Contract(contractAddress, contractABI, provider);
     const stakerRecord=await contract.stakersRecord(address)
 
-    console.log("Rewards earned ...",stakerRecord[1].toString())
+    console.log("Rewards earned ...",stakerRecord[2].toString())
 
-    return stakerRecord[1].toString()
+    return stakerRecord[2].toString()
 }

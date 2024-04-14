@@ -4,9 +4,10 @@ import Pools from "../component/staking/pools/Pools";
 import Rewards from "../component/staking/rewards/Rewards";
 import useWallet from "../hooks/useWallet";
 import {ethers} from "ethers";
+import { user } from "../database/scheemas/user";
 
 function Staking() {
-  const {wallet,setWallet,selectWallet,setSigner }=useWallet()
+  const {wallet,setWallet,selectWallet,setSigner,setStakes }=useWallet()
   useEffect(() => {
     console.log("Checking wallet in browser storage")
     const wallet = JSON.parse(localStorage.getItem('wallet'));
@@ -21,6 +22,7 @@ function Staking() {
       });
     }
   }, []);
+
   return (
     <div>
       <Summary />

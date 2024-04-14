@@ -8,47 +8,62 @@ import { useId, useState } from "react";
 import { apvTip } from "../../../utils/tooltipContents";
 import { checkstaker, collectRewards, contractAddress, stake } from "../../../hooks/stakingContractFunctions";
 import { approveTransfer, stakingToken } from "../../../hooks/ERC20Hooks";
-import { ethers } from 'ethers';
+import * as uuid from "uuid";
+import { addStake, deleteAStake } from "../../../database/userActions";
+import { ethers } from "ethers";
+import { useEffect } from "react";
+
 
 function PoolBroadCard({ unstake = false }) {
   const instanceId = useId();
   const { id } = useParams();
   const navigate = useNavigate();
   const [staked,setStaked]=useState(false)
-  const [sig,setSig]=useState(null)
+  const [loading,setLoading]=useState(false)
+  const [fee,setFee]=useState(0)
+  const [gasPrice,setGasPrice]=useState(11111);
 
+  
+
+  const provider = new ethers.BrowserProvider(window.ethereum);
+  
+  useEffect(()=>{
+    provider.getFeeData().then((price)=>setFee((ethers.formatUnits(price["gasPrice"].toString(),"ether"))))
+  },[])
+  useEffect(()=>{
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
+    .then(response => response.json())
+    .then(data => setGasPrice((data.ethereum["usd"]*fee).toPrecision()));
+  },[fee])
 
   const { wallet, stakePool,signer } = useWallet();
   const [amount, setAmount] = useState();
 
-  if(signer){
-    checkstaker(wallet.address,signer).then((data)=> {
-      setStaked(data)
-    })
-  }
-
   const pool = poolsData.find((pool) => pool.id === id);
-
-  const handleCollectReward=async()=>{
-    collectRewards(signer)
-    setStaked(false)
-  }
 
   const handleStake = async() => {
     console.log("Handling stake")
     if (amount) {
+      setLoading(true);
       try{
+        const uid=uuid.v4()
         const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
         const durationInSections=pool.duration.split(" ")[0]*24*60*60;
-        const staked=await stake(amount,30,signer)
-        console.log(staked)
-        stakePool({
-          ...pool,
-          stakedAmount: amount,
-        });
-        setStaked(true)
+        const staked=await stake(uid,amount,30,signer)
+
+        const api=await addStake(wallet.address,uid)
+        if(!api.ok){
+          const apiResponse=await api.json()
+          console.log("error in api",apiResponse)
+        }
+
+        // stakePool({
+        //   ...pool,
+        //   stakedAmount: amount,
+        // });
         navigate(`/staking`);
       }catch(err){
+        setLoading(false)
         console.log("Error in staking",err)
       }
     }else{
@@ -136,6 +151,7 @@ function PoolBroadCard({ unstake = false }) {
         </div>
         <div className="mt-[32px]">
           <Button
+            disabled={loading}
             onClick={()=>staked?handleCollectReward():handleStake()}
             value={staked ? "Unstake" : "Stake now"}
           />
@@ -146,8 +162,8 @@ function PoolBroadCard({ unstake = false }) {
             <span className="text-sm text-[#858491]">Network fee</span>
           </div>
           <div className="text-end">
-            <div className="font-bold text-sm">0.00034 ETH</div>
-            <div className="text-faint-60 text-xs font-light">$0.00</div>
+            <div className="font-bold text-sm">{fee}</div>
+            <div className="text-faint-60 text-xs font-light">${gasPrice}</div>
           </div>
         </div>
       </div>

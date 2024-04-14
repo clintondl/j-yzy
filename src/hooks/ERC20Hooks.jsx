@@ -28,7 +28,8 @@ const provider=new ethers.BrowserProvider(window.ethereum);
 //   }
 // ];
 
-export const stakingToken="0x6837Ff20052fF1a10e23183b769Dd2Bc81BA6614";
+export const Token_Decimals=18;
+export const stakingToken="0x3bA4c4348A6731785fB7fe38894472aDF48727f4";
 
 export async function getERC20Balance(accountAddress,tokenAddress){
     // Create a contract instance
@@ -38,9 +39,9 @@ export async function getERC20Balance(accountAddress,tokenAddress){
     const balance = await contract.balanceOf(accountAddress);
     const tokenName=await contract.name()
     console.log(balance)
-    console.log(`${tokenName} Balance for ${tokenAddress} : ` + ethers.formatUnits(balance, 2));
+    console.log(`${tokenName} Balance for ${tokenAddress} : ` + ethers.formatUnits(balance, Token_Decimals));
 
-    return ethers.formatUnits(balance, 2);
+    return ethers.formatUnits(balance, Token_Decimals);
 }
 
 export async function getERC20Name(tokenAddress){

@@ -1,9 +1,31 @@
+import { useState, useEffect } from "react";
+import { getStakes } from "../../../database/userActions";
 import useWallet from "../../../hooks/useWallet";
 import NotStaked from "./NotStaked";
 import Staked from "./Staked";
+import { getUserStakeById } from "../../../hooks/stakingContractFunctions";
 
 function Rewards() {
-  const { stakedPool } = useWallet();
+  const { wallet,signer } = useWallet();
+  const [stakeIds, setStakeIds] = useState(null);
+  const [stakesData, setStakesData] = useState(null);
+
+  useEffect(() => {
+    if (wallet.address) {
+      getStakes(wallet.address)
+        .catch((err) => console.log("Error while fetching stake records", err))
+        .then((data)=>{console.log("Stake ids found",data);setStakeIds(data.data)});
+    }
+  }, [wallet]);
+
+  useEffect(() => {
+    if (stakeIds) {
+      console.log("Stakeids changed, getting stakes....");
+      Promise.all(stakeIds.map((id) => getUserStakeById(wallet.address, id,signer)))
+        .then((stakes)=>{console.log("Stakes fetched from contract",stakes);setStakesData(stakes)})
+        .catch((err) => console.log("Error while fetching stakes data", err));
+    }
+  }, [stakeIds]);
 
   return (
     <section className="py-[27px]">
@@ -13,7 +35,11 @@ function Rewards() {
         </h2>
         <div className="arced bg-black">
           <div className="bg-[#FFFFFF0F] w-full">
-            {stakedPool?.id ? <Staked /> : <NotStaked />}
+            {stakesData ? 
+              (stakesData.map((stake,index)=>(
+                <Staked stakedAmount={stake[0].toString()} stakeDuration={stake[1].toString()} stakedAt={stake[2].toString()} reward={(stake[0].toString()/stake[3].toString()).toFixed(0)} id={stakeIds[index]} />
+              )))
+            : <NotStaked />}
           </div>
         </div>
       </div>

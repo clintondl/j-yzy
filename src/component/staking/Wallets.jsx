@@ -57,7 +57,7 @@ async function addCain(chainId){
 
 function Wallets({onClose}) {
   const { selectWallet,setWallet,setSigner } = useWallet();
-
+  
   async function connectWallet() {
     if (window.ethereum) {
         selectWallet();
@@ -99,6 +99,10 @@ function Wallets({onClose}) {
         console.log("Please install MetaMask!");
     }
   }
+
+  window.ethereum.on('accountsChanged', function (accounts) {
+    connectWallet()
+  })
 
 
   return (

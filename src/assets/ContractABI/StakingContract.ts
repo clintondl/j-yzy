@@ -108,7 +108,52 @@ export const ABI=[
         "type": "function"
     },
     {
-        "inputs": [],
+        "inputs": [
+            {
+                "internalType": "address",
+                "name": "",
+                "type": "address"
+            },
+            {
+                "internalType": "string",
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "name": "addressToStakingId",
+        "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "stakedAmount",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "stakeDuration",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "stakedAt",
+                "type": "uint256"
+            },
+            {
+                "internalType": "uint256",
+                "name": "rewardPercentage",
+                "type": "uint256"
+            }
+        ],
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "inputs": [
+            {
+                "internalType": "string",
+                "name": "_id",
+                "type": "string"
+            }
+        ],
         "name": "collectRewards",
         "outputs": [],
         "stateMutability": "nonpayable",
@@ -208,24 +253,10 @@ export const ABI=[
     {
         "inputs": [
             {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "rewardsEarned",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
+                "internalType": "string",
+                "name": "_id",
+                "type": "string"
+            },
             {
                 "internalType": "uint256",
                 "name": "amount",
@@ -263,42 +294,13 @@ export const ABI=[
                 "type": "address"
             }
         ],
-        "name": "stakers",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "stakedAmount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "stakeDuration",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "stakedAt",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "rewardPercentage",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
         "name": "stakersRecord",
         "outputs": [
+            {
+                "internalType": "uint256",
+                "name": "currentStake",
+                "type": "uint256"
+            },
             {
                 "internalType": "uint256",
                 "name": "amountStaked",

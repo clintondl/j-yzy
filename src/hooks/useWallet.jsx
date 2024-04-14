@@ -17,6 +17,8 @@ export const WalletProvider = ({ children }) => {
   const [stakedPool, setStakedPool] = useState({});
   const [showSelectWallet, setShowSelectWallet] = useState(false);
 
+  const [stakes,setStakes]=useState(null);
+
   const stakePool = (stake) => {
     console.log("Adding pool to staked",stake);
     setStakedPool(stake);
@@ -24,6 +26,7 @@ export const WalletProvider = ({ children }) => {
 
   const values = useMemo(
     () => ({
+      stakes,setStakes,
       signer,setSigner,
       isConnected,
       wallet,
@@ -39,7 +42,7 @@ export const WalletProvider = ({ children }) => {
       },
       disconnectWallet: () => setIsConnected(false),
     }),
-    [isConnected, wallet, stakedPool,signer]
+    [isConnected, wallet, stakedPool,signer,stakes]
   );
 
   return (
