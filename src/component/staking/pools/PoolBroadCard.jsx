@@ -8,7 +8,7 @@ import { useId, useState } from "react";
 import { apvTip } from "../../../utils/tooltipContents";
 import { checkstaker, collectRewards, contractAddress, stake, stakedByUser } from "../../../hooks/stakingContractFunctions";
 import { approveTransfer, stakingToken } from "../../../hooks/ERC20Hooks";
-import * as uuid from "uuid";
+import {v4} from "uuid";
 import { addStake, deleteAStake } from "../../../database/userActions";
 import { ethers } from "ethers";
 import { useEffect } from "react";
@@ -49,10 +49,11 @@ function PoolBroadCard({ unstake = false }) {
     console.log("Handling stake")
     if (amount) {
       setLoading(true);
+      const uid=v4()
       try{
-        const uid=uuid.v4()
         const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
         const durationInSections=pool.duration.split(" ")[0]*24*60*60;
+        
         const api=await addStake(wallet.address,uid)
         const staked=await stake(uid,amount,60,signer)
 

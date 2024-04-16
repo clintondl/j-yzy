@@ -5,6 +5,7 @@ import Layout from "../layout";
 import StakingLayout from "./staking/StakingLayout";
 import StackingDetails from "../pages/StackingDetails";
 import Unstake from "../pages/Unstake";
+import ManageContract from "../pages/Manage";
 
 const AppRoutes = [
   {
@@ -30,6 +31,10 @@ const AppRoutes = [
       {
         path: "/unstake/:id",
         element: <Unstake />,
+      },
+      {
+        path: "/manage",
+        element: <ManageContract />,
       },
     ],
   },

@@ -11,7 +11,7 @@ export async function stake(_id:string,amount: number,duration: number,signer:an
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
         console.log("Staking amount ....",amount)
         const recipet=await contract.stake(_id,amount, duration);
-        const response=recipet.wait()
+        const response=recipet.wait(1)
         console.log("Staking complete ....",response)
         return response
     
@@ -92,4 +92,48 @@ export async function getRewardsEarned(address:string){
     console.log("Rewards earned ...",stakerRecord[2].toString())
 
     return stakerRecord[2].toString()
+}
+
+
+// Contract Management Functions
+export async function AddRewards(amount:number,signer:ethers.Signer){
+    console.log("Adding rewards...")
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+
+    const rewardAdd=await contract.addRewards(amount)
+    const tx=rewardAdd.wait(1)
+
+    console.log("Rewards added ....")
+    return tx;
+}
+
+export async function RemoveRewards(signer:ethers.Signer){
+    console.log("removeing rewrds ...")
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    const removedRewards=await contract.removeRewardPool();
+    const tx=removedRewards.wait(1)
+
+    console.log("rewards removed ....")
+
+    return tx;
+}
+
+export async function AddRewardRate(duration:number,percentage:number,signer:ethers.Signer){
+    console.log("adding reward rate with,",signer);
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    const rewardRateAdd=await contract.addRewardRate(duration,percentage);
+
+    const tx=rewardRateAdd.wait(1)
+    console.log("reward rate added ...",tx);
+    return tx;
+}
+
+export async function RemoveRewardRate(duration:number,signer:ethers.Signer){
+    console.log("removing reward rate");
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    const rewardRateRemove=await contract.removeRewardRate(duration);
+
+    const tx=rewardRateRemove.wait(1)
+    console.log("reward rate removed ...",tx);
+    return tx;
 }
