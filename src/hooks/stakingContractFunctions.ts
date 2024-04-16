@@ -137,3 +137,14 @@ export async function RemoveRewardRate(duration:number,signer:ethers.Signer){
     console.log("reward rate removed ...",tx);
     return tx;
 }
+
+export async function GetRewardRates(duration:number,){
+    console.log("fetching reward rate for ...",duration)
+    const provider=new ethers.BrowserProvider(window.ethereum);
+    const contract = new ethers.Contract(contractAddress, contractABI, provider);
+    const rewardRate=await contract.rewardRates(duration); 
+    
+    console.log("reward rate fetched ...",rewardRate)
+
+    return rewardRate;
+}

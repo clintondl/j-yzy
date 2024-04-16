@@ -48,7 +48,7 @@ export async function getERC20Name(tokenAddress){
     const contract = new ethers.Contract(tokenAddress, minABI, provider);
     const tokenName=await contract.name()
 
-    return tokenName;
+    return "Tensor";
 }
 
 export async function approveTransfer(tokenAddress,amount,spender,signer){
