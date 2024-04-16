@@ -25,9 +25,6 @@ function PoolBroadCard({ unstake = false }) {
   const [fee,setFee]=useState(0)
   const [gasPrice,setGasPrice]=useState(11111);
   const [staked,setStaked]=useState(200)
-
-
-
   
 
   const provider = new ethers.BrowserProvider(window.ethereum);
@@ -55,7 +52,7 @@ function PoolBroadCard({ unstake = false }) {
         const durationInSections=pool.duration.split(" ")[0]*24*60*60;
         
         const api=await addStake(wallet.address,uid)
-        const staked=await stake(uid,amount,60,signer)
+        const staked=await stake(uid,amount,durationInSections,signer)
 
         if(!api.ok){
           const apiResponse=await api.json()
