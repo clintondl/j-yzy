@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Button from "../component/Button";
 import { AddRewardRate, AddRewards, contractAddress, RemoveRewardRate, RemoveRewards } from "../hooks/stakingContractFunctions";
-import { approveTransfer, stakingToken } from "../hooks/ERC20Hooks";
+import { approveTransfer, getERC20Balance, stakingToken } from "../hooks/ERC20Hooks";
 import useWallet from "../hooks/useWallet";
 
 function ManageContract(){

@@ -18,7 +18,7 @@ const wallets = [
   // { name: "Keplr", icon: <img src={Keplr} alt="dxfszxcv" /> },
 ];
 
-const targetNetworkId = '0xaa36a7';
+const targetNetworkId = '0x1';
 
 // checks if current chain matches with the one we need
 // and returns true/false

@@ -48,7 +48,7 @@
 //     }
 // }
 
-const apiUrl="http://localhost:8000"
+const apiUrl="https://tensorai.vercel.app"
 
 export async function getStakes(address:string){
     const api=await fetch(apiUrl+"/stakes/"+address,{
