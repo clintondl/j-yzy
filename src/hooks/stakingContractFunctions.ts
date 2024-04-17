@@ -129,6 +129,16 @@ export async function AddRewardRate(duration:number,percentage:number,signer:eth
     return tx;
 }
 
+export async function UpdateRewardRates(duration:number,percentage:number,signer:ethers.Signer){
+    console.log("updating reward rate with,",signer);
+    const contract = new ethers.Contract(contractAddress, contractABI, signer);
+    const rewardRateUpdate=await contract.updateRewardRate(duration,percentage);
+
+    const tx=rewardRateUpdate.wait(1)
+    console.log("reward rate updated ...",tx);
+    return tx; 
+}
+
 export async function RemoveRewardRate(duration:number,signer:ethers.Signer){
     console.log("removing reward rate");
     const contract = new ethers.Contract(contractAddress, contractABI, signer);

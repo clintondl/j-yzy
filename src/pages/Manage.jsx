@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../component/Button";
-import { AddRewardRate, AddRewards, contractAddress, RemoveRewardRate, RemoveRewards, rewardPool } from "../hooks/stakingContractFunctions";
+import { AddRewardRate, AddRewards, contractAddress, RemoveRewardRate, RemoveRewards, rewardPool, UpdateRewardRates } from "../hooks/stakingContractFunctions";
 import { approveTransfer, getERC20Balance, stakingToken } from "../hooks/ERC20Hooks";
 import useWallet from "../hooks/useWallet";
 import { useEffect } from "react";
@@ -88,6 +88,35 @@ function ManageContract(){
         const removeRewards=await RemoveRewards(signer);
         updateBalance()
     }
+
+    async function handleUpdateReward(){
+        const updateRewards=await UpdateRewardRates(duration,rewardRate,signer)
+
+        // Update pool
+        getAllDurations().then((data)=>{
+            Promise.all(
+              data.data.map(async (d,index)=>{
+                const duration=parseInt(d["duration"])
+                const rewardRate=await GetRewardRates(duration)
+                const days=duration/(24*60*60);
+                const apy_p=rewardRate.toString();
+      
+                return {
+                    id: index,
+                    duration: days+" Days",
+                    apy: apy_p+" %",
+                    amountStaked: 0.0,
+                    status: "locked",
+                  }
+              })
+            ).then((poolsArray)=>{
+              //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
+              setPools(poolsArray)
+              console.log("Pools fetched...",pools)
+            })
+          })
+
+    }
     return(
         <div className="flex flex-col items-center gap-5 lg:gap-10 p-2 mt-3 ">
         <p className=" text-[23px]">Funds Management</p>
@@ -130,16 +159,16 @@ function ManageContract(){
             </div>            <div className="flex gap-5 justify-between">
                 <Button
                 value="update"
-                onClick={handleRemoveReawrd}
+                onClick={handleUpdateReward}
                 onMouseEnter={() => alert('Update')}
                 />
                 <Button
                 value="add"
-                onClick={handleRemoveReawrd}
+                onClick={handleAddingRewardRates}
                 />
                 <Button
                 value="remove"
-                onClick={handleRemoveReawrd}
+                onClick={handleRemoveRewardRate}
                 />
             </div>
         </div>
