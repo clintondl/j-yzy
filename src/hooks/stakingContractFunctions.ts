@@ -3,8 +3,8 @@ import {ABI as contractABI } from '../assets/ContractABI/StakingContract';
 import useWallet from './useWallet';
 
 
-export const contractAddress = '0x1ce44c13ac000c763f9cb545c1e794c3aee727fe';
-//export const contractAddress = '0xA9Fa79AEeFeec3443a94bdE90ADd4bB1c0c5224f';
+export const contractAddress = '0x1ce44c13ac000C763F9CB545C1e794C3aEE727fe';
+//export const contractAddress = '0xA9Fa79AEeFeec3443a94bdE90ADd4bB1c0c5224f'; //TestNet
 
 
 export async function stake(_id:string,amount: number,duration: number,signer:any) {

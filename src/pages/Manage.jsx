@@ -15,7 +15,7 @@ function ManageContract(){
     const [pools,setPools]=useState([])
     const [action,setAction]=useState("")
 
-    const [currentPoolIndex,setCurrentPoolIndex]=useState(0)
+    const [currentPoolIndex,setCurrentPoolIndex]=useState(3333)
 
     useEffect(()=>{
         rewardPool().then(setRewardPool)
@@ -40,17 +40,24 @@ function ManageContract(){
               //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
               setPools(poolsArray)
               console.log("Pools fetched...",poolsArray)
+
+              if (poolsArray.length > 0) {
+                setCurrentPoolIndex(0); // Set the current pool index to 0 once pools are fetched
+              }
+
+              console.log("current pool index", currentPoolIndex)
             })
           })
+
+
     },[])
 
-    useEffect(()=>{
-        if(pools.length){
-            console.log(currentPoolIndex)
-            setDuration(pools[currentPoolIndex].duration)
-            setRewardRate(pools[currentPoolIndex].apy.split(" ")[0])
+    useEffect(() => {
+        if (pools.length > 0 && typeof pools[currentPoolIndex] !== 'undefined') {
+          setDuration(pools[currentPoolIndex].duration);
+          setRewardRate(pools[currentPoolIndex].apy.split(" ")[0]);
         }
-    },[currentPoolIndex])
+      }, [currentPoolIndex, pools]);
 
     async function updateBalance(){
         const tokenBalanceAvailable=getERC20Balance(wallet.address,stakingToken).then((balance)=>{
@@ -99,9 +106,12 @@ function ManageContract(){
     }
 
     async function handleRemoveRewardRate(){
-        try{const api=await DeleteDuration(duration)
-        const removed=await RemoveRewardRate(duration,signer);
-        console.log(removed);
+        const prev_duration=pools[currentPoolIndex].duration
+        try{
+            const api=await DeleteDuration(duration)
+            
+                const removed=await RemoveRewardRate(duration,signer);
+                console.log(removed);
 
         getAllDurations().then((data)=>{
             Promise.all(
@@ -128,7 +138,7 @@ function ManageContract(){
     
     }
         catch(err){
-            await AddDuration(duration)
+            await AddDuration(prev_duration)
         }
     }
 
@@ -138,7 +148,10 @@ function ManageContract(){
     }
 
     async function handleUpdateReward(){
+        const prev_duration=pools[currentPoolIndex].duration
+        try{const api_d=await DeleteDuration(duration)
         const updateRewards=await UpdateRewardRates(duration,rewardRate,signer)
+        const api=await AddDuration(duration)
 
         // Update pool
         getAllDurations().then((data)=>{
@@ -162,7 +175,10 @@ function ManageContract(){
               setPools(poolsArray)
               console.log("Pools fetched...",pools)
             })
-          })
+          })}catch(err){
+            console.log("Error in updating ...",err)
+            const api=await AddDuration(prev_duration)
+          }
 
     }
     return(
@@ -190,8 +206,8 @@ function ManageContract(){
                 {
                     pools&&pools.map((p,index)=>(
                         <>
-                            <p>Pool {index}</p>
-                            <input type="radio" value={currentPoolIndex} name="pool" onChange={(e)=>setCurrentPoolIndex(index)} />
+                            <p>Pool {index+1}</p>
+                            <input type="radio" checked={currentPoolIndex==index} value={index} name="pool" onChange={(e)=>setCurrentPoolIndex(()=>index)} />
                         </>
                     ))
                 }
