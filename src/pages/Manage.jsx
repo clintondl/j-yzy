@@ -11,6 +11,7 @@ function ManageContract(){
     const [amount,setAmount]=useState(0);
     const [duration,setDuration]=useState(0)
     const [pool,setRewardPool]=useState(0)
+    const [rewardRate,setRewardRate]=useState(0)
 
     useEffect(()=>{
         rewardPool().then(setRewardPool)
@@ -33,7 +34,7 @@ function ManageContract(){
     async function handleAddingRewardRates(){
         try{
             const api=await AddDuration(duration)
-            const rateAdd=await AddRewardRate(duration,amount,signer)
+            const rateAdd=await AddRewardRate(duration,rewardRate,signer)
         }catch(err){
             await DeleteDuration(duration)   
         }
@@ -53,11 +54,12 @@ function ManageContract(){
         updateBalance()
     }
     return(
-        <div className="flex flex-col gap-5 p-2">
+        <div className="flex flex-col gap-5 p-2 ">
         <p className=" self-center">Reward pool {pool}</p>
-        <div className="flex flex-wrap gap-10">
+        <div className="flex flex-col gap-10 ">
             {/* Funds management */}
-            <div className="flex flex-wrap gap-10 w-auto">
+            <p className="text-[22px] self-center">Funds Management</p>
+            <div className="flex justify-evenly gap-10 w-auto min-h-max items-end">
                 <div className=" space-y-10">
                     <div className="flex font-bold text-[15px] border h-[90px] items-start p-2">
                         <p>Amount</p>
@@ -75,7 +77,7 @@ function ManageContract(){
                         onClick={handleAddingReward}
                     />
                 </div>
-                <div className="">
+                <div className="flex-col gap-10">
                     <Button
                     value="Remove rewards"
                     onClick={handleRemoveReawrd}
@@ -84,7 +86,8 @@ function ManageContract(){
             </div>
 
             {/* Reward Rate management */}
-            <div className="flex flex-wrap gap-10">
+            <p className="text-[22px] self-center p-2">Funds Management</p>
+            <div className="flex flex-wrap justify-between gap-10 p-2">
                 <div className="flex flex-col gap-10">
                     
                     <div className="border p-3 h-[90px]">
@@ -104,13 +107,13 @@ function ManageContract(){
                             type="number"
                             placeholder="0"
                             className="w-full bg-transparent text-end stake-amount"
-                            value={amount}
-                            onChange={(e) => setAmount(e.target.value)}
+                            value={rewardRate}
+                            onChange={(e) => setRewardRate(e.target.value)}
                             />
                         </div>
                     </div>
                     <Button
-                        disabled={amount==0||duration==0}
+                        disabled={rewardRate==0||duration==0}
                         value="Reward rate"
                         onClick={handleAddingRewardRates}
                     />
