@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Button from "../component/Button";
-import { AddRewardRate, AddRewards, contractAddress, RemoveRewardRate, RemoveRewards, rewardPool, UpdateRewardRates } from "../hooks/stakingContractFunctions";
+import { AddRewardRate, AddRewards, contractAddress, GetRewardRates, RemoveRewardRate, RemoveRewards, rewardPool, UpdateRewardRates } from "../hooks/stakingContractFunctions";
 import { approveTransfer, getERC20Balance, stakingToken } from "../hooks/ERC20Hooks";
 import useWallet from "../hooks/useWallet";
 import { useEffect } from "react";
@@ -30,7 +30,7 @@ function ManageContract(){
       
                 return {
                     id: index,
-                    duration: days+" Days",
+                    duration: duration,
                     apy: apy_p+" %",
                     amountStaked: 0.0,
                     status: "locked",
@@ -39,7 +39,7 @@ function ManageContract(){
             ).then((poolsArray)=>{
               //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
               setPools(poolsArray)
-              console.log("Pools fetched...",pools)
+              console.log("Pools fetched...",poolsArray)
             })
           })
     },[])
@@ -70,6 +70,29 @@ function ManageContract(){
         try{
             const api=await AddDuration(duration)
             const rateAdd=await AddRewardRate(duration,rewardRate,signer)
+
+            getAllDurations().then((data)=>{
+                Promise.all(
+                  data.data.map(async (d,index)=>{
+                    const duration=parseInt(d["duration"])
+                    const rewardRate=await GetRewardRates(duration)
+                    const days=duration/(24*60*60);
+                    const apy_p=rewardRate.toString();
+          
+                    return {
+                        id: index,
+                        duration: duration,
+                        apy: apy_p+" %",
+                        amountStaked: 0.0,
+                        status: "locked",
+                      }
+                  })
+                ).then((poolsArray)=>{
+                  //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
+                  setPools(poolsArray)
+                  console.log("Pools fetched...",pools)
+                })
+              })
         }catch(err){
             await DeleteDuration(duration)   
         }
@@ -78,7 +101,32 @@ function ManageContract(){
     async function handleRemoveRewardRate(){
         try{const api=await DeleteDuration(duration)
         const removed=await RemoveRewardRate(duration,signer);
-        console.log(removed);}
+        console.log(removed);
+
+        getAllDurations().then((data)=>{
+            Promise.all(
+              data.data.map(async (d,index)=>{
+                const duration=parseInt(d["duration"])
+                const rewardRate=await GetRewardRates(duration)
+                const days=duration/(24*60*60);
+                const apy_p=rewardRate.toString();
+      
+                return {
+                    id: index,
+                    duration: duration,
+                    apy: apy_p+" %",
+                    amountStaked: 0.0,
+                    status: "locked",
+                  }
+              })
+            ).then((poolsArray)=>{
+              //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
+              setPools(poolsArray)
+              console.log("Pools fetched...",pools)
+            })
+          })
+    
+    }
         catch(err){
             await AddDuration(duration)
         }
@@ -103,7 +151,7 @@ function ManageContract(){
       
                 return {
                     id: index,
-                    duration: days+" Days",
+                    duration: duration,
                     apy: apy_p+" %",
                     amountStaked: 0.0,
                     status: "locked",
