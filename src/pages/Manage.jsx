@@ -4,7 +4,7 @@ import { AddRewardRate, AddRewards, contractAddress, RemoveRewardRate, RemoveRew
 import { approveTransfer, getERC20Balance, stakingToken } from "../hooks/ERC20Hooks";
 import useWallet from "../hooks/useWallet";
 import { useEffect } from "react";
-import { AddDuration, DeleteDuration } from "../database/userActions";
+import { AddDuration, DeleteDuration, getAllDurations } from "../database/userActions";
 
 function ManageContract(){
     const {signer,wallet,setWallet}=useWallet()
@@ -12,10 +12,45 @@ function ManageContract(){
     const [duration,setDuration]=useState(0)
     const [pool,setRewardPool]=useState(0)
     const [rewardRate,setRewardRate]=useState(0)
+    const [pools,setPools]=useState([])
+    const [action,setAction]=useState("")
+
+    const [currentPoolIndex,setCurrentPoolIndex]=useState(0)
 
     useEffect(()=>{
         rewardPool().then(setRewardPool)
+
+        getAllDurations().then((data)=>{
+            Promise.all(
+              data.data.map(async (d,index)=>{
+                const duration=parseInt(d["duration"])
+                const rewardRate=await GetRewardRates(duration)
+                const days=duration/(24*60*60);
+                const apy_p=rewardRate.toString();
+      
+                return {
+                    id: index,
+                    duration: days+" Days",
+                    apy: apy_p+" %",
+                    amountStaked: 0.0,
+                    status: "locked",
+                  }
+              })
+            ).then((poolsArray)=>{
+              //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
+              setPools(poolsArray)
+              console.log("Pools fetched...",pools)
+            })
+          })
     },[])
+
+    useEffect(()=>{
+        if(pools.length){
+            console.log(currentPoolIndex)
+            setDuration(pools[currentPoolIndex].duration)
+            setRewardRate(pools[currentPoolIndex].apy.split(" ")[0])
+        }
+    },[currentPoolIndex])
 
     async function updateBalance(){
         const tokenBalanceAvailable=getERC20Balance(wallet.address,stakingToken).then((balance)=>{
@@ -54,92 +89,61 @@ function ManageContract(){
         updateBalance()
     }
     return(
-        <div className="flex flex-col gap-5 p-2 ">
-        <p className=" self-center">Reward pool {pool}</p>
-        <div className="flex flex-col gap-10 ">
-            {/* Funds management */}
-            <p className="text-[22px] self-center">Funds Management</p>
-            <div className="flex justify-evenly gap-10 w-auto min-h-max items-end">
-                <div className=" space-y-10">
-                    <div className="flex font-bold text-[15px] border h-[90px] items-start p-2">
-                        <p>Amount</p>
-                        <input
-                        type="number"
-                        placeholder="0"
-                        className="w-full bg-transparent text-end stake-amount"
-                        value={amount}
-                        onChange={(e) => setAmount(e.target.value)}
-                        />
-                    </div>
-                    <Button
-                        disabled={amount==0}
-                        value="Add rewards"
-                        onClick={handleAddingReward}
-                    />
-                </div>
-                <div className="flex-col gap-10">
-                    <Button
-                    value="Remove rewards"
-                    onClick={handleRemoveReawrd}
-                    />
-                </div>
+        <div className="flex flex-col items-center gap-5 lg:gap-10 p-2 mt-3 ">
+        <p className=" text-[23px]">Funds Management</p>
+        <p className=" w-3/4 lg:w-2/5 flex justify-end p-5 text-[20px] border">{pool}</p>
+        <div className=" w-3/4 lg:w-2/5 flex flex-col justify-between p-5 text-[20px] gap-10 ">
+            <div className="flex justify-between ">
+                <p className="whitespace-nowrap	">Funds balance</p>
+                <input value={amount} type="number" className="w-2/5 flex bg-transparent text-end stake-amount border p-[2px]" 
+                onChange={(e)=>setAmount(e.target.value)} />
             </div>
-
-            {/* Reward Rate management */}
-            <p className="text-[22px] self-center p-2">Funds Management</p>
-            <div className="flex flex-wrap justify-between gap-10 p-2">
-                <div className="flex flex-col gap-10">
-                    
-                    <div className="border p-3 h-[90px]">
-                        <div className="flex font-bold text-[15px] ">
-                        <p>duration</p>
-                        <input
-                        type="number"
-                        placeholder="0"
-                        className="w-full bg-transparent text-end stake-amount"
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
-                        />
-                        </div>
-                        <div className="flex font-bold text-[15px]">
-                            <p className="whitespace-nowrap ">reward %</p>
-                            <input
-                            type="number"
-                            placeholder="0"
-                            className="w-full bg-transparent text-end stake-amount"
-                            value={rewardRate}
-                            onChange={(e) => setRewardRate(e.target.value)}
-                            />
-                        </div>
-                    </div>
-                    <Button
-                        disabled={rewardRate==0||duration==0}
-                        value="Reward rate"
-                        onClick={handleAddingRewardRates}
-                    />
-                </div>
-                <div className=" space-y-10">
-                        <div className="flex font-bold text-[15px] border h-[90px] p-2 items-start">
-                        <p>duration</p>
-                        <input
-                        type="number"
-                        placeholder="0"
-                        className="w-full bg-transparent text-end stake-amount"
-                        value={duration}
-                        onChange={(e) => setDuration(e.target.value)}
-                        />
-                    </div>
-                    <Button
-                        disabled={duration==0}
-                        value="Remove reward rate"
-                        onClick={handleRemoveRewardRate}
-                        duration={duration}
-                        signer={signer}
-                    />
-                </div>
+            <div className="flex justify-between">
+                <Button
+                value="Add rewards"
+                onClick={handleAddingReward}
+                />
+                <Button
+                value="remove"
+                onClick={handleRemoveReawrd}
+                />
             </div>
-            
         </div>
+        <div className="flex flex-wrap gap-[15px]">
+                {
+                    pools&&pools.map((p,index)=>(
+                        <>
+                            <p>Pool {index}</p>
+                            <input type="radio" value={currentPoolIndex} name="pool" onChange={(e)=>setCurrentPoolIndex(index)} />
+                        </>
+                    ))
+                }
+        </div>
+        <div className=" w-auto items-center flex flex-col gap-5">
+            <div className="flex w-full justify-center">
+                <div className="flex w-1/2 justify-between ">Duration <p>-</p> </div>
+                <input value={duration} type="number" className=" w-[90px] flex bg-transparent text-end stake-amount  p-[2px]" onChange={(e)=>action!="Update"?setDuration(e.target.value):null} />
+            </div>
+            <div className="flex w-full justify-center">
+                <div className="flex w-1/2 justify-between ">Reward % <p>-</p> </div>
+                <input value={rewardRate} type="number" className=" w-[90px] flex bg-transparent text-end stake-amount  p-[2px]" onChange={(e)=>setRewardRate(e.target.value)} />
+            </div>            <div className="flex gap-5 justify-between">
+                <Button
+                value="update"
+                onClick={handleRemoveReawrd}
+                onMouseEnter={() => alert('Update')}
+                />
+                <Button
+                value="add"
+                onClick={handleRemoveReawrd}
+                />
+                <Button
+                value="remove"
+                onClick={handleRemoveReawrd}
+                />
+            </div>
+        </div>
+        
         </div>
     )
 }
