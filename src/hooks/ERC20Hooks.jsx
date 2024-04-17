@@ -30,6 +30,7 @@ const provider=new ethers.BrowserProvider(window.ethereum);
 
 export const Token_Decimals=18;
 export const stakingToken="0x1ddbB18ECf92d02Bb386224F0d160f30305150dD";
+//export const stakingToken="0x3bA4c4348A6731785fB7fe38894472aDF48727f4";
 
 export async function getERC20Balance(accountAddress,tokenAddress){
     // Create a contract instance

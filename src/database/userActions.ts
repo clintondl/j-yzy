@@ -89,3 +89,40 @@ export async function addStake(address:string,id:string){
 
     return api;
 }
+
+
+export async function getAllDurations(){
+    console.log("fetching all durations ....");
+
+    const api=await fetch(apiUrl+"/stake-durations");
+    console.log("succesfully fetched durations...")
+    const data=await api.json()
+    return data;
+}
+
+export async function AddDuration(duration:string){
+    console.log("Adding duration ....");
+
+    const api=await fetch(apiUrl+"/stake-duration",{
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method:"POST",
+        body: JSON.stringify({duration:duration})
+        // body: JSON.stringify({address: wallet.address, stake: {id:uid,stake:amount,reward:10,duration:pool.duration,stakedAt:"now"}})
+    })
+
+    return api;
+}
+
+export async function DeleteDuration(duration:string){
+    console.log("deleting duration ....");
+
+    const api=await fetch(apiUrl+"/stake-duration/"+duration,{
+        method: 'DELETE',
+        headers: {
+            // Add any required headers here
+            'Content-Type': 'application/json'
+        }
+    })
+}

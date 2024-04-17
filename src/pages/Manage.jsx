@@ -1,13 +1,20 @@
 import { useState } from "react";
 import Button from "../component/Button";
-import { AddRewardRate, AddRewards, contractAddress, RemoveRewardRate, RemoveRewards } from "../hooks/stakingContractFunctions";
+import { AddRewardRate, AddRewards, contractAddress, RemoveRewardRate, RemoveRewards, rewardPool } from "../hooks/stakingContractFunctions";
 import { approveTransfer, getERC20Balance, stakingToken } from "../hooks/ERC20Hooks";
 import useWallet from "../hooks/useWallet";
+import { useEffect } from "react";
+import { AddDuration, DeleteDuration } from "../database/userActions";
 
 function ManageContract(){
     const {signer,wallet,setWallet}=useWallet()
     const [amount,setAmount]=useState(0);
     const [duration,setDuration]=useState(0)
+    const [pool,setRewardPool]=useState(0)
+
+    useEffect(()=>{
+        rewardPool().then(setRewardPool)
+    },[])
 
     async function updateBalance(){
         const tokenBalanceAvailable=getERC20Balance(wallet.address,stakingToken).then((balance)=>{
@@ -23,13 +30,22 @@ function ManageContract(){
         updateBalance()
     }
 
-    async function  handleAddingRewardRates(){
-        const rateAdd=await AddRewardRate(duration,amount,signer)
+    async function handleAddingRewardRates(){
+        try{
+            const api=await AddDuration(duration)
+            const rateAdd=await AddRewardRate(duration,amount,signer)
+        }catch(err){
+            await DeleteDuration(duration)   
+        }
     }
 
     async function handleRemoveRewardRate(){
+        try{const api=await DeleteDuration(duration)
         const removed=await RemoveRewardRate(duration,signer);
-        console.log(removed);
+        console.log(removed);}
+        catch(err){
+            await AddDuration(duration)
+        }
     }
 
     async function handleRemoveReawrd(){
@@ -37,7 +53,9 @@ function ManageContract(){
         updateBalance()
     }
     return(
-        <div className="flex flex-wrap p-2 gap-10">
+        <div className="flex flex-col gap-5 p-2">
+        <p className=" self-center">Reward pool {pool}</p>
+        <div className="flex flex-wrap gap-10">
             {/* Funds management */}
             <div className="flex flex-wrap gap-10 w-auto">
                 <div className=" space-y-10">
@@ -118,6 +136,7 @@ function ManageContract(){
                 </div>
             </div>
             
+        </div>
         </div>
     )
 }
