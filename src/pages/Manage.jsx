@@ -13,7 +13,7 @@ function ManageContract(){
     const [pool,setRewardPool]=useState(0)
     const [rewardRate,setRewardRate]=useState(0)
     const [pools,setPools]=useState([])
-    const [action,setAction]=useState("")
+    const [loading,setLoading]=useState(false)
 
     const [currentPoolIndex,setCurrentPoolIndex]=useState(3333)
 
@@ -60,23 +60,41 @@ function ManageContract(){
       }, [currentPoolIndex, pools]);
 
     async function updateBalance(){
-        const tokenBalanceAvailable=getERC20Balance(wallet.address,stakingToken).then((balance)=>{
+      setLoading(true)
+        try{
+          const tokenBalanceAvailable=getERC20Balance(wallet.address,stakingToken).then((balance)=>{
             console.log("wallet found ...",wallet)
             setWallet({...wallet,balance:balance});
-            selectWallet();
           })
+        setLoading(false)
+        }catch(err){
+          console.log("error in action", err)
+          setLoading(false)
+        }
     }
 
     async function handleAddingReward(){
+      setLoading(true)
         const approving=await approveTransfer(stakingToken,amount,contractAddress,signer)
-        const adding=await AddRewards(amount,signer);
+        try{const adding=await AddRewards(amount,signer);
         updateBalance()
+        rewardPool().then(setRewardPool)
+        setLoading(false)}
+        catch(err){
+          console.log("error in action", err)
+          setLoading(false)
+        }
     }
 
     async function handleAddingRewardRates(){
+      setLoading(true)
         try{
             const api=await AddDuration(duration)
-            const rateAdd=await AddRewardRate(duration,rewardRate,signer)
+            const days=duration/(24*60*60);
+            const APYrewardRate=Math.round((rewardRate/365)*days);
+            console.log("Days ", days)
+            console.log("APYrewardRate", APYrewardRate)
+            const rateAdd=await AddRewardRate(duration,APYrewardRate,signer)
 
             getAllDurations().then((data)=>{
                 Promise.all(
@@ -98,14 +116,18 @@ function ManageContract(){
                   //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
                   setPools(poolsArray)
                   console.log("Pools fetched...",pools)
+                  setLoading(false)
                 })
               })
         }catch(err){
-            await DeleteDuration(duration)   
+          console.log("error in action", err)
+          setLoading(false)
+          await DeleteDuration(duration)   
         }
     }
 
     async function handleRemoveRewardRate(){
+      setLoading(true)
         const prev_duration=pools[currentPoolIndex].duration
         try{
             const api=await DeleteDuration(duration)
@@ -133,24 +155,37 @@ function ManageContract(){
               //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
               setPools(poolsArray)
               console.log("Pools fetched...",pools)
+              setLoading(false)
             })
           })
     
     }
         catch(err){
+          setLoading(false)
             await AddDuration(prev_duration)
         }
     }
 
     async function handleRemoveReawrd(){
+      try{
+        setLoading(true)
         const removeRewards=await RemoveRewards(signer);
         updateBalance()
+        rewardPool().then(setRewardPool)
+        setLoading(false)
+      }catch(err){
+        console.log("error in action", err)
+        setLoading(false)
+      }
     }
 
     async function handleUpdateReward(){
         const prev_duration=pools[currentPoolIndex].duration
+        setLoading(true)
         try{const api_d=await DeleteDuration(duration)
-        const updateRewards=await UpdateRewardRates(duration,rewardRate,signer)
+          const days=duration/(24*60*60);
+          const APYrewardRate=Math.round((rewardRate/365)*days);
+        const updateRewards=await UpdateRewardRates(duration,APYrewardRate,signer)
         const api=await AddDuration(duration)
 
         // Update pool
@@ -174,10 +209,13 @@ function ManageContract(){
               //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
               setPools(poolsArray)
               console.log("Pools fetched...",pools)
+              setLoading(false)
             })
           })}catch(err){
             console.log("Error in updating ...",err)
             const api=await AddDuration(prev_duration)
+            setLoading(false)
+
           }
 
     }
@@ -193,10 +231,12 @@ function ManageContract(){
             </div>
             <div className="flex justify-between">
                 <Button
+                disabled={loading}
                 value="Add rewards"
                 onClick={handleAddingReward}
                 />
                 <Button
+                disabled={loading}
                 value="remove"
                 onClick={handleRemoveReawrd}
                 />
@@ -222,15 +262,18 @@ function ManageContract(){
                 <input value={rewardRate} type="number" className=" w-[90px] flex bg-transparent text-end stake-amount  p-[2px]" onChange={(e)=>setRewardRate(e.target.value)} />
             </div>            <div className="flex gap-5 justify-between">
                 <Button
+                disabled={loading}
                 value="update"
                 onClick={handleUpdateReward}
                 onMouseEnter={() => alert('Update')}
                 />
                 <Button
+                disabled={loading}
                 value="add"
                 onClick={handleAddingRewardRates}
                 />
                 <Button
+                disabled={loading}
                 value="remove"
                 onClick={handleRemoveRewardRate}
                 />

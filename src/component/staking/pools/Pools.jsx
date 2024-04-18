@@ -18,7 +18,7 @@ function Pools() {
           const duration=parseInt(d["duration"])
           const rewardRate=await GetRewardRates(duration)
           const days=duration/(24*60*60);
-          const apy_p=rewardRate.toString();
+          const apy_p=Math.round(365/30)*parseInt(rewardRate.toString());
 
           return {
               id: index,

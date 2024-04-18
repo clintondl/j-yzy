@@ -7,6 +7,7 @@ import { getERC20Balance } from "../../../hooks/ERC20Hooks";
 
 function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
   const {signer,wallet,setWallet}=useWallet();
+  const [countDown,setCountDown]=useState("")
 
   const [loading,setLoading]=useState(false)
   function secondsToDay(seconds){
@@ -33,7 +34,71 @@ function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
     seconds  -= minutes*60;
 
     return `${days}:days ${hours}:hours ${minutes}:minutes`;
+  }
+
+  // Your convertSeconds function
+function convertSeconds(seconds) {
+  let days = Math.floor(seconds / (24*60*60));
+  seconds -= days * 24*60*60;
+  let hours = Math.floor(seconds / (60*60));
+  seconds -= hours * 60*60;
+  let minutes = Math.floor(seconds / 60);
+  seconds -= minutes * 60;
+
+  return `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
 }
+
+// Function to start the countdown
+function startCountdown(durationInSeconds) {
+  let secondsRemaining = durationInSeconds;
+  const intervalId = setInterval(() => {
+    // Update the display with the converted time
+    const timeString = convertSeconds(secondsRemaining);
+    // Decrement the remaining time
+    secondsRemaining--;
+    
+    const countdownElement = document.getElementById('countdown');
+    if(countdownElement) {
+      countdownElement.textContent = timeString;
+    }
+
+
+    // Check if the countdown is complete
+    if (secondsRemaining < 0) {
+      clearInterval(intervalId);
+      document.getElementById('countdown').textContent = 'Time is up!';
+      //console.log('Countdown finished!'); // Replace with what should happen when countdown ends
+    }
+  }, 1000);
+}
+  // function startCountdown(seconds) {
+  //   function updateCountdown() {
+  //     const days = Math.floor(seconds / (24 * 60 * 60));
+  //     const hours = Math.floor((seconds % (24 * 60 * 60)) / (60 * 60));
+  //     const minutes = Math.floor((seconds % (60 * 60)) / 60);
+  //     const remainingSeconds = seconds % 60;
+  
+  //     // Format the output
+  //     const formatted = `${days}d ${hours}h ${minutes}m ${remainingSeconds}s`;
+  
+  //     // Display the countdown timer
+  //     document.getElementById('countdown').textContent = formatted;
+  
+  //     // When countdown reaches zero
+  //     if (seconds <= 0) {
+  //       clearInterval(countdownTimer);
+  //       document.getElementById('countdown').textContent = 'Time is up!';
+  //     } else {
+  //       // Decrease seconds
+  //       seconds--;
+  //     }
+  //   }
+  
+  //   // Update the countdown every second
+  //   const countdownTimer = setInterval(updateCountdown, 1000);
+  // }
+
+
 // deleting stake from db 0x7e7ccfb39b9d31d62cd9e2e066e0aaea02543cb4 34c8fa2e-78d2-466e-8f3b-e6121166294a
   const handleCollectReward=async()=>{
     setLoading(true);
@@ -52,7 +117,8 @@ function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
   }
 
   const timeTillUnlock=Math.floor(new Date().getTime() / 1000)-(stakedAt+stakeDuration)
-  console.log(Math.floor(new Date().getTime() / 1000),stakedAt+stakeDuration)
+  startCountdown(Math.round((stakedAt+stakeDuration)-(new Date().getTime() / 1000))); // Replace 5000 with your total seconds
+
   const unlockDate=new Date(stakedAt*1000+stakeDuration*1000);
   return (
     <div className="min-h-[213px] lg:min-h-[311px] px-[16px] py-[32px] lg:px-[32px]">
@@ -78,14 +144,14 @@ function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
           <div className="flex flex-col justify-center">
             <p className="text-xs text-faint-60">
               Unlocks in
-              <span className="block text-white text-lg">{timeTillUnlock>0?
+              <span id="countdown" className="block text-white text-lg">{timeTillUnlock>0?
                 <Button 
                 disabled={loading}
                 value="Unlocked"
                 onClick={handleCollectReward}
                 id
                 />
-              :(convertSeconds((stakedAt+stakeDuration)-Math.floor(new Date().getTime() / 1000)))}</span>
+              :(countDown)}</span>
             </p>
             <p className="text-xs text-faint-60">{unlockDate.toDateString()} at {unlockDate.getHours()}</p>
           </div>

@@ -6,7 +6,7 @@ import { BrandLogo } from "../../../SvgIcons";
 import Button from "../../Button";
 import { useId, useState } from "react";
 import { apvTip } from "../../../utils/tooltipContents";
-import { checkstaker, collectRewards, contractAddress, stake, stakedByUser } from "../../../hooks/stakingContractFunctions";
+import { checkstaker, collectRewards, contractAddress, estimateStakingGas, stake, stakedByUser } from "../../../hooks/stakingContractFunctions";
 import { approveTransfer, stakingToken } from "../../../hooks/ERC20Hooks";
 import {v4} from "uuid";
 import { addStake, deleteAStake } from "../../../database/userActions";
@@ -17,7 +17,7 @@ import { useEffect } from "react";
 function PoolBroadCard({ unstake = false }) {
   const { wallet, stakePool,signer,poolData } = useWallet();
   
-  const [amount, setAmount] = useState();
+  const [amount, setAmount] = useState(0);
   const instanceId = useId();
   const { id } = useParams();
   const navigate = useNavigate();
@@ -25,22 +25,31 @@ function PoolBroadCard({ unstake = false }) {
   const [fee,setFee]=useState(0)
   const [gasPrice,setGasPrice]=useState(11111);
   const [staked,setStaked]=useState(200)
+  const [gas,setGas]=useState(0)
+  const pool = poolData[id]
+
   
 
   const provider = new ethers.BrowserProvider(window.ethereum);
   
   useEffect(()=>{
-    provider.getFeeData().then((price)=>setFee((ethers.formatUnits(price["gasPrice"].toString(),"ether"))))
+    provider.getFeeData().then((price)=>setGas((ethers.formatUnits(price["gasPrice"].toString(),"ether"))))
     stakedByUser(wallet.address).then((amount)=>setStaked(amount))
   },[])
+
+  useEffect(()=>{
+    const durationInSections=pool.duration.split(" ")[0]*24*60*60;
+    estimateStakingGas("uid-214-152151-121",amount,durationInSections,signer).then((gas)=>setGas(gas))
+  },[amount])
+
+
   useEffect(()=>{
     fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd')
     .then(response => response.json())
     .then(data => setGasPrice((data.ethereum["usd"]*fee).toPrecision()));
-  },[fee])
+  },[gas])
 
   console.log("Pool data on Broad card",poolData)
-  const pool = poolData[id]
 
   const handleStake = async() => {
     console.log("Handling stake")
@@ -123,7 +132,7 @@ function PoolBroadCard({ unstake = false }) {
                 />
               </div>
               <div className="text-faint-60 text-xs font-light">
-                $
+                $Tensor{" "}
                 {Number.parseFloat(
                   amount ? wallet.balance - amount : wallet.balance
                 ).toFixed(2)}
@@ -165,7 +174,7 @@ function PoolBroadCard({ unstake = false }) {
             <span className="text-sm text-[#858491]">Network fee</span>
           </div>
           <div className="text-end">
-            <div className="font-bold text-sm">{fee}</div>
+            <div className="font-bold text-sm">{gas}</div>
             <div className="text-faint-60 text-xs font-light">${gasPrice}</div>
           </div>
         </div>

@@ -18,6 +18,19 @@ export async function stake(_id:string,amount: number,duration: number,signer:an
     
 }
 
+export async function estimateStakingGas(_id:string, amount: number, duration: number, signer:ethers.Signer) {
+    try{
+        const contract = new ethers.Contract(contractAddress, contractABI, signer);
+        console.log("Estimating staking gas ....", amount)
+        const gas = await contract.estimateGas.stake(_id, amount, duration);
+        console.log("Estimated gas ....", gas)
+        return gas
+    }catch(err){
+        console.log("error in estimating gas..",err)
+    }
+}
+
+
 export async function checkstaker(address:string,_id:string,signer:ethers.Signer) {
     console.log("Checking staker ....",signer)
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
