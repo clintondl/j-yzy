@@ -3,8 +3,10 @@ import poolsData from "../utils/poolsData";
 import { useNavigate } from "react-router-dom";
 import PoolTabItem from "../component/staking/pools/PoolTabItem";
 import PoolBroadCard from "../component/staking/pools/PoolBroadCard";
+import useWallet from "../hooks/useWallet";
 
 function StackingDetails() {
+  const {poolData}=useWallet()
   const navigate = useNavigate();
 
   return (
@@ -25,7 +27,7 @@ function StackingDetails() {
         </div>
         <div className="max-w-[800px] mx-auto mt-[55px]">
           <ul className="lg:grid-cols-3 gap-[32px] hidden lg:grid">
-            {poolsData.map((pool) => (
+            {poolData.map((pool) => (
               <li key={pool.id}>
                 <PoolTabItem pool={pool} />
               </li>

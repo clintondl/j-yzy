@@ -13,7 +13,7 @@ function PoolTabItem({ pool }) {
       className="bg-black arced arced-border cursor-pointer"
       tabIndex={1}
       onClick={() =>
-        navigate(`/staking/${pool.id}`, {
+        navigate(`/staking/${pool.duration}`, {
           replace: true,
         })
       }
