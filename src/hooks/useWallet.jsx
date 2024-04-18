@@ -7,6 +7,7 @@ const WalletContext = createContext();
 const useWallet = () => useContext(WalletContext);
 
 export const WalletProvider = ({ children }) => {
+  const [poolData,setPoolData]=useState([])
   const [isConnected, setIsConnected] = useState(false);
   const [signer,setSigner]=useState(null)
   const [wallet, setWallet] = useState({
@@ -26,6 +27,7 @@ export const WalletProvider = ({ children }) => {
 
   const values = useMemo(
     () => ({
+      poolData,setPoolData,
       stakes,setStakes,
       signer,setSigner,
       isConnected,
@@ -42,7 +44,7 @@ export const WalletProvider = ({ children }) => {
       },
       disconnectWallet: () => setIsConnected(false),
     }),
-    [isConnected, wallet, stakedPool,signer,stakes]
+    [isConnected, wallet, stakedPool,signer,stakes,poolData]
   );
 
   return (

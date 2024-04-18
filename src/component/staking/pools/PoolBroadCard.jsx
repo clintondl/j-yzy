@@ -15,7 +15,7 @@ import { useEffect } from "react";
 
 
 function PoolBroadCard({ unstake = false }) {
-  const { wallet, stakePool,signer } = useWallet();
+  const { wallet, stakePool,signer,poolData } = useWallet();
   
   const [amount, setAmount] = useState();
   const instanceId = useId();
@@ -39,8 +39,8 @@ function PoolBroadCard({ unstake = false }) {
     .then(data => setGasPrice((data.ethereum["usd"]*fee).toPrecision()));
   },[fee])
 
-
-  const pool = poolsData.find((pool) => pool.id === id);
+  console.log("Pool data on Broad card",poolData)
+  const pool = poolData[id]
 
   const handleStake = async() => {
     console.log("Handling stake")

@@ -8,7 +8,7 @@ import { getAllDurations } from "../../../database/userActions";
 import { GetRewardRates } from "../../../hooks/stakingContractFunctions";
 
 function Pools() {
-  const { stakedPool } = useWallet();
+  const { stakedPool,poolData,setPoolData } = useWallet();
   const [pools,setPools]=useState([])
 
   useEffect(()=>{
@@ -29,7 +29,8 @@ function Pools() {
             }
         })
       ).then((poolsArray)=>{
-        setPools(poolsArray)
+        setPoolData(poolsArray)
+        console.log("PoolData found  ",poolData)
       })
     })
   },[])
@@ -39,7 +40,7 @@ function Pools() {
       <div className="container">
         <h2 className="font-medium mb-[24px] text-2xl lg:text-[32px]">Pools</h2>
         <ul className="grid gap-[32px] lg:grid-cols-3">
-          {pools.map((pool) =>
+          {poolData.map((pool) =>
             pool.id === stakedPool.id ? (
               <li key={pool.id}>
                 <PoolCardStaked pool={pool} />
