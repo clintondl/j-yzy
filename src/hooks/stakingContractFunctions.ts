@@ -21,17 +21,13 @@ export async function stake(_id:string,amount: number,duration: number,signer:an
 export async function estimateStakingGas(_id:string, amount:number, duration:number, signer:ethers.Signer) {
     try {
         const contract = new ethers.Contract(contractAddress, contractABI, signer);
-        const data = contract.interface.encodeFunctionData("stake", [_id, amount, duration]);
-        const from = await signer.getAddress();
-        const transaction = {
-            to: contractAddress,
-            data: data,
-            from: from,
-            // add other fields if necessary
-        };
-        console.log("Transaction ...",transaction)
-        const gasEstimate = await signer.estimateGas(transaction);
-        console.log(`Estimated gas cost for stake: ${gasEstimate}`);
+        const yourAddress = await signer.getAddress();
+        const method = 'stake';
+        const params = [_id, amount, duration];
+        const options = { from: yourAddress };
+
+        const gasEstimate = await contract.estimateGas[method](...params,options);
+        console.log(`Estimated gas cost for ${method}: ${gasEstimate}`);
         return gasEstimate;
     } catch(err) {
         console.log("Error in estimating gas fee...", err);

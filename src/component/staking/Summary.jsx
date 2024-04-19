@@ -18,15 +18,15 @@ function Summary() {
   getERC20Name(stakingToken).then((name)=>setTokenName(name))
   const data = useMemo(
     () => [
-      {
-        id: 1,
-        title: "TVL",
-        value: tvl,
-        tooltip: {
-          id: "tvl",
-          content: tvlTip,
-        },
-      },
+      // {
+      //   id: 1,
+      //   title: "TVL",
+      //   value: tvl,
+      //   tooltip: {
+      //     id: "tvl",
+      //     content: tvlTip,
+      //   },
+      // },
       {
         id: 2,
         title: "Total Staked",
@@ -66,11 +66,11 @@ function Summary() {
 
   return (
     <section className="py-[27px]">
-      <div className="container">
+      <div className="container flex flex-col">
         <h2 className="font-bold mb-[24px] text-[22px] lg:text-[38px]">
           Staking
         </h2>
-        <div className="bg-black arced arced-border-white summary border-faint-25">
+        <div className="bg-black arced arced-border-white summary border-faint-25 items-center w-max self-center">
           <ul className="grid grid-cols-2 gap-[32px] lg:grid-cols-4 px-[16px] py-[18px] lg:px-[21px] lg:py-[40px]">
             {data.map((item, i, arr) => (
               <li key={item.id}>

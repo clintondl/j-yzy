@@ -37,11 +37,11 @@ function PoolBroadCard({ unstake = false }) {
     stakedByUser(wallet.address).then((amount)=>setStaked(amount))
   },[])
 
-  // To Esimtate Gas, (not working)
-  // useEffect(()=>{
-  //   const durationInSections=pool.duration.split(" ")[0]*24*60*60;
-  //   if(amount>0)estimateStakingGas("uid-214-152151-121",amount,durationInSections,signer).then((gas)=>setGas(gas))
-  // },[amount])
+//  To Esimtate Gas, (not working)
+  useEffect(()=>{
+    const durationInSections=pool.duration.split(" ")[0]*24*60*60;
+    if(amount>0)estimateStakingGas("uid-214-152151-121",amount,durationInSections,signer).then((gas)=>setGas(gas))
+  },[amount])
 
 
   useEffect(()=>{
@@ -169,8 +169,8 @@ function PoolBroadCard({ unstake = false }) {
             value={"Stake now"}
           />
         </div>
-        <div className="h-[1px] bg-[#FFFFFF26] my-[32px] " />
-        <div className="flex items-center justify-between">
+        {/* <div className="h-[1px] bg-[#FFFFFF26] my-[32px] " />
+          <div className="flex items-center justify-between">
           <div>
             <span className="text-sm text-[#858491]">Network fee</span>
           </div>
@@ -178,7 +178,7 @@ function PoolBroadCard({ unstake = false }) {
             <div className="font-bold text-sm">{gas}</div>
             <div className="text-faint-60 text-xs font-light">${gasPrice}</div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
