@@ -5,6 +5,7 @@ import { useState } from "react";
 import { getActiveStakerCount, getRewardsEarned, stakedByUser, totalStaked } from "../../hooks/stakingContractFunctions";
 import useWallet from "../../hooks/useWallet";
 import { getERC20Name, stakingToken } from "../../hooks/ERC20Hooks";
+import { useEffect } from "react";
 
 function Summary() {
   const {wallet}=useWallet()
@@ -45,10 +46,23 @@ function Summary() {
     [tvl, staked, rewards, stakers]
   );
 
-  totalStaked().then((amount)=>setTvl(amount))
-  stakedByUser(wallet.address).then((amount)=>setStaked(amount))
-  getActiveStakerCount().then((stakers)=>setStakers(stakers))
-  getRewardsEarned(wallet.address).then((reward)=>setRewards(reward))
+  
+  useEffect(()=>{
+    totalStaked().then((amount) => {
+    fetch('https://api.coingecko.com/api/v3/simple/price?ids=cointensor ai&vs_currencies=usd')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(`The price of TENSOR in USD is $${JSON.stringify(data)}`);
+        setTvl(amount);
+      });
+});
+
+
+    stakedByUser(wallet.address).then((amount)=>setStaked(amount))
+    getActiveStakerCount().then((stakers)=>setStakers(stakers))
+    getRewardsEarned(wallet.address).then((reward)=>setRewards(reward))
+  },[])
+  
 
   return (
     <section className="py-[27px]">

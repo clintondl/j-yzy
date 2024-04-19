@@ -37,10 +37,11 @@ function PoolBroadCard({ unstake = false }) {
     stakedByUser(wallet.address).then((amount)=>setStaked(amount))
   },[])
 
-  useEffect(()=>{
-    const durationInSections=pool.duration.split(" ")[0]*24*60*60;
-    estimateStakingGas("uid-214-152151-121",amount,durationInSections,signer).then((gas)=>setGas(gas))
-  },[amount])
+  // To Esimtate Gas, (not working)
+  // useEffect(()=>{
+  //   const durationInSections=pool.duration.split(" ")[0]*24*60*60;
+  //   if(amount>0)estimateStakingGas("uid-214-152151-121",amount,durationInSections,signer).then((gas)=>setGas(gas))
+  // },[amount])
 
 
   useEffect(()=>{

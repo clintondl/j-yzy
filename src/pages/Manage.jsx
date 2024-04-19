@@ -231,12 +231,10 @@ function ManageContract(){
             </div>
             <div className="flex justify-between">
                 <Button
-                disabled={loading}
                 value="Add rewards"
                 onClick={handleAddingReward}
                 />
                 <Button
-                disabled={loading}
                 value="remove"
                 onClick={handleRemoveReawrd}
                 />
@@ -255,25 +253,22 @@ function ManageContract(){
         <div className=" w-auto items-center flex flex-col gap-5">
             <div className="flex w-full justify-center">
                 <div className="flex w-1/2 justify-between ">Duration <p>-</p> </div>
-                <input value={duration} type="number" className=" w-[90px] flex bg-transparent text-end stake-amount  p-[2px]" onChange={(e)=>action!="Update"?setDuration(e.target.value):null} />
+                <input value={duration} type="number" className=" w-[90px] flex bg-transparent text-end stake-amount  p-[2px]" onChange={(e)=>setDuration(e.target.value)} />
             </div>
             <div className="flex w-full justify-center">
                 <div className="flex w-1/2 justify-between ">Reward % <p>-</p> </div>
                 <input value={rewardRate} type="number" className=" w-[90px] flex bg-transparent text-end stake-amount  p-[2px]" onChange={(e)=>setRewardRate(e.target.value)} />
             </div>            <div className="flex gap-5 justify-between">
                 <Button
-                disabled={loading}
                 value="update"
                 onClick={handleUpdateReward}
                 onMouseEnter={() => alert('Update')}
                 />
                 <Button
-                disabled={loading}
                 value="add"
                 onClick={handleAddingRewardRates}
                 />
                 <Button
-                disabled={loading}
                 value="remove"
                 onClick={handleRemoveRewardRate}
                 />
