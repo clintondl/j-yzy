@@ -8,6 +8,7 @@ import { getERC20Balance } from "../../../hooks/ERC20Hooks";
 function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
   const {signer,wallet,setWallet}=useWallet();
   const [countDown,setCountDown]=useState("")
+  const [unlocked,setUnlocked]=useState(false)
 
   const [loading,setLoading]=useState(false)
   function secondsToDay(seconds){
@@ -58,17 +59,18 @@ function startCountdown(durationInSeconds) {
     secondsRemaining--;
     
     const countdownElement = document.getElementById('countdown');
-    if(countdownElement) {
-      countdownElement.textContent = timeString;
-    }
-
 
     // Check if the countdown is complete
     if (secondsRemaining < 0) {
       clearInterval(intervalId);
-      document.getElementById('countdown').textContent = 'Time is up!';
+      setUnlocked(true)
       //console.log('Countdown finished!'); // Replace with what should happen when countdown ends
+    }else if(countdownElement) {
+      countdownElement.textContent = timeString;
     }
+
+
+    
   }, 1000);
 }
   // function startCountdown(seconds) {
@@ -106,9 +108,11 @@ function startCountdown(durationInSeconds) {
       const api=await deleteAStake(wallet.address,id)
       if(api.ok){
         await collectRewards(id,signer)
+        window.location.reload();
       }
       setLoading(false)
       updateBalance()
+      
     }catch(err){
       setLoading(false)
       addStake(wallet.address,id)
@@ -136,22 +140,25 @@ function startCountdown(durationInSeconds) {
         </div>
         <div className="grid grid-cols-2 gap-[20px] py-[19px] px-[18px] border border-[#FFFFFF1F] ">
           <div className="flex flex-col justify-center">
-            <p className="text-xs font-light text-faint-60">
+            {/* <p className="text-xs font-light text-faint-60">
               Staked in Pool [{parseInt(stakeDuration)>60*60*24?secondsToDay(stakeDuration)+ "d":secondsToHours(stakeDuration).toFixed(3)+ " h"}]
-            </p>
+            </p> */}
             <p className="text-lg">{stakedAmount} $tensor</p>
           </div>
           <div className="flex flex-col justify-center">
             <p className="text-xs text-faint-60">
               Unlocks in
-              <span id="countdown" className="block text-white text-lg">{timeTillUnlock>0?
+              {!unlocked?<span id="countdown" className="block text-white text-lg">
+                ""
+              </span>
+              :<span id="countdown" className="block text-white text-lg">
                 <Button 
                 disabled={loading}
                 value="Unlocked"
                 onClick={handleCollectReward}
                 id
                 />
-              :(countDown)}</span>
+                </span>}
             </p>
             <p className="text-xs text-faint-60">{unlockDate.toDateString()} at {unlockDate.getHours()}</p>
           </div>

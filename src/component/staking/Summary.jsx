@@ -48,20 +48,22 @@ function Summary() {
 
   
   useEffect(()=>{
-    totalStaked().then((amount) => {
-    fetch('https://api.coingecko.com/api/v3/simple/price?ids=cointensor ai&vs_currencies=usd')
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(`The price of TENSOR in USD is $${JSON.stringify(data)}`);
-        setTvl(amount);
-      });
-});
+    // totalStaked().then((amount) => {
+    // fetch('https://api.coingecko.com/api/v3/simple/price?ids=cointensor ai&vs_currencies=usd')
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //           console.log(`The price of TENSOR in USD is $${JSON.stringify(data)}`);
+    //           setTvl(amount);
+    //         });
+    //   });
 
 
-    stakedByUser(wallet.address).then((amount)=>setStaked(amount))
-    getActiveStakerCount().then((stakers)=>setStakers(stakers))
-    getRewardsEarned(wallet.address).then((reward)=>setRewards(reward))
-  },[])
+    if(wallet.address){
+      stakedByUser(wallet.address).then((amount)=>setStaked(amount))
+      getActiveStakerCount().then((stakers)=>setStakers(stakers))
+      getRewardsEarned(wallet.address).then((reward)=>setRewards(reward))
+    }
+  },[wallet])
   
 
   return (
