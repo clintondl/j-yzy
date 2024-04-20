@@ -78,7 +78,13 @@ function ManageContract(){
               const APYrewardRate=Math.round((rewardRate/365)*days);
               console.log("Days ", days)
               console.log("APYrewardRate", APYrewardRate)
-              const rateAdd=await AddRewardRate(duration,APYrewardRate,signer)
+              try
+              {const rateAdd=await AddRewardRate(duration,APYrewardRate,signer)}
+              catch(err){
+                console.log("error in action", err)
+                await DeleteDuration(duration)  
+                setLoading(false)
+              }
             }
 
             fromDurationsToPool().then((poolsArray)=>{
@@ -91,7 +97,7 @@ function ManageContract(){
         }catch(err){
           console.log("error in action", err)
           setLoading(false)
-          await DeleteDuration(duration)   
+           
         }
     }
 
@@ -102,8 +108,15 @@ function ManageContract(){
         try{
             const api=await DeleteDuration(duration)
             
-                const removed=await RemoveRewardRate(duration,signer);
-                console.log(removed);
+                if(api.ok){
+                  try
+                    {const removed=await RemoveRewardRate(duration,signer);}
+                    catch(err){
+                      console.log("error in action", err)
+                      await AddDuration(prev_duration,prev_reward)
+                      setLoading(false)
+                    }
+                }
 
         getAllDurations().then((data)=>{
             Promise.all(
@@ -134,7 +147,6 @@ function ManageContract(){
     }
         catch(err){
           setLoading(false)
-            await AddDuration(prev_duration,prev_reward)
         }
     }
 
