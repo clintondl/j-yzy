@@ -153,6 +153,7 @@ function ManageContract(){
 
     async function handleUpdateReward(){
         const prev_duration=pools[currentPoolIndex].duration
+        const prev_reward=pools[currentPoolIndex].full_reward
         setLoading(true)
         try{const api_d=await DeleteDuration(duration)
           const days=duration/(24*60*60);

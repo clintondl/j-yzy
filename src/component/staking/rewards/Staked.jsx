@@ -5,7 +5,7 @@ import { addStake, deleteAStake } from "../../../database/userActions";
 import { collectRewards } from "../../../hooks/stakingContractFunctions";
 import { getERC20Balance } from "../../../hooks/ERC20Hooks";
 
-function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
+function Staked({index,stakedAmount,stakeDuration,stakedAt,reward,id}) {
   const {signer,wallet,setWallet}=useWallet();
   const [countDown,setCountDown]=useState("")
   const [unlocked,setUnlocked]=useState(false)
@@ -26,16 +26,16 @@ function Staked({stakedAmount,stakeDuration,stakedAt,reward,id}) {
       })
 }
 
-  function convertSeconds(seconds) {
-    let days = Math.floor(seconds / (24*60*60));
-    seconds  -= days*24*60*60;
-    let hours   = Math.floor(seconds / (60*60));
-    seconds  -= hours*60*60;
-    let minutes = Math.floor(seconds / 60);
-    seconds  -= minutes*60;
+  // function convertSeconds(seconds) {
+  //   let days = Math.floor(seconds / (24*60*60));
+  //   seconds  -= days*24*60*60;
+  //   let hours   = Math.floor(seconds / (60*60));
+  //   seconds  -= hours*60*60;
+  //   let minutes = Math.floor(seconds / 60);
+  //   seconds  -= minutes*60;
 
-    return `${days}:days ${hours}:hours ${minutes}:minutes`;
-  }
+  //   return `${days}:days ${hours}:hours ${minutes}:minutes`;
+  // }
 
   // Your convertSeconds function
 function convertSeconds(seconds) {
@@ -49,30 +49,63 @@ function convertSeconds(seconds) {
   return `${days} days ${hours} hours ${minutes} minutes ${seconds} seconds`;
 }
 
-// Function to start the countdown
 function startCountdown(durationInSeconds) {
-  let secondsRemaining = durationInSeconds;
+  const endTime = Date.now() + durationInSeconds * 1000;
+
   const intervalId = setInterval(() => {
-    // Update the display with the converted time
-    const timeString = convertSeconds(secondsRemaining);
-    // Decrement the remaining time
-    secondsRemaining--;
-    
-    const countdownElement = document.getElementById('countdown');
+    const timeLeftInSeconds = Math.round((endTime - Date.now()) / 1000);
 
-    // Check if the countdown is complete
-    if (secondsRemaining < 0) {
+    if (timeLeftInSeconds <= 0) {
       clearInterval(intervalId);
-      setUnlocked(true)
-      //console.log('Countdown finished!'); // Replace with what should happen when countdown ends
-    }else if(countdownElement) {
-      countdownElement.textContent = timeString;
+      setUnlocked(true);
+    } else {
+      const timeString = convertSeconds(timeLeftInSeconds);
+      setCountDown(timeString);
     }
-
-
-    
   }, 1000);
 }
+
+function findPoolDuration(durationInSeconds) {
+  if(durationInSeconds < 60) return `${durationInSeconds}s`;
+  if (durationInSeconds < 3600) {
+    const minutes = Math.floor(durationInSeconds / 60);
+    return `${minutes}m`;
+  }
+  if(durationInSeconds < 86400){
+    const hours = Math.floor(durationInSeconds / 3600);
+    return `${hours}h`;
+  }
+  if(durationInSeconds >= 86400){
+    const days = Math.floor(durationInSeconds / 86400);
+    return `${days}d`;
+  }
+}
+
+
+// Function to start the countdown
+// function startCountdown(durationInSeconds) {
+//   let secondsRemaining = durationInSeconds;
+//   const intervalId = setInterval(() => {
+//     // Update the display with the converted time
+//     const timeString = convertSeconds(secondsRemaining);
+//     // Decrement the remaining time
+//     secondsRemaining--;
+    
+//     const countdownElement = document.getElementById('countdown');
+
+//     // Check if the countdown is complete
+//     if (secondsRemaining < 0) {
+//       clearInterval(intervalId);
+//       setUnlocked(true)
+//       //console.log('Countdown finished!'); // Replace with what should happen when countdown ends
+//     }else if(countdownElement) {
+//       setCountDown(timeString);
+//     }
+
+
+    
+//   }, 1000);
+// }
   // function startCountdown(seconds) {
   //   function updateCountdown() {
   //     const days = Math.floor(seconds / (24 * 60 * 60));
@@ -107,15 +140,20 @@ function startCountdown(durationInSeconds) {
     try{
       const api=await deleteAStake(wallet.address,id)
       if(api.ok){
-        await collectRewards(id,signer)
-        window.location.reload();
+        try{
+          await collectRewards(id,signer)
+        }catch(err){
+          addStake(wallet.address,id)
+          window.location.reload();
+          setLoading(false)
+        }
       }
+      await updateBalance()
       setLoading(false)
-      updateBalance()
-      
+
     }catch(err){
       setLoading(false)
-      addStake(wallet.address,id)
+      
       console.log("Error in collecting rewards", err)
     }
   }
@@ -126,12 +164,13 @@ function startCountdown(durationInSeconds) {
   const unlockDate=new Date(stakedAt*1000+stakeDuration*1000);
   return (
     <div className="min-h-[213px] lg:min-h-[311px] px-[16px] py-[32px] lg:px-[32px]">
+      {index==0&&
       <header className="mb-[16px] lg:mb-[32px]">
         <h3 className="font-bold text-[22px] lg:text-[32px] mb-1">My Stake</h3>
         <p className="text-[#FFFFFF99] text-xs lg:text-sm">
           Stake $Tensor to Earn $Tensor
         </p>
-      </header>
+      </header>}
       <div className="border border-[#FFFFFF1F] py-[24px] px-[12px] lg:px-[32px] lg:grid lg:grid-cols-2">
         <div className="mb-[12px] flex flex-col justify-center">
           <h4 className="text-sm text-faint-60 mb-1">Rewards</h4>
@@ -140,16 +179,16 @@ function startCountdown(durationInSeconds) {
         </div>
         <div className="grid grid-cols-2 gap-[20px] py-[19px] px-[18px] border border-[#FFFFFF1F] ">
           <div className="flex flex-col justify-center">
-            {/* <p className="text-xs font-light text-faint-60">
-              Staked in Pool [{parseInt(stakeDuration)>60*60*24?secondsToDay(stakeDuration)+ "d":secondsToHours(stakeDuration).toFixed(3)+ " h"}]
-            </p> */}
+            <p className="text-xs font-light text-faint-60">
+              Staked in {findPoolDuration(parseInt(stakeDuration))} pool
+            </p>
             <p className="text-lg">{stakedAmount} $tensor</p>
           </div>
           <div className="flex flex-col justify-center">
             <p className="text-xs text-faint-60">
               Unlocks in
               {!unlocked?<span id="countdown" className="block text-white text-lg">
-                ""
+                {countDown}
               </span>
               :<span id="countdown" className="block text-white text-lg">
                 <Button 

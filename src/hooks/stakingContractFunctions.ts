@@ -153,7 +153,7 @@ export async function UpdateRewardRates(duration:number,percentage:number,signer
     const contract = new ethers.Contract(contractAddress, contractABI, signer);
     const rewardRateUpdate=await contract.updateRewardRate(duration,percentage);
 
-    const tx=rewardRateUpdate.wait(1)
+    const tx=await rewardRateUpdate.wait()
     console.log("reward rate updated ...",tx);
     return tx; 
 }

@@ -37,7 +37,7 @@ function Rewards() {
           <div className="bg-[#FFFFFF0F] w-full">
             {stakesData ? 
               (stakesData.map((stake,index)=>(
-                <Staked key={index} stakedAmount={parseInt(stake[0].toString())} stakeDuration={parseInt(stake[1].toString())} stakedAt={parseInt(stake[2].toString())} reward={(stake[0].toString()/100*stake[3].toString()).toFixed(0)} id={stakeIds[index]} />
+                <Staked key={index} index={index} stakedAmount={parseInt(stake[0].toString())} stakeDuration={parseInt(stake[1].toString())} stakedAt={parseInt(stake[2].toString())} reward={(stake[0].toString()/100*stake[3].toString()).toFixed(0)} id={stakeIds[index]} />
               )))
             : <NotStaked />}
           </div>
