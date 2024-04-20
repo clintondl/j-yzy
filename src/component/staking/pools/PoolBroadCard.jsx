@@ -56,7 +56,7 @@ function PoolBroadCard({ unstake = false }) {
     console.log("Handling stake")
     if (amount) {
       setLoading(true);
-      const uid=new Date().getTime()/1000
+      const uid=new Date().getTime()
       try{
         const approved=await approveTransfer(stakingToken,amount,contractAddress,signer)
         const durationInSections=pool.duration.split(" ")[0]*24*60*60;
