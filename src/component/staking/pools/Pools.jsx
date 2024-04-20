@@ -13,8 +13,9 @@ function Pools() {
 
   useEffect(()=>{
     getAllDurations().then((data)=>{
+      const sortedData=data.data.sort((a,b)=>parseInt(a["duration"])-parseInt(b["duration"]))
       Promise.all(
-        data.data.map(async (d,index)=>{
+        sortedData.map(async (d,index)=>{
           const duration=parseInt(d["duration"])
           const apy_p=parseInt(d["reward"])
           // const rewardRate=await GetRewardRates(duration)
