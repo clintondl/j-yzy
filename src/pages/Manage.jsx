@@ -5,6 +5,7 @@ import { approveTransfer, getERC20Balance, stakingToken } from "../hooks/ERC20Ho
 import useWallet from "../hooks/useWallet";
 import { useEffect } from "react";
 import { AddDuration, DeleteDuration, getAllDurations } from "../database/userActions";
+import { fromDurationsToPool } from "../utils/helperFunctions";
 
 function ManageContract(){
     const {signer,wallet,setWallet}=useWallet()
@@ -20,25 +21,7 @@ function ManageContract(){
     useEffect(()=>{
         rewardPool().then(setRewardPool)
 
-        getAllDurations().then((data)=>{
-            Promise.all(
-              data.data.map(async (d,index)=>{
-                const duration=parseInt(d["duration"])
-                const full_reward=parseInt(d["reward"])
-                const rewardRate=await GetRewardRates(duration)
-                const days=duration/(24*60*60);
-                const apy_p=rewardRate.toString();
-      
-                return {
-                    id: index,
-                    duration: duration,
-                    apy: apy_p+" %",
-                    full_reward:full_reward,
-                    amountStaked: 0.0,
-                    status: "locked",
-                  }
-              })
-            ).then((poolsArray)=>{
+        fromDurationsToPool().then((poolsArray)=>{
               //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
               setPools(poolsArray)
               console.log("Pools fetched...",poolsArray)
@@ -49,9 +32,6 @@ function ManageContract(){
 
               console.log("current pool index", currentPoolIndex)
             })
-          })
-
-
     },[])
 
     useEffect(() => {
@@ -101,31 +81,13 @@ function ManageContract(){
               const rateAdd=await AddRewardRate(duration,APYrewardRate,signer)
             }
 
-            getAllDurations().then((data)=>{
-                Promise.all(
-                  data.data.map(async (d,index)=>{
-                    const duration=parseInt(d["duration"])
-                    const full_reward=parseInt(d["reward"])
-                    const rewardRate=await GetRewardRates(duration)
-                    const days=duration/(24*60*60);
-                    const apy_p=rewardRate.toString();
-          
-                    return {
-                        id: index,
-                        duration: duration,
-                        apy: apy_p+" %",
-                        full_reward:full_reward,
-                        amountStaked: 0.0,
-                        status: "locked",
-                      }
-                  })
-                ).then((poolsArray)=>{
+            fromDurationsToPool().then((poolsArray)=>{
                   //setPools([{duration:245,apy:"10 %"},{duration:300,apy:"10 %"}])
                   setPools(poolsArray)
                   console.log("Pools fetched...",pools)
                   setLoading(false)
                 })
-              })
+              
         }catch(err){
           console.log("error in action", err)
           setLoading(false)
