@@ -47,7 +47,7 @@
 //         return Error(err);
 //     }
 // }
-
+//const apiUrl="http://localhost:3000"
 const apiUrl="https://tensorai.vercel.app"
 
 export async function getStakes(address:string){
@@ -100,7 +100,7 @@ export async function getAllDurations(){
     return data;
 }
 
-export async function AddDuration(duration:string){
+export async function AddDuration(duration:string,reward){
     console.log("Adding duration ....");
 
     const api=await fetch(apiUrl+"/stake-duration",{
@@ -108,7 +108,7 @@ export async function AddDuration(duration:string){
           'Content-Type': 'application/json'
         },
         method:"POST",
-        body: JSON.stringify({duration:duration})
+        body: JSON.stringify({duration:duration,reward:reward})
         // body: JSON.stringify({address: wallet.address, stake: {id:uid,stake:amount,reward:10,duration:pool.duration,stakedAt:"now"}})
     })
 

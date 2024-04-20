@@ -89,17 +89,21 @@ function ManageContract(){
     async function handleAddingRewardRates(){
       setLoading(true)
         try{
-            const api=await AddDuration(duration)
-            const days=duration/(24*60*60);
-            const APYrewardRate=Math.round((rewardRate/365)*days);
-            console.log("Days ", days)
-            console.log("APYrewardRate", APYrewardRate)
-            const rateAdd=await AddRewardRate(duration,APYrewardRate,signer)
+            const api=await AddDuration(duration,rewardRate)
+
+            if(api.ok){
+              const days=duration/(24*60*60);
+              const APYrewardRate=Math.round((rewardRate/365)*days);
+              console.log("Days ", days)
+              console.log("APYrewardRate", APYrewardRate)
+              const rateAdd=await AddRewardRate(duration,APYrewardRate,signer)
+            }
 
             getAllDurations().then((data)=>{
                 Promise.all(
                   data.data.map(async (d,index)=>{
                     const duration=parseInt(d["duration"])
+                    const full_reward=parseInt(d["reward"])
                     const rewardRate=await GetRewardRates(duration)
                     const days=duration/(24*60*60);
                     const apy_p=rewardRate.toString();
@@ -108,6 +112,7 @@ function ManageContract(){
                         id: index,
                         duration: duration,
                         apy: apy_p+" %",
+                        full_reward:full_reward,
                         amountStaked: 0.0,
                         status: "locked",
                       }
@@ -129,6 +134,7 @@ function ManageContract(){
     async function handleRemoveRewardRate(){
       setLoading(true)
         const prev_duration=pools[currentPoolIndex].duration
+        const prev_reward=pools[currentPoolIndex].full_reward
         try{
             const api=await DeleteDuration(duration)
             
@@ -162,7 +168,7 @@ function ManageContract(){
     }
         catch(err){
           setLoading(false)
-            await AddDuration(prev_duration)
+            await AddDuration(prev_duration,prev_reward)
         }
     }
 
@@ -186,7 +192,7 @@ function ManageContract(){
           const days=duration/(24*60*60);
           const APYrewardRate=Math.round((rewardRate/365)*days);
         const updateRewards=await UpdateRewardRates(duration,APYrewardRate,signer)
-        const api=await AddDuration(duration)
+        const api=await AddDuration(duration,rewardRate)
 
         // Update pool
         getAllDurations().then((data)=>{
