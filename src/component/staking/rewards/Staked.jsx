@@ -164,13 +164,10 @@ function findPoolDuration(durationInSeconds) {
   const unlockDate=new Date(stakedAt*1000+stakeDuration*1000);
   return (
     <div className="min-h-[213px] lg:min-h-[311px] px-[16px] py-[32px] lg:px-[32px]">
-      {index==0&&
       <header className="mb-[16px] lg:mb-[32px]">
-        <h3 className="font-bold text-[22px] lg:text-[32px] mb-1">My Stake</h3>
-        <p className="text-[#FFFFFF99] text-xs lg:text-sm">
-          Stake $Tensor to Earn $Tensor
-        </p>
-      </header>}
+        {index==0&&<h3 className="font-bold text-[22px] lg:text-[32px] mb-1">My Stake</h3>}
+        {unlocked&&<h4 className="font-bold text-[15px] lg:text-[22px] mt-1">Unlocked</h4>}
+      </header>
       <div className="border border-[#FFFFFF1F] py-[24px] px-[12px] lg:px-[32px] lg:grid lg:grid-cols-2">
         <div className="mb-[12px] flex flex-col justify-center">
           <h4 className="text-sm text-faint-60 mb-1">Rewards</h4>
