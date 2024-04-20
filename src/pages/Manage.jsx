@@ -24,6 +24,7 @@ function ManageContract(){
             Promise.all(
               data.data.map(async (d,index)=>{
                 const duration=parseInt(d["duration"])
+                const full_reward=parseInt(d["reward"])
                 const rewardRate=await GetRewardRates(duration)
                 const days=duration/(24*60*60);
                 const apy_p=rewardRate.toString();
@@ -32,6 +33,7 @@ function ManageContract(){
                     id: index,
                     duration: duration,
                     apy: apy_p+" %",
+                    full_reward:full_reward,
                     amountStaked: 0.0,
                     status: "locked",
                   }
@@ -145,6 +147,7 @@ function ManageContract(){
             Promise.all(
               data.data.map(async (d,index)=>{
                 const duration=parseInt(d["duration"])
+                const full_reward=parseInt(d["reward"])
                 const rewardRate=await GetRewardRates(duration)
                 const days=duration/(24*60*60);
                 const apy_p=rewardRate.toString();
@@ -153,6 +156,7 @@ function ManageContract(){
                     id: index,
                     duration: duration,
                     apy: apy_p+" %",
+                    full_reward:full_reward,
                     amountStaked: 0.0,
                     status: "locked",
                   }
@@ -199,6 +203,7 @@ function ManageContract(){
             Promise.all(
               data.data.map(async (d,index)=>{
                 const duration=parseInt(d["duration"])
+                const full_reward=parseInt(d["reward"])
                 const rewardRate=await GetRewardRates(duration)
                 const days=duration/(24*60*60);
                 const apy_p=rewardRate.toString();
@@ -207,6 +212,7 @@ function ManageContract(){
                     id: index,
                     duration: duration,
                     apy: apy_p+" %",
+                    full_reward:full_reward,
                     amountStaked: 0.0,
                     status: "locked",
                   }
