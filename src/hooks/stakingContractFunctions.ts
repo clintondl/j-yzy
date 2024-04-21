@@ -96,7 +96,7 @@ export async function getActiveStakerCount(){
     console.log("Getting all stakers ....")
     const provider=new ethers.BrowserProvider(window.ethereum);
     const contract = new ethers.Contract(contractAddress, contractABI, provider);
-    const stakers=await contract.activeStakerCount()
+    const stakers=await contract.historicStakerCount()
 
     console.log("All stakers ...",stakers.toString())
 
