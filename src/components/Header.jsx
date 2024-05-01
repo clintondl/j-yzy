@@ -6,6 +6,7 @@ import {
   WhitePaperIcon,
 } from "@/assets/SvgIcons";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const navLinks = [
@@ -15,11 +16,21 @@ const navLinks = [
   { title: "buy", href: "#buy" },
   { title: "community", href: "#community" },
 ];
+let count = 0;
+const getHash = () =>
+  typeof window !== "undefined" ? window.location.hash : undefined;
 
 function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const toggleNavbar = () => setIsOpen((prev) => !prev);
   const [floating, setFloating] = useState(false);
+  const [hash, setHash] = useState("");
+
+  const params = useParams();
+
+  useEffect(() => {
+    setHash(getHash());
+  }, [params]);
 
   const changeNavBg = () => {
     window.scrollY >= 200 ? setFloating(true) : setFloating(false);
@@ -64,8 +75,7 @@ function Header() {
                       href={link.href}
                       className={[
                         "font-light text-[#ECF1F080] flex gap-4 items-center",
-                        "hash" === link.href ||
-                        (link.title === "home" && !"hash")
+                        hash === link.href || (link.title === "home" && !hash)
                           ? "nav-active"
                           : "",
                       ].join(" ")}
@@ -120,7 +130,7 @@ function Header() {
                   href={link.href}
                   className={[
                     "font-light text-[#ECF1F080] flex gap-4 items-center justify-center py-[35px] border-b border-[#ffffff2a]  text-center w-full",
-                    "hash" === link.href || (link.title === "home" && !"hash")
+                    hash === link.href || (link.title === "home" && !hash)
                       ? "nav-active"
                       : "",
                   ].join(" ")}
