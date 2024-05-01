@@ -1,7 +1,7 @@
-import Footer from "../component/Footer";
-import Header from "../component/Header";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
-function Layout({ children }) {
+function HomeLayout({ children }) {
   return (
     <div className="flex flex-col min-h-screen relative">
       <Header />
@@ -11,4 +11,4 @@ function Layout({ children }) {
   );
 }
 
-export default Layout;
+export default HomeLayout;

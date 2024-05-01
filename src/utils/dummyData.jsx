@@ -1,4 +1,4 @@
-import { DepinSecurityIcon, BrainIcon, HandShakeIcon } from "../SvgIcons";
+import { DepinSecurityIcon, BrainIcon, HandShakeIcon } from "@/assets/SvgIcons";
 
 export const coinTensorOffers = [
   {

@@ -1,6 +1,6 @@
-const getresponseApiKey = import.meta.env.VITE_GETRESPONSE_API_KEY || "";
-const getresponseURI = import.meta.env.VITE_GETRESPONSE_ENDPOINT || "";
-const campaignId = import.meta.env.VITE_CAMPAIGN_ID || "";
+const getresponseApiKey = process.env.NEXT_PUBLIC_GETRESPONSE_API_KEY || "";
+const getresponseURI = process.env.NEXT_PUBLIC_GETRESPONSE_ENDPOINT || "";
+const campaignId = process.env.NEXT_PUBLIC_CAMPAIGN_ID || "";
 
 export const addSubscriber = async (email) => {
   try {
